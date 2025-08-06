@@ -216,10 +216,10 @@ const AdminDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-amber-600">Ativos Este Mês</p>
-                  <p className="text-2xl font-bold text-amber-900">{mockStats.activeThisMonth}</p>
+                  <p className="text-sm font-medium text-amber-600">Pagamentos Pendentes</p>
+                  <p className="text-2xl font-bold text-amber-900">{mockStats.pendingApprovals}</p>
                 </div>
-                <Calendar className="h-8 w-8 text-amber-500" />
+                <CreditCard className="h-8 w-8 text-amber-500" />
               </div>
             </CardContent>
           </Card>
