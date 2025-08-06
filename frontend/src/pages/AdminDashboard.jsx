@@ -6,6 +6,7 @@ import { Label } from '../components/ui/label';
 import { Badge } from '../components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { 
   Camera, 
   Plus, 
@@ -16,9 +17,14 @@ import {
   BarChart, 
   AlertCircle,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  CreditCard,
+  Clock,
+  XCircle,
+  Eye,
+  DollarSign
 } from 'lucide-react';
-import { mockClients, mockStats } from '../mock';
+import { mockClients, mockStats, getStatusLabel, getStatusColor } from '../mock';
 import { Link } from 'react-router-dom';
 import { useToast } from '../hooks/use-toast';
 
