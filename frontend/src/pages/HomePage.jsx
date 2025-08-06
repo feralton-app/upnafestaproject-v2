@@ -151,6 +151,56 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4 bg-amber-100 text-amber-800">
+              Preço Único
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
+              Preço Simples e Transparente
+            </h2>
+            <p className="text-xl text-amber-700 max-w-2xl mx-auto">
+              Sem mensalidades ou surpresas. Um pagamento único por álbum.
+            </p>
+          </div>
+
+          <div className="max-w-lg mx-auto">
+            <Card className="border-amber-200 shadow-xl">
+              <CardContent className="p-8 text-center">
+                <div className="mb-6">
+                  <p className="text-5xl font-bold text-amber-900 mb-2">{mockSiteConfig.pricing.price}</p>
+                  <p className="text-amber-600">{mockSiteConfig.pricing.description}</p>
+                </div>
+                
+                <ul className="space-y-3 mb-8 text-left">
+                  {mockSiteConfig.pricing.features.map((feature, index) => (
+                    <li key={index} className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center">
+                        <span className="text-amber-600 text-sm">✓</span>
+                      </div>
+                      <span className="text-amber-800">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <Link to="/login">
+                  <Button size="lg" className="w-full bg-amber-600 hover:bg-amber-700 text-white">
+                    <Heart className="w-5 h-5 mr-2" />
+                    Criar Meu Álbum
+                  </Button>
+                </Link>
+                
+                <p className="text-sm text-amber-500 mt-4">
+                  * Álbum fica ativo após confirmação do pagamento
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section id="testimonials" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
