@@ -225,131 +225,231 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Clients Management */}
-        <Card className="border-amber-200">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <div>
-                <CardTitle className="text-amber-900">Gerenciar Clientes</CardTitle>
+        {/* Management Tabs */}
+        <Tabs defaultValue="clients" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-amber-100">
+            <TabsTrigger value="clients" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Users className="w-4 h-4 mr-2" />
+              Todos os Clientes
+            </TabsTrigger>
+            <TabsTrigger value="payments" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <CreditCard className="w-4 h-4 mr-2" />
+              Aprovação de Pagamentos
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Clients Management */}
+          <TabsContent value="clients" className="mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-amber-900">Todos os Clientes</CardTitle>
+                    <CardDescription className="text-amber-600">
+                      Visualize e gerencie todos os clientes e seus álbuns
+                    </CardDescription>
+                  </div>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-amber-600 hover:bg-amber-700">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Novo Cliente
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="text-amber-900">Criar Novo Cliente</DialogTitle>
+                        <DialogDescription className="text-amber-600">
+                          Adicione um novo cliente ao sistema
+                        </DialogDescription>
+                      </DialogHeader>
+                      <form onSubmit={handleCreateClient} className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name" className="text-amber-800">Nome do Casal</Label>
+                          <Input
+                            id="name"
+                            value={newClient.name}
+                            onChange={(e) => setNewClient({...newClient, name: e.target.value})}
+                            placeholder="Ex: Ana & Carlos Silva"
+                            className="border-amber-300"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email" className="text-amber-800">Email</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={newClient.email}
+                            onChange={(e) => setNewClient({...newClient, email: e.target.value})}
+                            placeholder="contato@email.com"
+                            className="border-amber-300"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="weddingDate" className="text-amber-800">Data do Casamento</Label>
+                          <Input
+                            id="weddingDate"
+                            type="date"
+                            value={newClient.weddingDate}
+                            onChange={(e) => setNewClient({...newClient, weddingDate: e.target.value})}
+                            className="border-amber-300"
+                            required
+                          />
+                        </div>
+                        <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700">
+                          Criar Cliente
+                        </Button>
+                      </form>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-amber-800">Cliente</TableHead>
+                      <TableHead className="text-amber-800">Email</TableHead>
+                      <TableHead className="text-amber-800">Data do Casamento</TableHead>
+                      <TableHead className="text-amber-800">Google Drive</TableHead>
+                      <TableHead className="text-amber-800">Status</TableHead>
+                      <TableHead className="text-amber-800">Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {clients.map((client) => (
+                      <TableRow key={client.id}>
+                        <TableCell className="font-medium text-amber-900">{client.name}</TableCell>
+                        <TableCell className="text-amber-700">{client.email}</TableCell>
+                        <TableCell className="text-amber-700">{formatDate(client.weddingDate)}</TableCell>
+                        <TableCell>
+                          {client.googleDriveConnected ? (
+                            <Badge variant="secondary" className="bg-green-100 text-green-800">
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                              Conectado
+                            </Badge>
+                          ) : (
+                            <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                              <AlertCircle className="w-3 h-3 mr-1" />
+                              Pendente
+                            </Badge>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={getStatusColor(client.status)}>
+                            {getStatusLabel(client.status)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-2">
+                            <Link to={`/client/${client.id}`}>
+                              <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
+                                <Settings className="w-3 h-3 mr-1" />
+                                Editar
+                              </Button>
+                            </Link>
+                            <Link to={`/album/${client.albumId}`}>
+                              <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
+                                <ExternalLink className="w-3 h-3 mr-1" />
+                                Ver Álbum
+                              </Button>
+                            </Link>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Payment Approvals */}
+          <TabsContent value="payments" className="mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <CardTitle className="text-amber-900">Aprovação de Pagamentos</CardTitle>
                 <CardDescription className="text-amber-600">
-                  Visualize e gerencie todos os clientes e seus álbuns
+                  Analise e aprove os comprovantes de pagamento enviados pelos clientes
                 </CardDescription>
-              </div>
-              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="bg-amber-600 hover:bg-amber-700">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Novo Cliente
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle className="text-amber-900">Criar Novo Cliente</DialogTitle>
-                    <DialogDescription className="text-amber-600">
-                      Adicione um novo cliente ao sistema
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleCreateClient} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-amber-800">Nome do Casal</Label>
-                      <Input
-                        id="name"
-                        value={newClient.name}
-                        onChange={(e) => setNewClient({...newClient, name: e.target.value})}
-                        placeholder="Ex: Ana & Carlos Silva"
-                        className="border-amber-300"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-amber-800">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={newClient.email}
-                        onChange={(e) => setNewClient({...newClient, email: e.target.value})}
-                        placeholder="contato@email.com"
-                        className="border-amber-300"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="weddingDate" className="text-amber-800">Data do Casamento</Label>
-                      <Input
-                        id="weddingDate"
-                        type="date"
-                        value={newClient.weddingDate}
-                        onChange={(e) => setNewClient({...newClient, weddingDate: e.target.value})}
-                        className="border-amber-300"
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700">
-                      Criar Cliente
-                    </Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-amber-800">Cliente</TableHead>
-                  <TableHead className="text-amber-800">Email</TableHead>
-                  <TableHead className="text-amber-800">Data do Casamento</TableHead>
-                  <TableHead className="text-amber-800">Google Drive</TableHead>
-                  <TableHead className="text-amber-800">Status</TableHead>
-                  <TableHead className="text-amber-800">Ações</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {clients.map((client) => (
-                  <TableRow key={client.id}>
-                    <TableCell className="font-medium text-amber-900">{client.name}</TableCell>
-                    <TableCell className="text-amber-700">{client.email}</TableCell>
-                    <TableCell className="text-amber-700">{formatDate(client.weddingDate)}</TableCell>
-                    <TableCell>
-                      {client.googleDriveConnected ? (
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
-                          <CheckCircle className="w-3 h-3 mr-1" />
-                          Conectado
-                        </Badge>
-                      ) : (
-                        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                          <AlertCircle className="w-3 h-3 mr-1" />
-                          Pendente
-                        </Badge>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary" className="bg-green-100 text-green-800">
-                        {client.status === 'active' ? 'Ativo' : 'Inativo'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Link to={`/client/${client.id}`}>
-                          <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
-                            <Settings className="w-3 h-3 mr-1" />
-                            Editar
-                          </Button>
-                        </Link>
-                        <Link to={`/album/${client.albumId}`}>
-                          <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
-                            <ExternalLink className="w-3 h-3 mr-1" />
-                            Ver Álbum
-                          </Button>
-                        </Link>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-amber-800">Cliente</TableHead>
+                      <TableHead className="text-amber-800">Email</TableHead>
+                      <TableHead className="text-amber-800">Data do Pagamento</TableHead>
+                      <TableHead className="text-amber-800">Status Pagamento</TableHead>
+                      <TableHead className="text-amber-800">Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {clients.filter(client => client.status === 'payment_sent' || client.status === 'pending_payment').map((client) => (
+                      <TableRow key={client.id}>
+                        <TableCell className="font-medium text-amber-900">{client.name}</TableCell>
+                        <TableCell className="text-amber-700">{client.email}</TableCell>
+                        <TableCell className="text-amber-700">
+                          {client.paymentDate ? formatDate(client.paymentDate) : 'Não enviado'}
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={getStatusColor(client.status)}>
+                            {getStatusLabel(client.status)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-2">
+                            {client.status === 'payment_sent' && (
+                              <>
+                                <Button 
+                                  size="sm" 
+                                  className="bg-green-600 hover:bg-green-700 text-white"
+                                  onClick={() => approvePayment(client.id)}
+                                >
+                                  <CheckCircle className="w-3 h-3 mr-1" />
+                                  Aprovar
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  variant="destructive"
+                                  onClick={() => rejectPayment(client.id)}
+                                >
+                                  <XCircle className="w-3 h-3 mr-1" />
+                                  Rejeitar
+                                </Button>
+                              </>
+                            )}
+                            {client.status === 'pending_payment' && (
+                              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                                <Clock className="w-3 h-3 mr-1" />
+                                Aguardando
+                              </Badge>
+                            )}
+                            <Link to={`/client/${client.id}`}>
+                              <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
+                                <Eye className="w-3 h-3 mr-1" />
+                                Ver Detalhes
+                              </Button>
+                            </Link>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                
+                {clients.filter(client => client.status === 'payment_sent' || client.status === 'pending_payment').length === 0 && (
+                  <div className="text-center py-8">
+                    <DollarSign className="w-16 h-16 text-amber-300 mx-auto mb-4" />
+                    <p className="text-amber-500">Nenhum pagamento pendente de aprovação</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
