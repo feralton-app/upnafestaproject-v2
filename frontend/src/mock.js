@@ -6,34 +6,103 @@ export const mockClients = [
     name: 'Ana & Carlos Silva',
     email: 'ana.carlos@email.com',
     weddingDate: '2025-09-15',
-    status: 'active',
+    status: 'approved', // 'pending_payment', 'payment_sent', 'approved', 'rejected'
     albumId: 'album-ana-carlos-2025',
     createdAt: '2025-01-10',
+    paymentDate: '2025-01-12',
+    approvalDate: '2025-01-13',
     googleDriveConnected: true,
+    paymentStatus: 'confirmed',
     customization: {
-      primaryColor: '#D4AF37',
-      secondaryColor: '#F5E6A3',
+      primaryColor: '#8B4513',
+      secondaryColor: '#DEB887',
       mainPhoto: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
       welcomeMessage: 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
       thankYouMessage: 'Obrigado por fazer parte da nossa história de amor!'
-    }
+    },
+    notifications: [
+      {
+        id: '1',
+        title: 'Pagamento Aprovado!',
+        message: 'Seu pagamento foi confirmado e seu álbum está ativo.',
+        type: 'success',
+        date: '2025-01-13',
+        read: true
+      },
+      {
+        id: '2',
+        title: 'Álbum Criado',
+        message: 'Seu álbum foi criado com sucesso. Aguardando confirmação do pagamento.',
+        type: 'info',
+        date: '2025-01-10',
+        read: true
+      }
+    ]
   },
   {
     id: '2', 
     name: 'Mariana & João Santos',
     email: 'mari.joao@email.com',
     weddingDate: '2025-11-20',
-    status: 'active',
+    status: 'payment_sent',
     albumId: 'album-mari-joao-2025',
     createdAt: '2025-02-05',
+    paymentDate: '2025-02-06',
     googleDriveConnected: false,
+    paymentStatus: 'pending_review',
     customization: {
       primaryColor: '#8B4513',
       secondaryColor: '#DEB887',
       mainPhoto: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80',
       welcomeMessage: 'Celebre conosco este momento único!',
       thankYouMessage: 'Cada foto é uma lembrança preciosa. Obrigado!'
-    }
+    },
+    notifications: [
+      {
+        id: '3',
+        title: 'Comprovante Recebido',
+        message: 'Recebemos seu comprovante de pagamento. Em análise.',
+        type: 'warning',
+        date: '2025-02-06',
+        read: false
+      },
+      {
+        id: '4',
+        title: 'Álbum Criado',
+        message: 'Seu álbum foi criado. Por favor, realize o pagamento para ativação.',
+        type: 'info',
+        date: '2025-02-05',
+        read: true
+      }
+    ]
+  },
+  {
+    id: '3', 
+    name: 'Sofia & Ricardo Lima',
+    email: 'sofia.ricardo@email.com',
+    weddingDate: '2025-08-10',
+    status: 'pending_payment',
+    albumId: 'album-sofia-ricardo-2025',
+    createdAt: '2025-02-08',
+    googleDriveConnected: false,
+    paymentStatus: 'pending',
+    customization: {
+      primaryColor: '#D4AF37',
+      secondaryColor: '#F5E6A3',
+      mainPhoto: 'https://images.unsplash.com/photo-1594736797933-d0802ba42407?w=800&q=80',
+      welcomeMessage: 'Venham celebrar conosco!',
+      thankYouMessage: 'Vocês são especiais para nós!'
+    },
+    notifications: [
+      {
+        id: '5',
+        title: 'Álbum Criado - Pagamento Necessário',
+        message: 'Seu álbum foi criado! Para ativá-lo, realize o pagamento de R$ 99,90.',
+        type: 'warning',
+        date: '2025-02-08',
+        read: false
+      }
+    ]
   }
 ];
 
@@ -83,7 +152,19 @@ export const mockSiteConfig = {
       description: 'Seus convidados não precisam baixar nada - apenas um link!',
       subtitle: 'Acesso simples via navegador web.'
     }
-  ]
+  ],
+  pricing: {
+    price: 'R$ 99,90',
+    description: 'Pagamento único por álbum',
+    features: [
+      'Álbum ilimitado',
+      'Upload ilimitado de fotos e vídeos',
+      'Integração com Google Drive',
+      'QR Code personalizado',
+      'Customização completa',
+      'Suporte técnico'
+    ]
+  }
 };
 
 export const mockTestimonials = [
@@ -101,6 +182,31 @@ export const mockTestimonials = [
   }
 ];
 
+export const mockPaymentMethods = [
+  {
+    id: 'pix',
+    name: 'PIX',
+    description: 'Pagamento instantâneo',
+    icon: '💳',
+    details: {
+      key: 'pagamentos@upnafesta.com.br',
+      qrCode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=='
+    }
+  },
+  {
+    id: 'bank_transfer',
+    name: 'Transferência Bancária',
+    description: 'TED/DOC',
+    icon: '🏦',
+    details: {
+      bank: 'Banco do Brasil',
+      agency: '1234-5',
+      account: '98765-4',
+      holder: 'UpnaFesta Ltda'
+    }
+  }
+];
+
 export const generateMockQRCode = (albumId) => {
   return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${window.location.origin}/album/${albumId}`;
 };
@@ -109,5 +215,28 @@ export const mockStats = {
   totalClients: 156,
   totalUploads: 12845,
   totalAlbums: 98,
-  activeThisMonth: 23
+  activeThisMonth: 23,
+  pendingApprovals: 5,
+  totalRevenue: 'R$ 15.588,20'
+};
+
+// Status helpers
+export const getStatusLabel = (status) => {
+  const labels = {
+    'pending_payment': 'Pagamento Pendente',
+    'payment_sent': 'Comprovante Enviado',
+    'approved': 'Aprovado',
+    'rejected': 'Rejeitado'
+  };
+  return labels[status] || status;
+};
+
+export const getStatusColor = (status) => {
+  const colors = {
+    'pending_payment': 'bg-yellow-100 text-yellow-800',
+    'payment_sent': 'bg-blue-100 text-blue-800',
+    'approved': 'bg-green-100 text-green-800',
+    'rejected': 'bg-red-100 text-red-800'
+  };
+  return colors[status] || 'bg-gray-100 text-gray-800';
 };
