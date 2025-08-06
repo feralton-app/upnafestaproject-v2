@@ -45,17 +45,28 @@ const AdminDashboard = () => {
       const client = {
         id: String(clients.length + 1),
         ...newClient,
-        status: 'active',
+        status: 'pending_payment',
         albumId: `album-${newClient.name.toLowerCase().replace(/\s+/g, '-')}-${new Date().getFullYear()}`,
         createdAt: new Date().toISOString().split('T')[0],
         googleDriveConnected: false,
+        paymentStatus: 'pending',
         customization: {
-          primaryColor: '#D4AF37',
-          secondaryColor: '#F5E6A3',
+          primaryColor: '#8B4513',
+          secondaryColor: '#DEB887',
           mainPhoto: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
           welcomeMessage: 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
           thankYouMessage: 'Obrigado por fazer parte da nossa história de amor!'
-        }
+        },
+        notifications: [
+          {
+            id: `notif-${Date.now()}`,
+            title: 'Álbum Criado - Pagamento Necessário',
+            message: 'Seu álbum foi criado! Para ativá-lo, realize o pagamento de R$ 99,90.',
+            type: 'warning',
+            date: new Date().toISOString().split('T')[0],
+            read: false
+          }
+        ]
       };
       
       setClients([...clients, client]);
@@ -64,9 +75,68 @@ const AdminDashboard = () => {
       
       toast({
         title: "Cliente criado com sucesso!",
-        description: `${client.name} foi adicionado ao sistema.`
+        description: `${client.name} foi adicionado. Cliente deve realizar pagamento para ativação.`
       });
     }
+  };
+
+  const approvePayment = (clientId) => {
+    setClients(clients.map(client => 
+      client.id === clientId 
+        ? { 
+            ...client, 
+            status: 'approved',
+            paymentStatus: 'confirmed',
+            approvalDate: new Date().toISOString().split('T')[0],
+            notifications: [
+              ...client.notifications,
+              {
+                id: `notif-${Date.now()}`,
+                title: 'Pagamento Aprovado!',
+                message: 'Seu pagamento foi confirmado e seu álbum está ativo.',
+                type: 'success',
+                date: new Date().toISOString().split('T')[0],
+                read: false
+              }
+            ]
+          }
+        : client
+    ));
+    
+    const client = clients.find(c => c.id === clientId);
+    toast({
+      title: "Pagamento aprovado!",
+      description: `O álbum de ${client?.name} foi ativado.`
+    });
+  };
+
+  const rejectPayment = (clientId) => {
+    setClients(clients.map(client => 
+      client.id === clientId 
+        ? { 
+            ...client, 
+            status: 'rejected',
+            paymentStatus: 'rejected',
+            notifications: [
+              ...client.notifications,
+              {
+                id: `notif-${Date.now()}`,
+                title: 'Pagamento Rejeitado',
+                message: 'Seu comprovante foi rejeitado. Por favor, envie um novo comprovante ou entre em contato conosco.',
+                type: 'error',
+                date: new Date().toISOString().split('T')[0],
+                read: false
+              }
+            ]
+          }
+        : client
+    ));
+    
+    const client = clients.find(c => c.id === clientId);
+    toast({
+      title: "Pagamento rejeitado",
+      description: `O pagamento de ${client?.name} foi rejeitado. Cliente será notificado.`
+    });
   };
 
   const formatDate = (dateString) => {
