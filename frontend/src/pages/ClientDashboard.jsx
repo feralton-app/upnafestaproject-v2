@@ -315,6 +315,48 @@ const ClientDashboard = () => {
     });
   };
 
+  const testRealUpload = async () => {
+    if (!testFile || !selectedAlbum?.googleFolderId) {
+      toast({
+        title: "Erro no teste",
+        description: "Selecione um arquivo e defina um Folder ID primeiro.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const formData = new FormData();
+      formData.append('file', testFile);
+      formData.append('folder_id', selectedAlbum.googleFolderId);
+
+      const response = await fetch(`${backendUrl}/api/test-upload/${clientId}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setTestResult(result);
+        
+        toast({
+          title: "✅ TESTE SUCESSO!",
+          description: `Arquivo ${result.filename} salvo no Google Drive!`
+        });
+      } else {
+        const error = await response.json();
+        throw new Error(error.detail || 'Erro no upload');
+      }
+    } catch (error) {
+      toast({
+        title: "❌ TESTE FALHOU",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+
   const updateAlbumFolderId = async (folderId) => {
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
