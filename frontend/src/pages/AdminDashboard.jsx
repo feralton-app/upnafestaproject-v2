@@ -245,6 +245,12 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <Link to="/admin/google-config">
+                <Button variant="outline" className="text-blue-700 border-blue-300">
+                  <Cloud className="w-4 h-4 mr-2" />
+                  Google API
+                </Button>
+              </Link>
               <Link to="/admin/site-management">
                 <Button variant="outline" className="text-amber-700 border-amber-300">
                   <Settings className="w-4 h-4 mr-2" />
