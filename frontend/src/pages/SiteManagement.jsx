@@ -502,75 +502,349 @@ const SiteManagement = () => {
             </Card>
           </TabsContent>
 
-          {/* Pricing Tab */}
-          <TabsContent value="pricing" className="space-y-6 mt-6">
+          {/* How It Works Tab */}
+          <TabsContent value="how-it-works" className="space-y-6 mt-6">
             <Card className="border-amber-200">
               <CardHeader>
-                <CardTitle className="text-amber-900">Configuração de Preços</CardTitle>
-                <CardDescription className="text-amber-600">
-                  Defina o preço e os recursos incluídos
-                </CardDescription>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-amber-900 flex items-center">
+                      {siteConfig.howItWorks.enabled ? (
+                        <ToggleRight className="w-5 h-5 mr-2 text-green-600" />
+                      ) : (
+                        <ToggleLeft className="w-5 h-5 mr-2 text-gray-400" />
+                      )}
+                      Como Funciona
+                    </CardTitle>
+                    <CardDescription className="text-amber-600">
+                      Configure a seção que explica como funciona o processo
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant={siteConfig.howItWorks.enabled ? "destructive" : "default"}
+                      onClick={() => toggleSection('howItWorks')}
+                      className={siteConfig.howItWorks.enabled ? "" : "bg-green-600 hover:bg-green-700"}
+                    >
+                      {siteConfig.howItWorks.enabled ? 'Desabilitar' : 'Habilitar'}
+                    </Button>
+                    <Dialog open={showStepDialog} onOpenChange={setShowStepDialog}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-amber-600 hover:bg-amber-700" disabled={!siteConfig.howItWorks.enabled}>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Adicionar Passo
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle className="text-amber-900">Adicionar Novo Passo</DialogTitle>
+                          <DialogDescription className="text-amber-600">
+                            Adicione um novo passo à seção Como Funciona
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="stepTitle" className="text-amber-800">Título</Label>
+                            <Input
+                              id="stepTitle"
+                              value={newStep.title}
+                              onChange={(e) => setNewStep({...newStep, title: e.target.value})}
+                              className="border-amber-300"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="stepDescription" className="text-amber-800">Descrição</Label>
+                            <Textarea
+                              id="stepDescription"
+                              value={newStep.description}
+                              onChange={(e) => setNewStep({...newStep, description: e.target.value})}
+                              className="border-amber-300"
+                              rows={3}
+                            />
+                          </div>
+                          <Button 
+                            onClick={addStep} 
+                            className="w-full bg-amber-600 hover:bg-amber-700"
+                            disabled={!newStep.title || !newStep.description}
+                          >
+                            Adicionar Passo
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div>
-                  <Label htmlFor="price" className="text-amber-800">Preço</Label>
-                  <Input
-                    id="price"
-                    value={siteConfig.pricing?.price || ''}
-                    onChange={(e) => handleConfigChange('pricing', 'price', e.target.value)}
-                    className="border-amber-300"
-                    placeholder="R$ 99,90"
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="howItWorksTitle" className="text-amber-800">Título da Seção</Label>
+                    <Input
+                      id="howItWorksTitle"
+                      value={siteConfig.howItWorks.title}
+                      onChange={(e) => setSiteConfig(prev => ({
+                        ...prev,
+                        howItWorks: { ...prev.howItWorks, title: e.target.value }
+                      }))}
+                      className="border-amber-300"
+                      disabled={!siteConfig.howItWorks.enabled}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="howItWorksSubtitle" className="text-amber-800">Subtítulo</Label>
+                    <Input
+                      id="howItWorksSubtitle"
+                      value={siteConfig.howItWorks.subtitle}
+                      onChange={(e) => setSiteConfig(prev => ({
+                        ...prev,
+                        howItWorks: { ...prev.howItWorks, subtitle: e.target.value }
+                      }))}
+                      className="border-amber-300"
+                      disabled={!siteConfig.howItWorks.enabled}
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="priceDescription" className="text-amber-800">Descrição do Preço</Label>
-                  <Input
-                    id="priceDescription"
-                    value={siteConfig.pricing?.description || ''}
-                    onChange={(e) => handleConfigChange('pricing', 'description', e.target.value)}
-                    className="border-amber-300"
-                    placeholder="Pagamento único por álbum"
-                  />
+                <div className="space-y-4">
+                  <Label className="text-amber-800">Passos</Label>
+                  {siteConfig.howItWorks.steps.map((step, index) => (
+                    <Card key={index} className="border-amber-200">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1 space-y-2">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-8 h-8 bg-amber-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                {step.number}
+                              </div>
+                              <Input
+                                value={step.title}
+                                onChange={(e) => {
+                                  const newSteps = [...siteConfig.howItWorks.steps];
+                                  newSteps[index].title = e.target.value;
+                                  setSiteConfig(prev => ({
+                                    ...prev,
+                                    howItWorks: { ...prev.howItWorks, steps: newSteps }
+                                  }));
+                                }}
+                                className="font-semibold border-amber-300"
+                                disabled={!siteConfig.howItWorks.enabled}
+                              />
+                            </div>
+                            <Textarea
+                              value={step.description}
+                              onChange={(e) => {
+                                const newSteps = [...siteConfig.howItWorks.steps];
+                                newSteps[index].description = e.target.value;
+                                setSiteConfig(prev => ({
+                                  ...prev,
+                                  howItWorks: { ...prev.howItWorks, steps: newSteps }
+                                }));
+                              }}
+                              className="border-amber-300"
+                              rows={2}
+                              disabled={!siteConfig.howItWorks.enabled}
+                            />
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => removeStep(index)}
+                            className="ml-4"
+                            disabled={!siteConfig.howItWorks.enabled}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-                <div>
-                  <Label className="text-amber-800">Recursos Incluídos</Label>
-                  <div className="mt-2 space-y-2">
-                    {siteConfig.pricing?.features?.map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Input
-                          value={feature}
-                          onChange={(e) => {
-                            const newFeatures = [...(siteConfig.pricing?.features || [])];
-                            newFeatures[index] = e.target.value;
-                            handleConfigChange('pricing', 'features', newFeatures);
-                          }}
-                          className="border-amber-300"
-                        />
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => {
-                            const newFeatures = (siteConfig.pricing?.features || []).filter((_, i) => i !== index);
-                            handleConfigChange('pricing', 'features', newFeatures);
-                          }}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    ))}
+          {/* Testimonials Tab */}
+          <TabsContent value="testimonials" className="space-y-6 mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-amber-900 flex items-center">
+                      {siteConfig.testimonials.enabled ? (
+                        <ToggleRight className="w-5 h-5 mr-2 text-green-600" />
+                      ) : (
+                        <ToggleLeft className="w-5 h-5 mr-2 text-gray-400" />
+                      )}
+                      Depoimentos
+                    </CardTitle>
+                    <CardDescription className="text-amber-600">
+                      Configure os depoimentos dos casais clientes
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center space-x-2">
                     <Button
-                      variant="outline"
-                      onClick={() => {
-                        const newFeatures = [...(siteConfig.pricing?.features || []), ''];
-                        handleConfigChange('pricing', 'features', newFeatures);
-                      }}
-                      className="w-full border-amber-300 text-amber-700"
+                      variant={siteConfig.testimonials.enabled ? "destructive" : "default"}
+                      onClick={() => toggleSection('testimonials')}
+                      className={siteConfig.testimonials.enabled ? "" : "bg-green-600 hover:bg-green-700"}
                     >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Adicionar Recurso
+                      {siteConfig.testimonials.enabled ? 'Desabilitar' : 'Habilitar'}
                     </Button>
+                    <Dialog open={showTestimonialDialog} onOpenChange={setShowTestimonialDialog}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-amber-600 hover:bg-amber-700" disabled={!siteConfig.testimonials.enabled}>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Adicionar Depoimento
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle className="text-amber-900">Adicionar Novo Depoimento</DialogTitle>
+                          <DialogDescription className="text-amber-600">
+                            Adicione um novo depoimento de casal à página
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="testimonialName" className="text-amber-800">Nome do Casal</Label>
+                            <Input
+                              id="testimonialName"
+                              value={newTestimonial.name}
+                              onChange={(e) => setNewTestimonial({...newTestimonial, name: e.target.value})}
+                              placeholder="Ex: Ana & João"
+                              className="border-amber-300"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="testimonialText" className="text-amber-800">Depoimento</Label>
+                            <Textarea
+                              id="testimonialText"
+                              value={newTestimonial.text}
+                              onChange={(e) => setNewTestimonial({...newTestimonial, text: e.target.value})}
+                              placeholder="Digite o depoimento do casal..."
+                              className="border-amber-300"
+                              rows={4}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="testimonialAvatar" className="text-amber-800">URL da Foto (Opcional)</Label>
+                            <Input
+                              id="testimonialAvatar"
+                              value={newTestimonial.avatar}
+                              onChange={(e) => setNewTestimonial({...newTestimonial, avatar: e.target.value})}
+                              placeholder="https://exemplo.com/foto.jpg"
+                              className="border-amber-300"
+                            />
+                          </div>
+                          <Button 
+                            onClick={addTestimonial} 
+                            className="w-full bg-amber-600 hover:bg-amber-700"
+                            disabled={!newTestimonial.name || !newTestimonial.text}
+                          >
+                            Adicionar Depoimento
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="testimonialsTitle" className="text-amber-800">Título da Seção</Label>
+                    <Input
+                      id="testimonialsTitle"
+                      value={siteConfig.testimonials.title}
+                      onChange={(e) => setSiteConfig(prev => ({
+                        ...prev,
+                        testimonials: { ...prev.testimonials, title: e.target.value }
+                      }))}
+                      className="border-amber-300"
+                      disabled={!siteConfig.testimonials.enabled}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="testimonialsSubtitle" className="text-amber-800">Subtítulo</Label>
+                    <Input
+                      id="testimonialsSubtitle"
+                      value={siteConfig.testimonials.subtitle}
+                      onChange={(e) => setSiteConfig(prev => ({
+                        ...prev,
+                        testimonials: { ...prev.testimonials, subtitle: e.target.value }
+                      }))}
+                      className="border-amber-300"
+                      disabled={!siteConfig.testimonials.enabled}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <Label className="text-amber-800">Depoimentos</Label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {siteConfig.testimonials.items.map((testimonial, index) => (
+                      <Card key={testimonial.id} className="border-amber-200">
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex items-center space-x-3">
+                              <img
+                                src={testimonial.avatar}
+                                alt={testimonial.name}
+                                className="w-12 h-12 rounded-full object-cover"
+                              />
+                              <Input
+                                value={testimonial.name}
+                                onChange={(e) => {
+                                  const newTestimonials = [...siteConfig.testimonials.items];
+                                  newTestimonials[index].name = e.target.value;
+                                  setSiteConfig(prev => ({
+                                    ...prev,
+                                    testimonials: { ...prev.testimonials, items: newTestimonials }
+                                  }));
+                                }}
+                                className="font-semibold border-amber-300"
+                                disabled={!siteConfig.testimonials.enabled}
+                              />
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => removeTestimonial(index)}
+                              disabled={!siteConfig.testimonials.enabled}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                          <Textarea
+                            value={testimonial.text}
+                            onChange={(e) => {
+                              const newTestimonials = [...siteConfig.testimonials.items];
+                              newTestimonials[index].text = e.target.value;
+                              setSiteConfig(prev => ({
+                                ...prev,
+                                testimonials: { ...prev.testimonials, items: newTestimonials }
+                              }));
+                            }}
+                            className="border-amber-300 mb-2"
+                            rows={3}
+                            disabled={!siteConfig.testimonials.enabled}
+                          />
+                          <Input
+                            value={testimonial.avatar}
+                            onChange={(e) => {
+                              const newTestimonials = [...siteConfig.testimonials.items];
+                              newTestimonials[index].avatar = e.target.value;
+                              setSiteConfig(prev => ({
+                                ...prev,
+                                testimonials: { ...prev.testimonials, items: newTestimonials }
+                              }));
+                            }}
+                            placeholder="URL da foto"
+                            className="border-amber-300 text-sm"
+                            disabled={!siteConfig.testimonials.enabled}
+                          />
+                        </CardContent>
+                      </Card>
+                    ))}
                   </div>
                 </div>
               </CardContent>
