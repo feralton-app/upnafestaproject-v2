@@ -422,6 +422,7 @@ const AdminDashboard = () => {
                         <TableCell className="font-medium text-amber-900">{client.name}</TableCell>
                         <TableCell className="text-amber-700">{client.email}</TableCell>
                         <TableCell className="text-amber-700">{formatDate(client.weddingDate)}</TableCell>
+                        <TableCell className="text-amber-700">{client.albumLimit || 1}</TableCell>
                         <TableCell>
                           {client.googleDriveConnected ? (
                             <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -439,6 +440,26 @@ const AdminDashboard = () => {
                           <Badge className={getStatusColor(client.status)}>
                             {getStatusLabel(client.status)}
                           </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-2">
+                            <Badge variant="secondary" className={client.enabled ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}>
+                              {client.enabled ? (
+                                <UserCheck className="w-3 h-3 mr-1" />
+                              ) : (
+                                <UserX className="w-3 h-3 mr-1" />
+                              )}
+                              {client.enabled ? 'Ativo' : 'Inativo'}
+                            </Badge>
+                            <Button
+                              size="sm"
+                              variant={client.enabled ? "destructive" : "default"}
+                              onClick={() => toggleClientStatus(client.id)}
+                              className={client.enabled ? "" : "bg-green-600 hover:bg-green-700"}
+                            >
+                              {client.enabled ? 'Desabilitar' : 'Habilitar'}
+                            </Button>
+                          </div>
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
