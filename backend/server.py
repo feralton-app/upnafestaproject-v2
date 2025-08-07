@@ -158,7 +158,22 @@ async def get_google_config(db_session: Session = Depends(get_db)):
 
 @api_router.get("/admin/google-redirect-uris")
 async def get_google_redirect_uris():
-    return get_redirect_uris_info()
+    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+    callback_url = f"{base_url}/api/auth/google/callback"
+    
+    return {
+        "message": "Configure esta URL no Google Cloud Console",
+        "callback_url": callback_url,
+        "instructions": [
+            "1. Acesse https://console.cloud.google.com/",
+            "2. Selecione seu projeto UpnaFesta",
+            "3. Vá para APIs & Services > Credentials", 
+            "4. Edite suas credenciais OAuth 2.0",
+            "5. Em 'Authorized redirect URIs', adicione:",
+            f"   {callback_url}",
+            "6. Salve as alterações"
+        ]
+    }
 
 # Client Management
 @api_router.post("/admin/clients", response_model=ClientResponse)
