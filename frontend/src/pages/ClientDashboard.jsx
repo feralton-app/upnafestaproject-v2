@@ -505,9 +505,9 @@ const ClientDashboard = () => {
                           </div>
                         </div>
 
-                        <Button onClick={connectGoogleDrive} className="w-full bg-amber-600 hover:bg-amber-700">
+                        <Button onClick={connectGoogleDrive} className="w-full bg-blue-600 hover:bg-blue-700">
                           <FolderOpen className="w-4 h-4 mr-2" />
-                          Conectar com Google OAuth
+                          Conectar Google
                         </Button>
 
                         <div className="mt-4">
