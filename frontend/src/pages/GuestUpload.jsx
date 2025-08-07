@@ -80,6 +80,18 @@ const GuestUpload = () => {
     setFiles(files.filter((_, i) => i !== index));
   };
 
+  const startUpload = () => {
+    if (guestInfo.name.trim()) {
+      setShowUploadForm(true);
+    } else {
+      toast({
+        title: "Nome obrigatório",
+        description: "Por favor, informe seu nome para continuar.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const uploadFiles = async () => {
     if (files.length === 0) return;
 
