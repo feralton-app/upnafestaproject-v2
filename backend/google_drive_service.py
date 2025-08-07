@@ -185,6 +185,14 @@ class GoogleDriveService:
         try:
             service = build('drive', 'v3', credentials=credentials)
             
+            # Se folder_id estiver vazio, criar pasta automaticamente
+            if not folder_id or folder_id.strip() == '':
+                print("DEBUG: Folder ID vazio, criando pasta automaticamente...")
+                folder_id = self.create_album_folder(client_id, "UpnaFesta", "Album")
+                if not folder_id:
+                    raise ValueError("Falha ao criar pasta automaticamente")
+                print(f"DEBUG: Pasta criada automaticamente com ID: {folder_id}")
+            
             file_metadata = {
                 'name': filename,
                 'parents': [folder_id] if folder_id else []
