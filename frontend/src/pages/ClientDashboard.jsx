@@ -93,20 +93,17 @@ const ClientDashboard = () => {
   };
 
   const connectGoogleDrive = () => {
-    if (googleConfig.account && googleConfig.folderId) {
-      // Simulate OAuth flow
+    // Simulate Google OAuth2 flow
+    window.open('https://accounts.google.com/oauth/authorize?client_id=mock&redirect_uri=mock&scope=drive', '_blank', 'width=500,height=600');
+    
+    // Simulate OAuth success after 3 seconds
+    setTimeout(() => {
       toast({
         title: "Google Drive conectado!",
-        description: `Conectado à conta ${googleConfig.account}`
+        description: `Conectado à conta ${googleConfig.account || 'usuario@gmail.com'}`
       });
       setShowGoogleDialog(false);
-    } else {
-      toast({
-        title: "Dados incompletos",
-        description: "Preencha todos os campos para conectar.",
-        variant: "destructive"
-      });
-    }
+    }, 3000);
   };
 
   const disconnectGoogleDrive = () => {
