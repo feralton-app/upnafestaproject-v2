@@ -588,20 +588,6 @@ const ClientDashboard = () => {
                           <FolderOpen className="w-4 h-4 mr-2" />
                           Conectar Google
                         </Button>
-
-                        <div className="mt-4">
-                          <Label htmlFor="googleFolder" className="text-amber-800">ID da Pasta (opcional)</Label>
-                          <Input
-                            id="googleFolder"
-                            value={googleConfig.folderId}
-                            onChange={(e) => setGoogleConfig({...googleConfig, folderId: e.target.value})}
-                            placeholder="1A2B3C4D5E6F7G8H9I0J"
-                            className="border-amber-300"
-                          />
-                          <p className="text-xs text-amber-600 mt-1">
-                            Se não informado, será criada uma pasta automaticamente
-                          </p>
-                        </div>
                       </div>
                     )}
                   </div>
