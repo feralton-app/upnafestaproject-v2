@@ -214,20 +214,7 @@ export const mockSiteConfig = {
   }
 };
 
-export const mockTestimonials = [
-  {
-    id: '1',
-    name: 'Sofia & Ricardo',
-    text: 'O UpnaFesta tornou muito fácil coletar todas as fotos do nosso casamento. Nossos convidados adoraram a simplicidade!',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&q=80'
-  },
-  {
-    id: '2',
-    name: 'Camila & Bruno',
-    text: 'Recebemos mais de 500 fotos dos nossos convidados! Foi incrível ver nosso casamento pela perspectiva de todos.',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'
-  }
-];
+export const mockTestimonials = mockSiteConfig.testimonials.items;
 
 export const mockPaymentMethods = [
   {
