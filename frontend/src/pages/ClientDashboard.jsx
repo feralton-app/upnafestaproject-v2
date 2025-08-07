@@ -220,13 +220,15 @@ const ClientDashboard = () => {
           description: "Complete o processo de autorização na nova janela."
         });
         
-        // Simular sucesso após delay (na prática, seria via callback)
+        setShowGoogleDialog(false);
+        
+        // Simulação de sucesso - na vida real seria via callback
         setTimeout(() => {
           toast({
             title: "Google Drive conectado!",
-            description: `Conectado à conta Google com sucesso!`
+            description: "Agora configure o ID da pasta na aba 'Configurações' para definir onde salvar as fotos.",
+            duration: 6000
           });
-          setShowGoogleDialog(false);
         }, 5000);
       } else {
         throw new Error('Falha ao obter URL de autorização');
