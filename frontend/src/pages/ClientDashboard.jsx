@@ -68,22 +68,28 @@ const ClientDashboard = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('google_connected') === 'true' && client?.googleDriveConnected) {
-      // Abrir automaticamente a aba Configurações
-      setActiveTab('settings');
       
-      // Focar no campo Folder ID após pequeno delay
+      // Clicar na aba Configurações automaticamente
       setTimeout(() => {
-        const folderField = document.getElementById('albumFolder');
-        if (folderField) {
-          folderField.focus();
-          folderField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          
-          toast({
-            title: "🎉 Google Drive conectado!",
-            description: "Configure agora o ID da pasta onde as fotos serão salvas ↓",
-            duration: 8000
-          });
+        const settingsTab = document.querySelector('[data-state="inactive"][data-testid="settings-tab"], button[role="tab"]:has-text("Configurações")');
+        if (settingsTab) {
+          settingsTab.click();
         }
+        
+        // Focar no campo Folder ID após clicar na aba
+        setTimeout(() => {
+          const folderField = document.getElementById('albumFolder');
+          if (folderField) {
+            folderField.focus();
+            folderField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            toast({
+              title: "🎉 Google Drive conectado!",
+              description: "Configure agora o ID da pasta onde as fotos serão salvas ↓",
+              duration: 8000
+            });
+          }
+        }, 300);
       }, 500);
       
       // Remover parâmetro da URL
