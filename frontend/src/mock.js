@@ -5,7 +5,6 @@ export const mockClients = [
     id: '1',
     name: 'Ana & Carlos Silva',
     email: 'ana.carlos@email.com',
-    weddingDate: '2025-09-15',
     status: 'approved',
     albumLimit: 2,
     createdAt: '2025-01-10',
@@ -19,6 +18,7 @@ export const mockClients = [
       {
         id: 'album-ana-carlos-2025',
         name: 'Casamento Principal',
+        eventDate: '2025-09-15',
         status: 'active',
         googleFolderId: '1A2B3C4D5E6F7G8H9I0J',
         customization: {
@@ -34,7 +34,7 @@ export const mockClients = [
       {
         id: '1',
         title: 'Pagamento Aprovado!',
-        message: 'Seu pagamento foi confirmado e seu álbum está ativo.',
+        message: 'Seu pagamento foi confirmado e você pode criar álbuns.',
         type: 'success',
         date: '2025-01-13',
         read: true
@@ -45,7 +45,6 @@ export const mockClients = [
     id: '2', 
     name: 'Mariana & João Santos',
     email: 'mari.joao@email.com',
-    weddingDate: '2025-11-20',
     status: 'payment_sent',
     albumLimit: 1,
     createdAt: '2025-02-05',
@@ -53,20 +52,7 @@ export const mockClients = [
     googleDriveConnected: false,
     paymentStatus: 'pending_review',
     enabled: true,
-    albums: [
-      {
-        id: 'album-mari-joao-2025',
-        name: 'Nosso Casamento',
-        status: 'pending_payment',
-        customization: {
-          primaryColor: '#8B4513',
-          secondaryColor: '#DEB887',
-          mainPhoto: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80',
-          welcomeMessage: 'Celebre conosco este momento único!',
-          thankYouMessage: 'Cada foto é uma lembrança preciosa. Obrigado!'
-        }
-      }
-    ],
+    albums: [], // Sem álbuns até pagamento aprovado
     notifications: [
       {
         id: '3',
@@ -82,19 +68,18 @@ export const mockClients = [
     id: '3', 
     name: 'Sofia & Ricardo Lima',
     email: 'sofia.ricardo@email.com',
-    weddingDate: '2025-08-10',
     status: 'approved',
     albumLimit: 3,
     createdAt: '2025-02-08',
     googleDriveConnected: false,
     paymentStatus: 'confirmed',
     enabled: true,
-    albums: [],
+    albums: [], // Cliente aprovado mas ainda não criou álbuns
     notifications: [
       {
         id: '5',
         title: 'Pagamento Aprovado!',
-        message: 'Você já pode criar seus álbuns!',
+        message: 'Seu pagamento foi aprovado! Agora você pode criar seus álbuns.',
         type: 'success',
         date: '2025-02-08',
         read: false
