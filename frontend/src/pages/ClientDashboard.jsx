@@ -499,13 +499,14 @@ const ClientDashboard = () => {
                         
                         <div>
                           <Label htmlFor="googleFolder" className="text-amber-800">ID da Pasta do Google Drive</Label>
-                          <Input
+                          <input
                             id="googleFolder"
                             type="text"
                             value={googleConfig.folderId}
                             onChange={(e) => setGoogleConfig({...googleConfig, folderId: e.target.value})}
                             placeholder="1A2B3C4D5E6F7G8H9I0J ou 1BxYz-AbC_123"
-                            className="border-amber-300 font-mono"
+                            className="flex h-9 w-full rounded-md border border-amber-300 bg-transparent px-3 py-1 text-base shadow-sm font-mono"
+                            style={{maxLength: 'none'}}
                           />
                           <p className="text-xs text-amber-600 mt-1">
                             ID da pasta onde as fotos deste álbum serão armazenadas
