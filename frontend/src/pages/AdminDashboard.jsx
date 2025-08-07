@@ -49,8 +49,27 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleCreateClient = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
+    toast({
+      title: "Logout realizado!",
+      description: "Saindo do painel administrativo."
+    });
+    navigate('/');
+  };
+
+  const toggleClientStatus = (clientId) => {
+    setClients(clients.map(client => 
+      client.id === clientId 
+        ? { ...client, enabled: !client.enabled }
+        : client
+    ));
+    
+    const client = clients.find(c => c.id === clientId);
+    toast({
+      title: `Cliente ${client?.enabled ? 'desabilitado' : 'habilitado'}!`,
+      description: `${client?.name} foi ${client?.enabled ? 'desabilitado' : 'habilitado'} no sistema.`
+    });
+  };
     
     if (newClient.name && newClient.email && newClient.weddingDate) {
       const client = {
