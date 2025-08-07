@@ -280,9 +280,9 @@ async def google_authorize(client_id: str, db_session: Session = Depends(get_db)
     drive_service = GoogleDriveService(db_session)
     
     try:
-        # Usar URL do frontend como redirect_uri
-        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001').replace('/api', '')
-        redirect_uri = f"{base_url}/client/google-callback"
+        # URL fixa de callback da aplicação
+        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+        redirect_uri = f"{base_url}/api/auth/google/callback"
         
         auth_url, state = drive_service.get_authorization_url(client_id, redirect_uri)
         return {"auth_url": auth_url, "state": state}
