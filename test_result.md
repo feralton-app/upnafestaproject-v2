@@ -248,3 +248,5 @@ agent_communication:
     - message: "✅ IMPLEMENTAÇÃO COMPLETA: Integração Google Drive API totalmente implementada e testada com sucesso. Backend com MariaDB, modelos, endpoints e OAuth2 flow funcionando 100%. Frontend com configuração administrativa e alteração de data do álbum testados. Sistema pronto para uso com credentials reais do Google Cloud API."
     - agent: "testing"
     - message: "BACKEND TESTING COMPLETED: Executados 20 testes principais + testes avançados. TODOS OS ENDPOINTS BACKEND FUNCIONANDO PERFEITAMENTE. Database MariaDB com 6 tabelas criadas e funcionais. Google Config endpoints, Client/Album management, OAuth2 flow, file upload - tudo validado. Sistema pronto para uso com credentials reais do Google. Apenas frontend precisa ser testado."
+    - agent: "main"
+    - message: "🐛 BUG CRÍTICO CORRIGIDO: Folder ID vazio não persistia após refresh. Problema identificado no useEffect do ClientDashboard.jsx que só atualizava tempFolderId para valores truthy. Correção implementada: verificar !== undefined e usar googleFolderId || ''. Teste automatizado confirmou: valor vazio agora persiste corretamente após refresh."
