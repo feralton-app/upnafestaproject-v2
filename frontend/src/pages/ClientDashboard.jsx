@@ -175,6 +175,104 @@ const ClientDashboard = () => {
               <Badge className={getStatusColor(client.status)}>
                 {getStatusLabel(client.status)}
               </Badge>
+              
+              {/* Google Drive Connection */}
+              <Dialog open={showGoogleDialog} onOpenChange={setShowGoogleDialog}>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={client.googleDriveConnected ? "text-green-700 border-green-300" : "text-blue-700 border-blue-300"}
+                  >
+                    <LinkIcon className="w-3 h-3 mr-1" />
+                    {client.googleDriveConnected ? 'Google Conectado' : 'Conectar Google'}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="text-amber-900">Conectar Google Drive</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <p className="text-amber-700">
+                      Conecte sua conta do Google Drive para que as fotos dos convidados sejam salvas diretamente na sua pasta.
+                    </p>
+                    <div>
+                      <Label htmlFor="googleFolder" className="text-amber-800">ID da Pasta do Google Drive</Label>
+                      <Input
+                        id="googleFolder"
+                        value={googleFolderId}
+                        onChange={(e) => setGoogleFolderId(e.target.value)}
+                        placeholder="1A2B3C4D5E6F7G8H9I0J"
+                        className="border-amber-300"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">
+                        Cole aqui o ID da pasta onde as fotos serão armazenadas
+                      </p>
+                    </div>
+                    <Button onClick={connectGoogleDrive} className="w-full bg-amber-600 hover:bg-amber-700">
+                      <FolderOpen className="w-4 h-4 mr-2" />
+                      Conectar
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              
+              {/* Reset Password */}
+              <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="text-blue-700 border-blue-300">
+                    <KeyRound className="w-3 h-3 mr-1" />
+                    Alterar Senha
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="text-amber-900">Alterar Senha</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="currentPassword" className="text-amber-800">Senha Atual</Label>
+                      <Input
+                        id="currentPassword"
+                        type="password"
+                        value={newPassword.current}
+                        onChange={(e) => setNewPassword({...newPassword, current: e.target.value})}
+                        className="border-amber-300"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="newPassword" className="text-amber-800">Nova Senha</Label>
+                      <Input
+                        id="newPassword"
+                        type="password"
+                        value={newPassword.new}
+                        onChange={(e) => setNewPassword({...newPassword, new: e.target.value})}
+                        className="border-amber-300"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="confirmPassword" className="text-amber-800">Confirmar Nova Senha</Label>
+                      <Input
+                        id="confirmPassword"
+                        type="password"
+                        value={newPassword.confirm}
+                        onChange={(e) => setNewPassword({...newPassword, confirm: e.target.value})}
+                        className="border-amber-300"
+                      />
+                    </div>
+                    <Button onClick={changePassword} className="w-full bg-amber-600 hover:bg-amber-700">
+                      <KeyRound className="w-4 h-4 mr-2" />
+                      Alterar Senha
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              
+              {/* Logout */}
+              <Button variant="outline" size="sm" onClick={handleLogout} className="text-red-700 border-red-300">
+                <LogOut className="w-3 h-3 mr-1" />
+                Sair
+              </Button>
             </div>
           </div>
         </div>
