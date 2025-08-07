@@ -10,7 +10,7 @@ export const mockClients = [
     createdAt: '2025-01-10',
     paymentDate: '2025-01-12',
     approvalDate: '2025-01-13',
-    googleDriveConnected: true,
+    googleDriveConnected: false,
     googleAccount: 'ana.carlos@gmail.com',
     paymentStatus: 'confirmed',
     enabled: true,
