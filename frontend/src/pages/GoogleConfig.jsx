@@ -276,7 +276,7 @@ const GoogleConfig = () => {
                   <div className="bg-amber-50 p-4 rounded-lg">
                     <h4 className="font-semibold text-amber-900 mb-2">Passos para Configurar:</h4>
                     <ol className="list-decimal list-inside space-y-1 text-sm text-amber-700">
-                      {redirectUrisInfo.instructions.map((instruction, index) => (
+                      {callbackInfo.instructions.map((instruction, index) => (
                         <li key={index}>{instruction}</li>
                       ))}
                     </ol>
