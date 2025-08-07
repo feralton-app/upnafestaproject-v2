@@ -51,7 +51,7 @@ const ClientDashboard = () => {
   const [showDeleteAlbumDialog, setShowDeleteAlbumDialog] = useState(false);
   const [showCreateAlbumDialog, setShowCreateAlbumDialog] = useState(false);
   const [showImageUploadDialog, setShowImageUploadDialog] = useState(false);
-  const [newAlbumName, setNewAlbumName] = useState('');
+  const [newAlbum, setNewAlbum] = useState({ name: '', eventDate: '' });
   const [googleConfig, setGoogleConfig] = useState({
     account: client?.googleAccount || '',
     folderId: selectedAlbum?.googleFolderId || ''
