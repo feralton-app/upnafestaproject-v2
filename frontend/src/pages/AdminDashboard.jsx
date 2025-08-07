@@ -157,7 +157,7 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link to="/site-management">
+              <Link to="/admin/site-management">
                 <Button variant="outline" className="text-amber-700 border-amber-300">
                   <Settings className="w-4 h-4 mr-2" />
                   Gerenciar Site
