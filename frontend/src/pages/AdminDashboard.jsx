@@ -45,6 +45,7 @@ const AdminDashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
+  const [selectedClientId, setSelectedClientId] = useState(null);
   const [editingClient, setEditingClient] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
   const navigate = useNavigate();
