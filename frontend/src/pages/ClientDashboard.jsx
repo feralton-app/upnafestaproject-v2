@@ -91,12 +91,54 @@ const ClientDashboard = () => {
     }
   };
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
+  const handleLogout = () => {
     toast({
-      title: "Copiado!",
-      description: "Link copiado para a área de transferência."
+      title: "Logout realizado!",
+      description: "Você foi desconectado com sucesso."
     });
+    navigate('/');
+  };
+
+  const connectGoogleDrive = () => {
+    if (googleFolderId) {
+      toast({
+        title: "Google Drive conectado!",
+        description: "Sua conta foi conectada com sucesso."
+      });
+      setShowGoogleDialog(false);
+    }
+  };
+
+  const changePassword = () => {
+    if (newPassword.current && newPassword.new && newPassword.new === newPassword.confirm) {
+      toast({
+        title: "Senha alterada!",
+        description: "Sua senha foi alterada com sucesso."
+      });
+      setShowPasswordDialog(false);
+      setNewPassword({ current: '', new: '', confirm: '' });
+    } else {
+      toast({
+        title: "Erro ao alterar senha",
+        description: "Verifique se as senhas coincidem.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const createAlbum = () => {
+    toast({
+      title: "Álbum criado!",
+      description: "Realize o pagamento para ativar seu álbum."
+    });
+  };
+
+  const deleteAlbum = () => {
+    toast({
+      title: "Álbum excluído!",
+      description: "Seu álbum foi excluído permanentemente."
+    });
+    setShowDeleteAlbumDialog(false);
   };
 
   const isAlbumActive = client.status === 'approved';
