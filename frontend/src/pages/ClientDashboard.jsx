@@ -1098,21 +1098,21 @@ const ClientDashboard = () => {
                         <h4 className="font-semibold text-amber-900 mb-2">Google Drive deste Álbum</h4>
                         <div className="space-y-2">
                           <Label htmlFor="albumFolder" className="text-amber-800">ID da Pasta (específica para este álbum)</Label>
-                          <Input
+                          <input
                             id="albumFolder"
                             type="text"
                             value={selectedAlbum?.googleFolderId || ''}
                             onChange={(e) => {
                               const newFolderId = e.target.value;
+                              console.log('Folder ID changed to:', newFolderId, 'Length:', newFolderId.length);
                               // Atualizar imediatamente com debounce
                               setTimeout(() => {
                                 updateAlbumFolderId(newFolderId);
                               }, 1000);
                             }}
                             placeholder="1A2B3C4D5E6F7G8H9I0J ou 1BxYz-AbC_123_456789"
-                            className="border-amber-300 font-mono"
-                            maxLength={null}
-                            minLength={null}
+                            className="flex h-9 w-full rounded-md border border-amber-300 bg-transparent px-3 py-1 text-base shadow-sm font-mono"
+                            style={{maxLength: 'none'}}
                           />
                           <p className="text-xs text-amber-600">
                             Deixe vazio para usar a pasta padrão da conta
