@@ -30,8 +30,12 @@ const SiteManagement = () => {
   const [siteConfig, setSiteConfig] = useState(mockSiteConfig);
   const [newFeature, setNewFeature] = useState({ title: '', description: '', subtitle: '' });
   const [newImage, setNewImage] = useState('');
+  const [newStep, setNewStep] = useState({ title: '', description: '' });
+  const [newTestimonial, setNewTestimonial] = useState({ name: '', text: '', avatar: '' });
   const [showFeatureDialog, setShowFeatureDialog] = useState(false);
   const [showImageDialog, setShowImageDialog] = useState(false);
+  const [showStepDialog, setShowStepDialog] = useState(false);
+  const [showTestimonialDialog, setShowTestimonialDialog] = useState(false);
   const { toast } = useToast();
 
   const handleConfigChange = (section, field, value) => {
