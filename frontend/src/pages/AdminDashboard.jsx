@@ -70,6 +70,9 @@ const AdminDashboard = () => {
       description: `${client?.name} foi ${client?.enabled ? 'desabilitado' : 'habilitado'} no sistema.`
     });
   };
+
+  const handleCreateClient = (e) => {
+    e.preventDefault();
     
     if (newClient.name && newClient.email && newClient.weddingDate) {
       const client = {
