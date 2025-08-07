@@ -230,7 +230,7 @@ const GoogleConfig = () => {
                   <div>
                     <Label className="text-amber-800 font-semibold">URIs de Redirecionamento Autorizadas</Label>
                     <div className="space-y-2 mt-2">
-                      {redirectUrisInfo.authorized_redirect_uris.map((uri, index) => (
+                      {callbackInfo.authorized_redirect_uris.map((uri, index) => (
                         <div key={index} className="flex items-center space-x-2">
                           <Input
                             value={uri}
