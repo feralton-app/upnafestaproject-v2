@@ -467,9 +467,14 @@ const ClientDashboard = () => {
                         </div>
 
                         <div className="flex space-x-2">
-                          <Button onClick={connectGoogleDrive} className="flex-1 bg-amber-600 hover:bg-amber-700">
-                            <Settings className="w-4 h-4 mr-2" />
-                            Atualizar Configuração
+                          <Button 
+                            onClick={() => {
+                              updateAlbumFolderId(googleConfig.folderId);
+                            }} 
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <Save className="w-4 h-4 mr-2" />
+                            Salvar ID da Pasta
                           </Button>
                           <Button 
                             onClick={disconnectGoogleDrive} 
