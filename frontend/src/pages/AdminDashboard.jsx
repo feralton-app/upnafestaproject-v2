@@ -22,7 +22,10 @@ import {
   Clock,
   XCircle,
   Eye,
-  DollarSign
+  DollarSign,
+  Trash2,
+  KeyRound,
+  Shield
 } from 'lucide-react';
 import { mockClients, mockStats, getStatusLabel, getStatusColor } from '../mock';
 import { Link } from 'react-router-dom';
