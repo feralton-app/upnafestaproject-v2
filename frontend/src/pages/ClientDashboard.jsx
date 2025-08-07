@@ -190,6 +190,14 @@ const ClientDashboard = () => {
     });
   };
 
+  const updateAlbumDate = (newDate) => {
+    // In a real implementation, this would make an API call
+    toast({
+      title: "Data do álbum atualizada!",
+      description: `A data do evento foi alterada para ${new Date(newDate).toLocaleDateString('pt-BR')}.`
+    });
+  };
+
   const uploadPaymentProof = () => {
     if (paymentProof) {
       toast({
