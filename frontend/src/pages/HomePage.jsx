@@ -191,38 +191,40 @@ const HomePage = () => {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
-              Casais Felizes
-            </h2>
-            <p className="text-xl text-amber-700">
-              Veja o que nossos clientes estão dizendo
-            </p>
-          </div>
+      {mockSiteConfig.testimonials.enabled && (
+        <section id="testimonials" className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
+                {mockSiteConfig.testimonials.title}
+              </h2>
+              <p className="text-xl text-amber-700">
+                {mockSiteConfig.testimonials.subtitle}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {mockTestimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="border-amber-200">
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-6">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
-                    <div>
-                      <h4 className="font-bold text-amber-900">{testimonial.name}</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {mockSiteConfig.testimonials.items.map((testimonial) => (
+                <Card key={testimonial.id} className="border-amber-200">
+                  <CardContent className="p-8">
+                    <div className="flex items-center mb-6">
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full mr-4"
+                      />
+                      <div>
+                        <h4 className="font-bold text-amber-900">{testimonial.name}</h4>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-amber-700 italic">"{testimonial.text}"</p>
-                </CardContent>
-              </Card>
-            ))}
+                    <p className="text-amber-700 italic">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-amber-600 to-orange-600 text-white">
