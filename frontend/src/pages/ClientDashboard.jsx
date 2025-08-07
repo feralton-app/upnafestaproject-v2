@@ -72,6 +72,20 @@ const ClientDashboard = () => {
         });
       }, 1000);
     }
+
+    // Escutar mensagens de popup do Google OAuth
+    const handleMessage = (event) => {
+      if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
+        fetchClientData();
+        toast({
+          title: "Google Drive conectado!",
+          description: `Conectado com a conta ${event.data.email}!`
+        });
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
   
   const fetchClientData = async () => {
