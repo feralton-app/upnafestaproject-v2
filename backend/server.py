@@ -52,12 +52,10 @@ class StatusCheckCreate(BaseModel):
 class GoogleConfigCreate(BaseModel):
     client_id: str
     client_secret: str
-    redirect_uri: str
 
 class GoogleConfigResponse(BaseModel):
     id: str
     client_id: str
-    redirect_uri: str
     is_active: bool
     created_at: datetime
     
