@@ -17,7 +17,10 @@ import {
   Eye,
   Upload,
   Trash2,
-  Plus
+  Plus,
+  Users,
+  ToggleLeft,
+  ToggleRight
 } from 'lucide-react';
 import { mockSiteConfig } from '../mock';
 import { Link } from 'react-router-dom';
