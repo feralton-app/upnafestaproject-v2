@@ -489,11 +489,18 @@ const ClientDashboard = () => {
                     {client.googleDriveConnected ? 'Google Conectado' : 'Conectar Google'}
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className={client.googleDriveConnected ? "" : "bg-red-50 border-red-200"}>
                   <DialogHeader>
-                    <DialogTitle className="text-amber-900">
-                      {client.googleDriveConnected ? 'Gerenciar Google Drive' : 'Conectar Google Drive'}
+                    <DialogTitle className={client.googleDriveConnected ? "text-amber-900" : "text-red-900"}>
+                      {client.googleDriveConnected ? 'Gerenciar Google Drive' : '⚠️ Conectar Google Drive'}
                     </DialogTitle>
+                    {!client.googleDriveConnected && (
+                      <div className="bg-red-100 p-3 rounded-lg border border-red-300 mt-2">
+                        <p className="text-red-800 font-semibold text-sm">
+                          🚨 ATENÇÃO: Após conectar, você DEVE configurar o ID da pasta na aba "Configurações"!
+                        </p>
+                      </div>
+                    )}
                   </DialogHeader>
                   <div className="space-y-4">
                     {client.googleDriveConnected ? (
