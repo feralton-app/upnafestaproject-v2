@@ -147,7 +147,7 @@ const SiteManagement = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="content" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-amber-100">
+          <TabsList className="grid w-full grid-cols-5 bg-amber-100">
             <TabsTrigger value="content" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Type className="w-4 h-4 mr-2" />
               Conteúdo
@@ -160,9 +160,13 @@ const SiteManagement = () => {
               <Settings className="w-4 h-4 mr-2" />
               Recursos
             </TabsTrigger>
-            <TabsTrigger value="pricing" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
-              <DollarSign className="w-4 h-4 mr-2" />
-              Preços
+            <TabsTrigger value="how-it-works" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Settings className="w-4 h-4 mr-2" />
+              Como Funciona
+            </TabsTrigger>
+            <TabsTrigger value="testimonials" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Users className="w-4 h-4 mr-2" />
+              Depoimentos
             </TabsTrigger>
           </TabsList>
 
