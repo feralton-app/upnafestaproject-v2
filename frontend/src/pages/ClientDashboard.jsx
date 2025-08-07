@@ -73,12 +73,8 @@ const ClientDashboard = () => {
       
       // Recarregar dados do cliente
       setTimeout(() => {
-        fetchClientData();
-        toast({
-          title: "Google Drive conectado!",
-          description: "Conexão realizada! Configure o ID da pasta na aba 'Configurações' para definir onde salvar as fotos.",
-          duration: 6000
-        });
+        // Refresh completo da página
+        window.location.reload();
       }, 1000);
     }
 
