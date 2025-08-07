@@ -241,11 +241,16 @@ const AdminDashboard = () => {
                   Gerenciar Site
                 </Button>
               </Link>
-              <Link to="/">
+              <a href="/" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="text-amber-700 border-amber-300">
+                  <Eye className="w-4 h-4 mr-2" />
                   Ver Site
                 </Button>
-              </Link>
+              </a>
+              <Button variant="outline" onClick={handleLogout} className="text-red-700 border-red-300">
+                <LogOut className="w-4 h-4 mr-2" />
+                Sair
+              </Button>
             </div>
           </div>
         </div>
