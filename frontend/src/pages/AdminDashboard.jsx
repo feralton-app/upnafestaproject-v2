@@ -671,6 +671,75 @@ const AdminDashboard = () => {
             </div>
           </DialogContent>
         </Dialog>
+
+        {/* Edit Client Dialog */}
+        <Dialog open={editDialog} onOpenChange={setEditDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-amber-900 flex items-center">
+                <Edit className="w-5 h-5 mr-2" />
+                Editar Cliente
+              </DialogTitle>
+            </DialogHeader>
+            {editingClient && (
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="editName" className="text-amber-800">Nome do Casal</Label>
+                  <Input
+                    id="editName"
+                    value={editingClient.name}
+                    onChange={(e) => setEditingClient({...editingClient, name: e.target.value})}
+                    className="border-amber-300"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editEmail" className="text-amber-800">Email</Label>
+                  <Input
+                    id="editEmail"
+                    type="email"
+                    value={editingClient.email}
+                    onChange={(e) => setEditingClient({...editingClient, email: e.target.value})}
+                    className="border-amber-300"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editWeddingDate" className="text-amber-800">Data do Casamento</Label>
+                  <Input
+                    id="editWeddingDate"
+                    type="date"
+                    value={editingClient.weddingDate}
+                    onChange={(e) => setEditingClient({...editingClient, weddingDate: e.target.value})}
+                    className="border-amber-300"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editAlbumLimit" className="text-amber-800">Limite de Álbuns</Label>
+                  <Input
+                    id="editAlbumLimit"
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={editingClient.albumLimit || 1}
+                    onChange={(e) => setEditingClient({...editingClient, albumLimit: parseInt(e.target.value)})}
+                    className="border-amber-300"
+                  />
+                  <p className="text-xs text-amber-600 mt-1">
+                    Quantidade máxima de álbuns que o cliente pode criar
+                  </p>
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <Button variant="outline" onClick={() => setEditDialog(false)}>
+                    Cancelar
+                  </Button>
+                  <Button onClick={updateClient} className="bg-amber-600 hover:bg-amber-700">
+                    <Edit className="w-4 h-4 mr-2" />
+                    Salvar Alterações
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
