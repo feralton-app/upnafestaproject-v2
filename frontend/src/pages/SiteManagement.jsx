@@ -81,19 +81,91 @@ const SiteManagement = () => {
     });
   };
 
-  const addImage = () => {
-    if (newImage) {
+  const addStep = () => {
+    if (newStep.title && newStep.description) {
+      const nextNumber = siteConfig.howItWorks.steps.length + 1;
       setSiteConfig(prev => ({
         ...prev,
-        heroImages: [...prev.heroImages, newImage]
+        howItWorks: {
+          ...prev.howItWorks,
+          steps: [...prev.howItWorks.steps, { ...newStep, number: nextNumber }]
+        }
       }));
-      setNewImage('');
-      setShowImageDialog(false);
+      setNewStep({ title: '', description: '' });
+      setShowStepDialog(false);
       toast({
-        title: "Imagem adicionada!",
-        description: "A nova imagem foi adicionada à seção hero."
+        title: "Passo adicionado!",
+        description: "O novo passo foi adicionado à seção Como Funciona."
       });
     }
+  };
+
+  const removeStep = (index) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      howItWorks: {
+        ...prev.howItWorks,
+        steps: prev.howItWorks.steps.filter((_, i) => i !== index).map((step, i) => ({
+          ...step,
+          number: i + 1
+        }))
+      }
+    }));
+    toast({
+      title: "Passo removido",
+      description: "O passo foi removido da seção Como Funciona."
+    });
+  };
+
+  const addTestimonial = () => {
+    if (newTestimonial.name && newTestimonial.text) {
+      const testimonial = {
+        ...newTestimonial,
+        id: String(siteConfig.testimonials.items.length + 1),
+        avatar: newTestimonial.avatar || 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&q=80'
+      };
+      setSiteConfig(prev => ({
+        ...prev,
+        testimonials: {
+          ...prev.testimonials,
+          items: [...prev.testimonials.items, testimonial]
+        }
+      }));
+      setNewTestimonial({ name: '', text: '', avatar: '' });
+      setShowTestimonialDialog(false);
+      toast({
+        title: "Depoimento adicionado!",
+        description: "O novo depoimento foi adicionado à página."
+      });
+    }
+  };
+
+  const removeTestimonial = (index) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      testimonials: {
+        ...prev.testimonials,
+        items: prev.testimonials.items.filter((_, i) => i !== index)
+      }
+    }));
+    toast({
+      title: "Depoimento removido",
+      description: "O depoimento foi removido da página."
+    });
+  };
+
+  const toggleSection = (section) => {
+    setSiteConfig(prev => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        enabled: !prev[section].enabled
+      }
+    }));
+    toast({
+      title: "Seção atualizada!",
+      description: `A seção foi ${siteConfig[section].enabled ? 'desabilitada' : 'habilitada'}.`
+    });
   };
 
   const removeImage = (index) => {
