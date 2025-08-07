@@ -297,12 +297,35 @@ const ClientDashboard = () => {
     });
   };
 
-  const updateAlbumDate = (newDate) => {
-    // In a real implementation, this would make an API call
-    toast({
-      title: "Data do álbum atualizada!",
-      description: `A data do evento foi alterada para ${new Date(newDate).toLocaleDateString('pt-BR')}.`
-    });
+  const updateAlbumFolderId = async (folderId) => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/clients/${clientId}/albums/${selectedAlbum.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          google_folder_id: folderId
+        })
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Pasta atualizada!",
+          description: "ID da pasta do Google Drive foi salvo."
+        });
+        fetchClientData(); // Recarregar dados
+      } else {
+        throw new Error('Falha ao atualizar');
+      }
+    } catch (error) {
+      toast({
+        title: "Erro ao salvar",
+        description: "Não foi possível salvar o ID da pasta.",
+        variant: "destructive"
+      });
+    }
   };
 
   const uploadPaymentProof = () => {
