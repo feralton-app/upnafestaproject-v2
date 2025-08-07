@@ -76,28 +76,24 @@ const AdminDashboard = () => {
 
   const handleCreateClient = (e) => {
     e.preventDefault();
-    if (newClient.name && newClient.email && newClient.weddingDate) {
+  const handleCreateClient = (e) => {
+    e.preventDefault();
+    
+    if (newClient.name && newClient.email) {
       const client = {
         id: String(clients.length + 1),
         ...newClient,
         status: 'pending_payment',
-        albumId: `album-${newClient.name.toLowerCase().replace(/\s+/g, '-')}-${new Date().getFullYear()}`,
         createdAt: new Date().toISOString().split('T')[0],
         googleDriveConnected: false,
         paymentStatus: 'pending',
         enabled: true,
-        customization: {
-          primaryColor: '#8B4513',
-          secondaryColor: '#DEB887',
-          mainPhoto: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-          welcomeMessage: 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
-          thankYouMessage: 'Obrigado por fazer parte da nossa história de amor!'
-        },
+        albums: [],
         notifications: [
           {
             id: `notif-${Date.now()}`,
-            title: 'Álbum Criado - Pagamento Necessário',
-            message: 'Seu álbum foi criado! Para ativá-lo, realize o pagamento de R$ 99,90.',
+            title: 'Conta Criada - Pagamento Necessário',
+            message: 'Sua conta foi criada! Para ativá-la, realize o pagamento de R$ 99,90.',
             type: 'warning',
             date: new Date().toISOString().split('T')[0],
             read: false
@@ -106,7 +102,7 @@ const AdminDashboard = () => {
       };
       
       setClients([...clients, client]);
-      setNewClient({ name: '', email: '', weddingDate: '', albumLimit: 1 });
+      setNewClient({ name: '', email: '', albumLimit: 1 });
       setIsDialogOpen(false);
       
       toast({
