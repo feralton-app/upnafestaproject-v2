@@ -1116,7 +1116,8 @@ const ClientDashboard = () => {
                             className="flex w-full rounded-md border border-amber-300 bg-transparent px-3 py-1 text-sm shadow-sm font-mono resize-none"
                           />
                           <p className="text-xs text-amber-600">
-                            Cole o ID da pasta do Google Drive onde os arquivos serão salvos
+                            Cole o ID da pasta do Google Drive onde os arquivos serão salvos.<br/>
+                            <strong>Se deixar vazio, o sistema criará uma pasta automaticamente no seu Google Drive.</strong>
                           </p>
                           
                           <Button 
