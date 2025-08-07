@@ -214,12 +214,32 @@ const ClientDashboard = () => {
     }
   };
 
-  const disconnectGoogleDrive = () => {
-    toast({
-      title: "Google Drive desconectado!",
-      description: "Sua conta foi desconectada com sucesso."
-    });
-    setGoogleConfig({ account: '', folderId: '' });
+  const disconnectGoogleDrive = async () => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/clients/${clientId}/google-connection`, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Google Drive desconectado!",
+          description: "Sua conta foi desconectada com sucesso."
+        });
+        
+        // Recarregar dados do cliente
+        fetchClientData();
+        setShowGoogleDialog(false);
+      } else {
+        throw new Error('Falha ao desconectar');
+      }
+    } catch (error) {
+      toast({
+        title: "Erro ao desconectar",
+        description: "Não foi possível desconectar o Google Drive.",
+        variant: "destructive"
+      });
+    }
   };
 
   const changePassword = () => {
