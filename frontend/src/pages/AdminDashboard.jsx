@@ -39,6 +39,9 @@ const AdminDashboard = () => {
     weddingDate: ''
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
+  const [selectedClientId, setSelectedClientId] = useState(null);
   const { toast } = useToast();
 
   const handleCreateClient = (e) => {
