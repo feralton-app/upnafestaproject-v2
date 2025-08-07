@@ -29,11 +29,6 @@ const HomePage = () => {
                   Entrar
                 </Button>
               </Link>
-              <Link to="/admin">
-                <Button className="bg-amber-600 hover:bg-amber-700 text-white">
-                  Criar Álbum
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
