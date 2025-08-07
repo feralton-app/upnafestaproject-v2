@@ -57,6 +57,13 @@ const ClientDashboard = () => {
     fetchClientData();
   }, [clientId]);
   
+  // Inicializar tempFolderId com valor atual
+  useEffect(() => {
+    if (selectedAlbum?.googleFolderId) {
+      setTempFolderId(selectedAlbum.googleFolderId);
+    }
+  }, [selectedAlbum?.googleFolderId]);
+
   // Verificar se foi redirecionado do Google OAuth
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
