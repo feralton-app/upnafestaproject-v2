@@ -28,7 +28,8 @@ import {
   Shield,
   LogOut,
   UserCheck,
-  UserX
+  UserX,
+  Edit
 } from 'lucide-react';
 import { mockClients, mockStats, getStatusLabel, getStatusColor } from '../mock';
 import { Link, useNavigate } from 'react-router-dom';
