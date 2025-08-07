@@ -91,6 +91,14 @@ const ClientDashboard = () => {
     }
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copiado!",
+      description: "Link copiado para a área de transferência."
+    });
+  };
+
   const handleLogout = () => {
     toast({
       title: "Logout realizado!",
