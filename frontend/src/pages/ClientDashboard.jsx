@@ -501,13 +501,28 @@ const ClientDashboard = () => {
                             <Label htmlFor="albumName" className="text-amber-800">Nome do Álbum</Label>
                             <Input
                               id="albumName"
-                              value={newAlbumName}
-                              onChange={(e) => setNewAlbumName(e.target.value)}
+                              value={newAlbum.name}
+                              onChange={(e) => setNewAlbum({...newAlbum, name: e.target.value})}
                               placeholder="Ex: Casamento Principal"
                               className="border-amber-300"
                             />
                           </div>
-                          <Button onClick={createAlbum} className="w-full bg-amber-600 hover:bg-amber-700">
+                          <div>
+                            <Label htmlFor="eventDate" className="text-amber-800">Data do Evento</Label>
+                            <Input
+                              id="eventDate"
+                              type="date"
+                              value={newAlbum.eventDate}
+                              onChange={(e) => setNewAlbum({...newAlbum, eventDate: e.target.value})}
+                              className="border-amber-300"
+                              required
+                            />
+                          </div>
+                          <Button 
+                            onClick={createAlbum} 
+                            className="w-full bg-amber-600 hover:bg-amber-700"
+                            disabled={!newAlbum.name || !newAlbum.eventDate}
+                          >
                             <Plus className="w-4 h-4 mr-2" />
                             Criar Álbum
                           </Button>
