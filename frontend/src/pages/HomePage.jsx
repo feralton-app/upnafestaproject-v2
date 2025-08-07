@@ -43,9 +43,6 @@ const HomePage = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-6 bg-amber-100 text-amber-800">
-              ✨ Grátis e Ilimitado
-            </Badge>
             <h1 className="text-4xl md:text-6xl font-bold text-amber-900 mb-6 leading-tight">
               {mockSiteConfig.heroTitle}
             </h1>
@@ -53,11 +50,18 @@ const HomePage = () => {
               {mockSiteConfig.heroSubtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg">
-                <Heart className="w-5 h-5 mr-2" />
-                Criar Álbum Grátis
-              </Button>
-              <Button size="lg" variant="outline" className="text-amber-700 border-amber-300 hover:bg-amber-50 px-8 py-4 text-lg">
+              <Link to="/login">
+                <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg">
+                  <Heart className="w-5 h-5 mr-2" />
+                  Criar Álbum
+                </Button>
+              </Link>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-amber-700 border-amber-300 hover:bg-amber-50 px-8 py-4 text-lg"
+                onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}
+              >
                 Ver Como Funciona
               </Button>
             </div>
