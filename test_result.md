@@ -116,6 +116,9 @@ backend:
         - working: true
         - agent: "main"
         - comment: "Criado modelos GoogleConfig, Client, Album, GoogleToken, Upload, Notification no database.py. MariaDB instalado e tabelas criadas com sucesso."
+        - working: true
+        - agent: "testing"
+        - comment: "TESTED: Todas as 6 tabelas criadas corretamente no MariaDB (google_configs, clients, albums, google_tokens, notifications, uploads). Estrutura das tabelas validada e funcionando perfeitamente."
 
   - task: "Implementar modelos MariaDB para tokens OAuth dos clientes"
     implemented: true
@@ -128,42 +131,54 @@ backend:
         - working: true
         - agent: "main"
         - comment: "Modelo GoogleToken criado para armazenar access_token, refresh_token, scopes, google_email dos clientes"
+        - working: true
+        - agent: "testing"
+        - comment: "TESTED: Modelo GoogleToken validado com todos os campos necessários (access_token, refresh_token, scopes, google_email, expires_at). Relacionamentos com Client funcionando."
 
   - task: "Implementar endpoints para configuração de Google Cloud API (admin)"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "Endpoints implementados: POST /api/admin/google-config, GET /api/admin/google-config, GET /api/admin/google-redirect-uris"
+        - working: true
+        - agent: "testing"
+        - comment: "TESTED: Todos os endpoints de configuração Google funcionando perfeitamente. POST /api/admin/google-config cria configuração, GET retorna configuração ativa, GET /api/admin/google-redirect-uris retorna 4 URIs de redirecionamento. Validação de dados funcionando."
 
   - task: "Implementar OAuth2 flow real para Google Drive"
     implemented: true
-    working: "NA"
+    working: true
     file: "google_drive_service.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "GoogleDriveService criado com métodos para OAuth flow, upload de arquivos, criação de pastas no Google Drive"
+        - working: true
+        - agent: "testing"
+        - comment: "TESTED: OAuth2 flow funcionando corretamente. GET /api/auth/google/authorize/{client_id} gera URL de autorização válida com parâmetros Google OAuth. Callback endpoint valida códigos/states. Disconnect endpoint funciona. Tratamento de erros adequado para clientes inexistentes."
 
   - task: "Implementar endpoints para cliente management e album management"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "Endpoints criados para CRUD de clientes e álbuns, integração com Google Drive"
+        - working: true
+        - agent: "testing"
+        - comment: "TESTED: Todos os endpoints de gerenciamento funcionando. POST /api/admin/clients cria clientes com notificação automática. GET /api/admin/clients e GET /api/clients/{id} funcionam. Álbuns: criação bloqueada para clientes pending_payment (correto), GET álbuns funciona, PUT atualização funciona para clientes aprovados. Validações de limite de álbuns e status funcionando."
 
 frontend:
   - task: "Adicionar área administrativa para configurar Google Cloud credentials"
