@@ -987,9 +987,13 @@ const ClientDashboard = () => {
                           <Label htmlFor="albumFolder" className="text-amber-800">ID da Pasta (específica para este álbum)</Label>
                           <Input
                             id="albumFolder"
-                            value={selectedAlbum.googleFolderId || ''}
+                            value={selectedAlbum?.googleFolderId || ''}
                             onChange={(e) => {
-                              // Update album specific folder
+                              const newFolderId = e.target.value;
+                              // Atualizar imediatamente com debounce
+                              setTimeout(() => {
+                                updateAlbumFolderId(newFolderId);
+                              }, 1000);
                             }}
                             placeholder="1A2B3C4D5E6F7G8H9I0J"
                             className="border-amber-300"
