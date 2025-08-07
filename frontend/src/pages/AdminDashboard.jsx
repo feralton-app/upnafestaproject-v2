@@ -25,10 +25,13 @@ import {
   DollarSign,
   Trash2,
   KeyRound,
-  Shield
+  Shield,
+  LogOut,
+  UserCheck,
+  UserX
 } from 'lucide-react';
 import { mockClients, mockStats, getStatusLabel, getStatusColor } from '../mock';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../hooks/use-toast';
 
 const AdminDashboard = () => {
