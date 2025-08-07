@@ -524,6 +524,63 @@ const AdminDashboard = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Delete Client Dialog */}
+        <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-amber-900 flex items-center">
+                <Trash2 className="w-5 h-5 mr-2 text-red-600" />
+                Confirmar Exclusão
+              </DialogTitle>
+              <DialogDescription className="text-amber-600">
+                Esta ação não pode ser desfeita. Todos os dados do cliente, incluindo álbum e uploads, serão permanentemente excluídos.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-end space-x-2">
+              <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+                Cancelar
+              </Button>
+              <Button variant="destructive" onClick={deleteClient}>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Excluir Cliente
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Reset Password Dialog */}
+        <Dialog open={resetPasswordDialogOpen} onOpenChange={setResetPasswordDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-amber-900 flex items-center">
+                <KeyRound className="w-5 h-5 mr-2 text-blue-600" />
+                Reset de Senha
+              </DialogTitle>
+              <DialogDescription className="text-amber-600">
+                Uma senha temporária será gerada e enviada para o cliente. Ele precisará alterar a senha no próximo login.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <div className="flex items-center">
+                <Shield className="w-5 h-5 text-blue-600 mr-2" />
+                <div>
+                  <p className="text-sm font-medium text-blue-900">Senha Temporária</p>
+                  <p className="text-sm text-blue-700">Uma senha temporária "temp123" será criada</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end space-x-2">
+              <Button variant="outline" onClick={() => setResetPasswordDialogOpen(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={resetPassword} className="bg-blue-600 hover:bg-blue-700">
+                <KeyRound className="w-4 h-4 mr-2" />
+                Gerar Nova Senha
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
