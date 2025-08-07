@@ -132,13 +132,13 @@ const ClientDashboard = () => {
   };
 
   const createAlbum = () => {
-    if (newAlbumName && client.albums.length < client.albumLimit && client.status === 'approved') {
+    if (newAlbum.name && newAlbum.eventDate && client.albums.length < client.albumLimit && client.status === 'approved') {
       toast({
         title: "Álbum criado!",
-        description: `Álbum "${newAlbumName}" criado com sucesso!`
+        description: `Álbum "${newAlbum.name}" criado com sucesso!`
       });
       setShowCreateAlbumDialog(false);
-      setNewAlbumName('');
+      setNewAlbum({ name: '', eventDate: '' });
     } else if (client.status !== 'approved') {
       toast({
         title: "Pagamento pendente",
@@ -147,8 +147,8 @@ const ClientDashboard = () => {
       });
     } else {
       toast({
-        title: "Limite atingido",
-        description: "Você já atingiu o limite de álbuns permitidos.",
+        title: "Limite atingido ou dados incompletos",
+        description: "Verifique se preencheu todos os campos e se não atingiu o limite de álbuns.",
         variant: "destructive"
       });
     }
