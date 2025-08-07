@@ -73,7 +73,6 @@ const AdminDashboard = () => {
 
   const handleCreateClient = (e) => {
     e.preventDefault();
-    
     if (newClient.name && newClient.email && newClient.weddingDate) {
       const client = {
         id: String(clients.length + 1),
@@ -83,6 +82,7 @@ const AdminDashboard = () => {
         createdAt: new Date().toISOString().split('T')[0],
         googleDriveConnected: false,
         paymentStatus: 'pending',
+        enabled: true,
         customization: {
           primaryColor: '#8B4513',
           secondaryColor: '#DEB887',
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
       };
       
       setClients([...clients, client]);
-      setNewClient({ name: '', email: '', weddingDate: '' });
+      setNewClient({ name: '', email: '', weddingDate: '', albumLimit: 1 });
       setIsDialogOpen(false);
       
       toast({
