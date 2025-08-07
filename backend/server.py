@@ -302,11 +302,45 @@ async def google_callback(code: str, state: str, db_session: Session = Depends(g
         
         token = drive_service.handle_oauth_callback(code, state, redirect_uri)
         
-        # Redirecionar de volta para o frontend com sucesso
+        # Extrair client_id do state
         client_id = state.replace('client_id:', '')
-        # Para frontend, usar a mesma base URL mas sem /api
-        frontend_url = base_url.replace('/api', '') if '/api' in base_url else base_url
-        return RedirectResponse(f"{frontend_url}/client/{client_id}?google_connected=true")
+        
+        # HTML para fechar popup e comunicar com janela pai
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Conectado com sucesso!</title>
+            <style>
+                body {{ font-family: Arial, sans-serif; text-align: center; padding: 50px; }}
+                .success {{ color: #22c55e; }}
+            </style>
+        </head>
+        <body>
+            <h2 class="success">✅ Google Drive Conectado!</h2>
+            <p>Sua conta foi conectada com sucesso!</p>
+            <script>
+                // Se está em popup, fechar e comunicar com janela pai
+                if (window.opener) {{
+                    window.opener.postMessage({{
+                        type: 'GOOGLE_AUTH_SUCCESS',
+                        clientId: '{client_id}',
+                        email: '{token.google_email}'
+                    }}, '*');
+                    window.close();
+                }} else {{
+                    // Se não é popup, redirecionar normalmente
+                    setTimeout(() => {{
+                        window.location.href = '{base_url.replace("/api", "")}/client/{client_id}?google_connected=true';
+                    }}, 2000);
+                }}
+            </script>
+        </body>
+        </html>
+        """
+        
+        from fastapi.responses import HTMLResponse
+        return HTMLResponse(content=html_content)
         
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
