@@ -253,7 +253,7 @@ const GoogleConfig = () => {
                   <div>
                     <Label className="text-amber-800 font-semibold">Origins JavaScript Autorizadas</Label>
                     <div className="space-y-2 mt-2">
-                      {redirectUrisInfo.authorized_javascript_origins.map((origin, index) => (
+                      {callbackInfo.authorized_javascript_origins.map((origin, index) => (
                         <div key={index} className="flex items-center space-x-2">
                           <Input
                             value={origin}
