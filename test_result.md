@@ -106,100 +106,124 @@ user_problem_statement: "Habilitar integração real com Google Drive API na apl
 
 backend:
   - task: "Implementar modelos MariaDB para credenciais Google Cloud API (admin)"
-    implemented: false
-    working: "NA"
-    file: "server.py"
+    implemented: true
+    working: true
+    file: "database.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
-        - working: "NA"
+        - working: true
         - agent: "main"
-        - comment: "Precisa criar modelos para armazenar Google Cloud credentials no MariaDB"
+        - comment: "Criado modelos GoogleConfig, Client, Album, GoogleToken, Upload, Notification no database.py. MariaDB instalado e tabelas criadas com sucesso."
 
   - task: "Implementar modelos MariaDB para tokens OAuth dos clientes"
-    implemented: false
-    working: "NA" 
-    file: "server.py"
+    implemented: true
+    working: true
+    file: "database.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
-        - working: "NA"
+        - working: true
         - agent: "main"
-        - comment: "Precisa criar tabelas para armazenar tokens OAuth dos clientes"
+        - comment: "Modelo GoogleToken criado para armazenar access_token, refresh_token, scopes, google_email dos clientes"
 
   - task: "Implementar endpoints para configuração de Google Cloud API (admin)"
-    implemented: false
+    implemented: true
     working: "NA"
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
-        - comment: "Endpoints para admin salvar/editar credentials do Google"
+        - comment: "Endpoints implementados: POST /api/admin/google-config, GET /api/admin/google-config, GET /api/admin/google-redirect-uris"
 
   - task: "Implementar OAuth2 flow real para Google Drive"
-    implemented: false
+    implemented: true
     working: "NA"
-    file: "server.py"
+    file: "google_drive_service.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
-        - comment: "Implementar integração real com Google Drive API OAuth"
+        - comment: "GoogleDriveService criado com métodos para OAuth flow, upload de arquivos, criação de pastas no Google Drive"
+
+  - task: "Implementar endpoints para cliente management e album management"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Endpoints criados para CRUD de clientes e álbuns, integração com Google Drive"
 
 frontend:
   - task: "Adicionar área administrativa para configurar Google Cloud credentials"
-    implemented: false
+    implemented: true
     working: "NA"
-    file: "AdminDashboard.jsx"
+    file: "GoogleConfig.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
-        - comment: "Criar interface para admin configurar Google API credentials"
+        - comment: "Criada página GoogleConfig.jsx com interface para admin configurar client_id, client_secret, redirect_uri e instruções de configuração"
 
   - task: "Implementar troca de data do álbum na área do cliente"
-    implemented: false
+    implemented: true
     working: "NA"
     file: "ClientDashboard.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
-        - comment: "Permitir que cliente altere data do álbum"
+        - comment: "Adicionada funcionalidade updateAlbumDate na aba Settings com campo de data do evento"
 
   - task: "Conectar frontend ao OAuth2 real do Google Drive"
-    implemented: false
+    implemented: true
     working: "NA"
     file: "ClientDashboard.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
         - agent: "main"
-        - comment: "Substituir simulação por integração real OAuth Google"
+        - comment: "Função connectGoogleDrive atualizada para fazer chamada real ao backend /api/auth/google/authorize/"
+
+  - task: "Adicionar rota para configuração Google no AdminDashboard"
+    implemented: true
+    working: "NA"
+    file: "AdminDashboard.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Adicionado botão e link para /admin/google-config no header do AdminDashboard"
 
 metadata:
   created_by: "main_agent"
-  version: "1.0"
-  test_sequence: 0
+  version: "1.1"
+  test_sequence: 1
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Implementar modelos MariaDB para credenciais Google Cloud API (admin)"
-    - "Implementar modelos MariaDB para tokens OAuth dos clientes"
+    - "Implementar endpoints para configuração de Google Cloud API (admin)"
+    - "Implementar OAuth2 flow real para Google Drive"
     - "Adicionar área administrativa para configurar Google Cloud credentials"
   stuck_tasks: []
   test_all: false
@@ -207,4 +231,4 @@ test_plan:
 
 agent_communication:
     - agent: "main"
-    - message: "Iniciando implementação da integração real com Google Drive API. Prioridade nas configurações administrativas e modelos de dados."
+    - message: "Implementação da integração Google Drive API concluída. Backend com MariaDB, modelos de dados, GoogleDriveService, endpoints de admin e cliente. Frontend com GoogleConfig page, atualização do ClientDashboard para OAuth real e alteração de data do álbum. Pronto para testes."
