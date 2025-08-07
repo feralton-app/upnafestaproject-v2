@@ -116,6 +116,35 @@ const AdminDashboard = () => {
     });
   };
 
+  const rejectPayment = (clientId) => {
+    setClients(clients.map(client => 
+      client.id === clientId 
+        ? { 
+            ...client, 
+            status: 'rejected',
+            paymentStatus: 'rejected',
+            notifications: [
+              ...client.notifications,
+              {
+                id: `notif-${Date.now()}`,
+                title: 'Pagamento Rejeitado',
+                message: 'Seu comprovante foi rejeitado. Por favor, envie um novo comprovante ou entre em contato conosco.',
+                type: 'error',
+                date: new Date().toISOString().split('T')[0],
+                read: false
+              }
+            ]
+          }
+        : client
+    ));
+    
+    const client = clients.find(c => c.id === clientId);
+    toast({
+      title: "Pagamento rejeitado",
+      description: `O pagamento de ${client?.name} foi rejeitado. Cliente será notificado.`
+    });
+  };
+
   const deleteClient = () => {
     setClients(clients.filter(client => client.id !== selectedClientId));
     setDeleteDialogOpen(false);
