@@ -233,7 +233,7 @@ const GuestUpload = () => {
             
             <h1 className="text-4xl font-bold mb-2 drop-shadow-lg">{client.name}</h1>
             <p className="text-xl mb-6 drop-shadow opacity-90">
-              {new Date(client.weddingDate).toLocaleDateString('pt-BR', {
+              {new Date(album.eventDate).toLocaleDateString('pt-BR', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric'
