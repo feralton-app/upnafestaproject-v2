@@ -155,7 +155,7 @@ const ClientDashboard = () => {
   const [showImageUploadDialog, setShowImageUploadDialog] = useState(false);
   const [showTestUpload, setShowTestUpload] = useState(false);
   const [testFile, setTestFile] = useState(null);
-  const [testResult, setTestResult] = useState(null);
+  const [tempFolderId, setTempFolderId] = useState('');
   const [newAlbum, setNewAlbum] = useState({ name: '', eventDate: '' });
   const [googleConfig, setGoogleConfig] = useState({
     account: client?.googleAccount || '',
