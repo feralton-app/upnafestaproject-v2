@@ -410,63 +410,117 @@ const ClientDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Album Sharing */}
-          <Card className={`border-amber-200 ${!isAlbumActive && 'opacity-50'}`}>
+          {/* Album Management */}
+          <Card className="border-amber-200">
             <CardHeader>
               <CardTitle className="text-amber-900 flex items-center">
                 <Heart className="w-5 h-5 mr-2" />
-                Compartilhar Álbum
+                Gerenciar Álbum
               </CardTitle>
               <CardDescription className="text-amber-600">
-                {isAlbumActive ? 'Compartilhe com seus convidados' : 'Disponível após aprovação do pagamento'}
+                {hasAlbum ? 'Compartilhe com seus convidados' : `Você pode criar até ${albumLimit} álbum(ns)`}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {isAlbumActive && (
-                <>
-                  <div>
-                    <Label className="text-amber-800">Link do Álbum</Label>
-                    <div className="flex mt-1">
-                      <Input
-                        value={albumUrl}
-                        readOnly
-                        className="border-amber-300"
-                      />
-                      <Button
-                        variant="outline"
-                        className="ml-2 text-amber-700 border-amber-300"
-                        onClick={() => copyToClipboard(albumUrl)}
-                      >
-                        <Copy className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <Label className="text-amber-800">QR Code</Label>
-                    <div className="mt-2">
-                      <img
-                        src={qrCodeUrl}
-                        alt="QR Code do álbum"
-                        className="mx-auto border border-amber-200 rounded"
-                      />
-                    </div>
-                  </div>
-
-                  <Link to={`/album/${client.albumId}`}>
-                    <Button className="w-full bg-amber-600 hover:bg-amber-700">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Visualizar Álbum
-                    </Button>
-                  </Link>
-                </>
-              )}
-              
-              {!isAlbumActive && (
+              {!hasAlbum ? (
                 <div className="text-center py-8">
-                  <QrCode className="w-16 h-16 text-amber-300 mx-auto mb-4" />
-                  <p className="text-amber-500">Link e QR Code disponíveis após ativação</p>
+                  <Camera className="w-16 h-16 text-amber-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-amber-900 mb-2">Nenhum álbum criado</h3>
+                  <p className="text-amber-600 mb-6">Crie seu primeiro álbum para começar a coletar fotos!</p>
+                  <Button onClick={createAlbum} className="bg-amber-600 hover:bg-amber-700">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Criar Meu Álbum
+                  </Button>
                 </div>
+              ) : (
+                <>
+                  {isAlbumActive && (
+                    <>
+                      <div>
+                        <Label className="text-amber-800">Link do Álbum</Label>
+                        <div className="flex mt-1">
+                          <Input
+                            value={albumUrl}
+                            readOnly
+                            className="border-amber-300"
+                          />
+                          <Button
+                            variant="outline"
+                            className="ml-2 text-amber-700 border-amber-300"
+                            onClick={() => copyToClipboard(albumUrl)}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="text-center">
+                        <Label className="text-amber-800">QR Code</Label>
+                        <div className="mt-2">
+                          <img
+                            src={qrCodeUrl}
+                            alt="QR Code do álbum"
+                            className="mx-auto border border-amber-200 rounded"
+                          />
+                        </div>
+                      </div>
+
+                      <Link to={`/album/${client.albumId}`}>
+                        <Button className="w-full bg-amber-600 hover:bg-amber-700">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Visualizar Álbum
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+                  
+                  {!isAlbumActive && (
+                    <div className="text-center py-8">
+                      <QrCode className="w-16 h-16 text-amber-300 mx-auto mb-4" />
+                      <p className="text-amber-500">Link e QR Code disponíveis após ativação</p>
+                    </div>
+                  )}
+
+                  {/* Delete Album Option */}
+                  <div className="pt-4 border-t border-amber-200">
+                    <Dialog open={showDeleteAlbumDialog} onOpenChange={setShowDeleteAlbumDialog}>
+                      <DialogTrigger asChild>
+                        <Button variant="destructive" className="w-full">
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Excluir Álbum
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle className="text-amber-900">Confirmar Exclusão do Álbum</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <p className="text-amber-700">
+                            Esta ação não pode ser desfeita. Todos os dados do álbum, fotos recebidas e configurações serão permanentemente perdidos.
+                          </p>
+                          <div className="bg-red-50 p-4 rounded-lg">
+                            <div className="flex items-center">
+                              <AlertTriangle className="w-5 h-5 text-red-600 mr-2" />
+                              <div>
+                                <p className="text-sm font-medium text-red-900">Atenção!</p>
+                                <p className="text-sm text-red-700">Todas as fotos dos convidados serão perdidas</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex justify-end space-x-2">
+                            <Button variant="outline" onClick={() => setShowDeleteAlbumDialog(false)}>
+                              Cancelar
+                            </Button>
+                            <Button variant="destructive" onClick={deleteAlbum}>
+                              <Trash2 className="w-4 h-4 mr-2" />
+                              Excluir Permanentemente
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </>
               )}
             </CardContent>
           </Card>
