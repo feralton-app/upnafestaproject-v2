@@ -196,17 +196,25 @@ class GoogleDriveService:
                 resumable=True
             )
             
+            print(f"DEBUG: Tentando upload - filename: {filename}, folder_id: {folder_id}")
+            
             file = service.files().create(
                 body=file_metadata,
                 media_body=media,
                 fields="id,name,size"
             ).execute()
             
+            print(f"DEBUG: Upload sucesso - file_id: {file.get('id')}")
             return file.get('id')
             
         except HttpError as error:
-            print(f"Erro no upload: {error}")
-            return None
+            print(f"ERROR: Erro HTTP no upload: {error}")
+            print(f"ERROR: Status code: {error.resp.status}")
+            print(f"ERROR: Reason: {error.resp.reason}")
+            raise error
+        except Exception as error:
+            print(f"ERROR: Erro geral no upload: {error}")
+            raise error
     
     def disconnect_client(self, client_id: str) -> bool:
         """Desconecta o Google Drive de um cliente"""
