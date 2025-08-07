@@ -128,6 +128,11 @@ const SiteManagement = () => {
                   Visualizar Site
                 </Button>
               </Link>
+              <Link to="/admin/dashboard">
+                <Button variant="outline" className="text-amber-700 border-amber-300">
+                  Voltar ao Admin
+                </Button>
+              </Link>
               <Button 
                 onClick={saveChanges}
                 className="bg-amber-600 hover:bg-amber-700"
