@@ -31,7 +31,8 @@ import {
   FolderOpen,
   Unlink,
   Edit,
-  Settings
+  Settings,
+  Save
 } from 'lucide-react';
 import { mockClients, getStatusLabel, getStatusColor, generateMockQRCode, mockPaymentMethods } from '../mock';
 import { useToast } from '../hooks/use-toast';
