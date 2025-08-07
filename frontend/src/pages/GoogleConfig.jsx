@@ -22,19 +22,18 @@ import { useToast } from '../hooks/use-toast';
 const GoogleConfig = () => {
   const [config, setConfig] = useState({
     client_id: '',
-    client_secret: '',
-    redirect_uri: ''
+    client_secret: ''
   });
   const [loading, setLoading] = useState(false);
   const [hasConfig, setHasConfig] = useState(false);
-  const [redirectUrisInfo, setRedirectUrisInfo] = useState(null);
+  const [callbackInfo, setCallbackInfo] = useState(null);
   const { toast } = useToast();
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
   useEffect(() => {
     fetchCurrentConfig();
-    fetchRedirectUrisInfo();
+    fetchCallbackInfo();
   }, []);
 
   const fetchCurrentConfig = async () => {
@@ -45,8 +44,7 @@ const GoogleConfig = () => {
         if (data) {
           setConfig({
             client_id: data.client_id,
-            client_secret: '********', // Mascarar por segurança
-            redirect_uri: data.redirect_uri
+            client_secret: '********' // Mascarar por segurança
           });
           setHasConfig(true);
         }
@@ -56,15 +54,15 @@ const GoogleConfig = () => {
     }
   };
 
-  const fetchRedirectUrisInfo = async () => {
+  const fetchCallbackInfo = async () => {
     try {
       const response = await fetch(`${backendUrl}/api/admin/google-redirect-uris`);
       if (response.ok) {
         const data = await response.json();
-        setRedirectUrisInfo(data);
+        setCallbackInfo(data);
       }
     } catch (error) {
-      console.error('Erro ao buscar URIs:', error);
+      console.error('Erro ao buscar callback info:', error);
     }
   };
 
