@@ -186,8 +186,19 @@ const AdminDashboard = () => {
     });
   };
 
-  const resetPassword = () => {
-    const tempPassword = 'temp123';
+  const updateClient = () => {
+    if (editingClient) {
+      setClients(clients.map(client => 
+        client.id === editingClient.id ? editingClient : client
+      ));
+      setEditDialog(false);
+      setEditingClient(null);
+      toast({
+        title: "Cliente atualizado!",
+        description: "As informações do cliente foram salvas."
+      });
+    }
+  };
     setClients(clients.map(client => 
       client.id === selectedClientId 
         ? { 
