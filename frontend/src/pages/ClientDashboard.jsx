@@ -1103,21 +1103,26 @@ const ClientDashboard = () => {
                           <textarea
                             id="albumFolder"
                             rows="2"
-                            value={selectedAlbum?.googleFolderId || ''}
+                            value={tempFolderId}
                             onChange={(e) => {
-                              const newFolderId = e.target.value.trim();
-                              console.log('Folder ID changed to:', newFolderId, 'Length:', newFolderId.length);
-                              // Atualizar imediatamente com debounce
-                              setTimeout(() => {
-                                updateAlbumFolderId(newFolderId);
-                              }, 2000);
+                              const newFolderId = e.target.value;
+                              setTempFolderId(newFolderId);
+                              console.log('Folder ID digitado:', newFolderId, 'Length:', newFolderId.length);
                             }}
-                            placeholder="Cole aqui o Folder ID completo do Google Drive (ex: 1BxYz-AbC_123_DEF456_GHI789)"
+                            placeholder="Cole aqui o Folder ID completo do Google Drive (ex: 1A-G63w4FJvK9Bjxem0aH5U9gCz1tvQyS)"
                             className="flex w-full rounded-md border border-amber-300 bg-transparent px-3 py-1 text-sm shadow-sm font-mono resize-none"
                           />
                           <p className="text-xs text-amber-600">
-                            Deixe vazio para usar a pasta padrão da conta
+                            Cole o ID da pasta do Google Drive onde os arquivos serão salvos
                           </p>
+                          
+                          <Button 
+                            onClick={() => updateAlbumFolderId(tempFolderId)}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <Save className="w-4 h-4 mr-2" />
+                            Salvar Configuração
+                          </Button>
                         </div>
                       </div>
 
