@@ -392,8 +392,7 @@ const ClientDashboard = () => {
     setShowImageUploadDialog(false);
   };
 
-  // Debug: forçar aparecer botão criar para debug
-  const canCreateAlbum = true; // client && client.status === 'approved' && client.albums && client.albums.length < client.albumLimit;
+  const canCreateAlbum = client && client.status === 'approved' && client.albums && client.albums.length < client.albumLimit;
   const albumUrl = selectedAlbum ? `${window.location.origin}/album/${selectedAlbum.id}` : '';
   const qrCodeUrl = selectedAlbum ? generateMockQRCode(selectedAlbum.id) : '';
 
