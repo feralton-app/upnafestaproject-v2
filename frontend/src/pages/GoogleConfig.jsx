@@ -204,21 +204,6 @@ const GoogleConfig = () => {
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="redirect_uri" className="text-amber-800">URI de Redirecionamento Principal</Label>
-                  <Input
-                    id="redirect_uri"
-                    value={config.redirect_uri}
-                    onChange={(e) => setConfig({...config, redirect_uri: e.target.value})}
-                    placeholder={`${backendUrl}/api/auth/google/callback`}
-                    className="border-amber-300"
-                    required
-                  />
-                  <p className="text-xs text-amber-600">
-                    Esta URI deve ser configurada no Google Cloud Console
-                  </p>
-                </div>
-
                 <Button 
                   type="submit" 
                   className="w-full bg-amber-600 hover:bg-amber-700"
