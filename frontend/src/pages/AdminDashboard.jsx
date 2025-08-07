@@ -199,6 +199,9 @@ const AdminDashboard = () => {
       });
     }
   };
+
+  const resetPassword = () => {
+    const tempPassword = 'temp123';
     setClients(clients.map(client => 
       client.id === selectedClientId 
         ? { 
