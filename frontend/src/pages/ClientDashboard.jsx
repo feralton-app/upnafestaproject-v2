@@ -152,7 +152,9 @@ const ClientDashboard = () => {
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [showDeleteAlbumDialog, setShowDeleteAlbumDialog] = useState(false);
   const [showCreateAlbumDialog, setShowCreateAlbumDialog] = useState(false);
-  const [showImageUploadDialog, setShowImageUploadDialog] = useState(false);
+  const [showTestUpload, setShowTestUpload] = useState(false);
+  const [testFile, setTestFile] = useState(null);
+  const [testResult, setTestResult] = useState(null);
   const [newAlbum, setNewAlbum] = useState({ name: '', eventDate: '' });
   const [googleConfig, setGoogleConfig] = useState({
     account: client?.googleAccount || '',
