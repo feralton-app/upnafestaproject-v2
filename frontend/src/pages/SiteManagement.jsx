@@ -81,6 +81,21 @@ const SiteManagement = () => {
     });
   };
 
+  const addImage = () => {
+    if (newImage) {
+      setSiteConfig(prev => ({
+        ...prev,
+        heroImages: [...prev.heroImages, newImage]
+      }));
+      setNewImage('');
+      setShowImageDialog(false);
+      toast({
+        title: "Imagem adicionada!",
+        description: "A nova imagem foi adicionada à seção hero."
+      });
+    }
+  };
+
   const addStep = () => {
     if (newStep.title && newStep.description) {
       const nextNumber = siteConfig.howItWorks.steps.length + 1;
