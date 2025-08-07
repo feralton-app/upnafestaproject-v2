@@ -514,10 +514,17 @@ const ClientDashboard = () => {
 
                         <div className="flex space-x-2">
                           <Button 
+                            onClick={() => setShowTestUpload(!showTestUpload)} 
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <Save className="w-4 h-4 mr-2" />
+                            Teste Real Upload
+                          </Button>
+                          <Button 
                             onClick={() => {
                               updateAlbumFolderId(googleConfig.folderId);
                             }} 
-                            className="bg-green-600 hover:bg-green-700"
+                            className="bg-amber-600 hover:bg-amber-700"
                           >
                             <Save className="w-4 h-4 mr-2" />
                             Salvar ID da Pasta
@@ -525,12 +532,52 @@ const ClientDashboard = () => {
                           <Button 
                             onClick={disconnectGoogleDrive} 
                             variant="destructive"
-                            className="flex-1"
                           >
                             <Unlink className="w-4 h-4 mr-2" />
                             Desconectar
                           </Button>
                         </div>
+
+                        {/* Área de Teste Upload */}
+                        {showTestUpload && (
+                          <div className="border-t border-amber-200 pt-4 mt-4">
+                            <h4 className="font-semibold text-amber-900 mb-2">🧪 Teste Real de Upload</h4>
+                            <div className="space-y-3">
+                              <div>
+                                <Label htmlFor="testFile" className="text-amber-800">Arquivo para teste</Label>
+                                <input
+                                  id="testFile"
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => setTestFile(e.target.files[0])}
+                                  className="w-full border border-amber-300 rounded p-2"
+                                />
+                              </div>
+                              
+                              <Button 
+                                onClick={testRealUpload}
+                                disabled={!testFile || !selectedAlbum?.googleFolderId}
+                                className="w-full bg-blue-600 hover:bg-blue-700"
+                              >
+                                🚀 FAZER TESTE REAL
+                              </Button>
+                              
+                              {testResult && (
+                                <div className="bg-green-50 p-3 rounded border border-green-200">
+                                  <h5 className="font-semibold text-green-900">✅ TESTE SUCESSO!</h5>
+                                  <p className="text-sm text-green-700">
+                                    <strong>Arquivo:</strong> {testResult.filename}<br/>
+                                    <strong>Google File ID:</strong> {testResult.google_file_id}<br/>
+                                    <strong>Folder ID:</strong> {testResult.folder_id}
+                                  </p>
+                                  <p className="text-xs text-green-600 mt-1">
+                                    ✅ Arquivo salvo com sucesso no Google Drive!
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="space-y-4">
