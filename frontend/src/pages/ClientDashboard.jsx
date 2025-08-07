@@ -392,17 +392,6 @@ const ClientDashboard = () => {
     setShowImageUploadDialog(false);
   };
 
-  // Debug canCreateAlbum logic
-  console.log('DEBUG canCreateAlbum:', {
-    hasClient: !!client,
-    status: client?.status,
-    statusApproved: client?.status === 'approved',
-    hasAlbums: !!client?.albums,
-    albumsLength: client?.albums?.length,
-    albumLimit: client?.albumLimit,
-    comparison: client?.albums?.length < client?.albumLimit
-  });
-  
   const canCreateAlbum = client && client.status === 'approved' && client.albums && client.albums.length < client.albumLimit;
   const albumUrl = selectedAlbum ? `${window.location.origin}/album/${selectedAlbum.id}` : '';
   const qrCodeUrl = selectedAlbum ? generateMockQRCode(selectedAlbum.id) : '';
