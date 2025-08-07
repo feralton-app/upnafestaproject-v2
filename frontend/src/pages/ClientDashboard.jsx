@@ -76,7 +76,8 @@ const ClientDashboard = () => {
         fetchClientData();
         toast({
           title: "Google Drive conectado!",
-          description: "Sua conta Google foi conectada com sucesso!"
+          description: "Conexão realizada! Configure o ID da pasta na aba 'Configurações' para definir onde salvar as fotos.",
+          duration: 6000
         });
       }, 1000);
     }
