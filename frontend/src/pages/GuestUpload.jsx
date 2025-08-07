@@ -10,7 +10,12 @@ import { useToast } from '../hooks/use-toast';
 
 const GuestUpload = () => {
   const { albumId } = useParams();
-  const client = mockClients.find(c => c.albumId === albumId);
+  // Find client and album by albumId
+  const client = mockClients.find(c => 
+    c.albums && c.albums.some(album => album.id === albumId)
+  );
+  const album = client?.albums?.find(a => a.id === albumId);
+  
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
