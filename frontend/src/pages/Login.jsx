@@ -22,13 +22,29 @@ const Login = () => {
     e.preventDefault();
     
     if (isLogin) {
-      // Mock login - in real app would validate credentials
-      if (formData.email && formData.password) {
+      // Mock login - check if admin
+      if (formData.email === 'admin@upnafesta.com' && formData.password === 'admin123') {
         toast({
-          title: "Login realizado com sucesso!",
-          description: "Bem-vindo de volta ao UpnaFesta"
+          title: "Login de administrador realizado!",
+          description: "Bem-vindo ao painel administrativo"
         });
         navigate('/admin');
+      } else if (formData.email && formData.password) {
+        // Client login
+        const client = mockClients.find(c => c.email === formData.email);
+        if (client) {
+          toast({
+            title: "Login realizado com sucesso!",
+            description: `Bem-vindo de volta, ${client.name.split('&')[0].trim()}!`
+          });
+          navigate(`/client/${client.id}`);
+        } else {
+          toast({
+            title: "Credenciais inválidas",
+            description: "Email ou senha incorretos",
+            variant: "destructive"
+          });
+        }
       } else {
         toast({
           title: "Erro no login",
@@ -37,13 +53,15 @@ const Login = () => {
         });
       }
     } else {
-      // Mock registration
+      // Mock registration - create new client account
       if (formData.email && formData.password && formData.name && formData.password === formData.confirmPassword) {
+        const newClientId = String(mockClients.length + 1);
         toast({
           title: "Conta criada com sucesso!",
-          description: "Agora você pode acessar o UpnaFesta"
+          description: "Sua conta foi criada. Você será direcionado para seu painel."
         });
-        navigate('/admin');
+        // In real app, would create client and redirect to their dashboard
+        navigate(`/client/${newClientId}`);
       } else {
         toast({
           title: "Erro no cadastro",
