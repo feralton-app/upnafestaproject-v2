@@ -40,7 +40,6 @@ const AdminDashboard = () => {
   const [newClient, setNewClient] = useState({
     name: '',
     email: '',
-    weddingDate: '',
     albumLimit: 1
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
