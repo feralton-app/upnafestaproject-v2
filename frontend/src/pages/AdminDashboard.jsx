@@ -116,20 +116,33 @@ const AdminDashboard = () => {
     });
   };
 
-  const rejectPayment = (clientId) => {
+  const deleteClient = () => {
+    setClients(clients.filter(client => client.id !== selectedClientId));
+    setDeleteDialogOpen(false);
+    setSelectedClientId(null);
+    
+    const client = clients.find(c => c.id === selectedClientId);
+    toast({
+      title: "Cliente excluído!",
+      description: `${client?.name} foi removido do sistema.`
+    });
+  };
+
+  const resetPassword = () => {
+    const tempPassword = 'temp123';
     setClients(clients.map(client => 
-      client.id === clientId 
+      client.id === selectedClientId 
         ? { 
             ...client, 
-            status: 'rejected',
-            paymentStatus: 'rejected',
+            tempPassword,
+            requiresPasswordReset: true,
             notifications: [
               ...client.notifications,
               {
                 id: `notif-${Date.now()}`,
-                title: 'Pagamento Rejeitado',
-                message: 'Seu comprovante foi rejeitado. Por favor, envie um novo comprovante ou entre em contato conosco.',
-                type: 'error',
+                title: 'Senha Resetada',
+                message: `Sua senha temporária é: ${tempPassword}. Por favor, altere após o login.`,
+                type: 'warning',
                 date: new Date().toISOString().split('T')[0],
                 read: false
               }
@@ -138,10 +151,13 @@ const AdminDashboard = () => {
         : client
     ));
     
-    const client = clients.find(c => c.id === clientId);
+    setResetPasswordDialogOpen(false);
+    setSelectedClientId(null);
+    
+    const client = clients.find(c => c.id === selectedClientId);
     toast({
-      title: "Pagamento rejeitado",
-      description: `O pagamento de ${client?.name} foi rejeitado. Cliente será notificado.`
+      title: "Senha resetada!",
+      description: `Nova senha temporária gerada para ${client?.name}: temp123`
     });
   };
 
