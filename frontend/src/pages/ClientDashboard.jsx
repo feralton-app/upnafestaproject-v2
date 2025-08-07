@@ -85,12 +85,8 @@ const ClientDashboard = () => {
     // Escutar mensagens de popup do Google OAuth
     const handleMessage = (event) => {
       if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
-        fetchClientData();
-        toast({
-          title: "Google Drive conectado!",
-          description: `Conectado com ${event.data.email}! Agora configure o ID da pasta na aba 'Configurações'.`,
-          duration: 6000
-        });
+        // Fazer refresh completo da página
+        window.location.reload();
       }
     };
 
