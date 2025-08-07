@@ -101,3 +101,110 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Habilitar integração real com Google Drive API na aplicação UpnaFesta. Implementar área administrativa para configurar credentials do Google Cloud API (secret + access key) no MariaDB, sistema para guardar tokens OAuth dos clientes, informar URIs de redirecionamento para Google Cloud Console, e habilitar alteração de data do álbum na área do cliente."
+
+backend:
+  - task: "Implementar modelos MariaDB para credenciais Google Cloud API (admin)"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Precisa criar modelos para armazenar Google Cloud credentials no MariaDB"
+
+  - task: "Implementar modelos MariaDB para tokens OAuth dos clientes"
+    implemented: false
+    working: "NA" 
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Precisa criar tabelas para armazenar tokens OAuth dos clientes"
+
+  - task: "Implementar endpoints para configuração de Google Cloud API (admin)"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Endpoints para admin salvar/editar credentials do Google"
+
+  - task: "Implementar OAuth2 flow real para Google Drive"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Implementar integração real com Google Drive API OAuth"
+
+frontend:
+  - task: "Adicionar área administrativa para configurar Google Cloud credentials"
+    implemented: false
+    working: "NA"
+    file: "AdminDashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Criar interface para admin configurar Google API credentials"
+
+  - task: "Implementar troca de data do álbum na área do cliente"
+    implemented: false
+    working: "NA"
+    file: "ClientDashboard.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Permitir que cliente altere data do álbum"
+
+  - task: "Conectar frontend ao OAuth2 real do Google Drive"
+    implemented: false
+    working: "NA"
+    file: "ClientDashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Substituir simulação por integração real OAuth Google"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Implementar modelos MariaDB para credenciais Google Cloud API (admin)"
+    - "Implementar modelos MariaDB para tokens OAuth dos clientes"
+    - "Adicionar área administrativa para configurar Google Cloud credentials"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+    - message: "Iniciando implementação da integração real com Google Drive API. Prioridade nas configurações administrativas e modelos de dados."
