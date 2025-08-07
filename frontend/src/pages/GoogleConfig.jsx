@@ -216,61 +216,37 @@ const GoogleConfig = () => {
             </CardContent>
           </Card>
 
-          {/* URIs para Configurar no Google Cloud Console */}
+          {/* URL de Callback para Google Cloud Console */}
           <Card className="border-amber-200">
             <CardHeader>
-              <CardTitle className="text-amber-900">URIs para Google Cloud Console</CardTitle>
+              <CardTitle className="text-amber-900">URL de Callback para Google Cloud Console</CardTitle>
               <CardDescription className="text-amber-600">
-                Configure estas URIs no seu projeto do Google Cloud
+                Configure esta URL no seu projeto do Google Cloud
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {callbackInfo && (
                 <>
                   <div>
-                    <Label className="text-amber-800 font-semibold">URIs de Redirecionamento Autorizadas</Label>
-                    <div className="space-y-2 mt-2">
-                      {callbackInfo.authorized_redirect_uris.map((uri, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <Input
-                            value={uri}
-                            readOnly
-                            className="text-xs border-amber-300"
-                          />
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => copyToClipboard(uri)}
-                            className="text-amber-700 border-amber-300"
-                          >
-                            <Copy className="w-3 h-3" />
-                          </Button>
-                        </div>
-                      ))}
+                    <Label className="text-amber-800 font-semibold">URL de Redirecionamento (Callback)</Label>
+                    <div className="flex items-center space-x-2 mt-2">
+                      <Input
+                        value={callbackInfo.callback_url}
+                        readOnly
+                        className="border-amber-300 font-mono text-sm"
+                      />
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => copyToClipboard(callbackInfo.callback_url)}
+                        className="text-amber-700 border-amber-300"
+                      >
+                        <Copy className="w-3 h-3" />
+                      </Button>
                     </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-amber-800 font-semibold">Origins JavaScript Autorizadas</Label>
-                    <div className="space-y-2 mt-2">
-                      {callbackInfo.authorized_javascript_origins.map((origin, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <Input
-                            value={origin}
-                            readOnly
-                            className="text-xs border-amber-300"
-                          />
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => copyToClipboard(origin)}
-                            className="text-amber-700 border-amber-300"
-                          >
-                            <Copy className="w-3 h-3" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-xs text-amber-600 mt-1">
+                      Esta é a URL que você deve configurar no Google Cloud Console
+                    </p>
                   </div>
 
                   <div className="bg-amber-50 p-4 rounded-lg">
