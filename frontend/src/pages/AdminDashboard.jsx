@@ -51,6 +51,10 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('pt-BR');
+  };
+
   const handleLogout = () => {
     toast({
       title: "Logout realizado!",
@@ -73,8 +77,6 @@ const AdminDashboard = () => {
     });
   };
 
-  const handleCreateClient = (e) => {
-    e.preventDefault();
   const handleCreateClient = (e) => {
     e.preventDefault();
     
@@ -124,7 +126,7 @@ const AdminDashboard = () => {
               {
                 id: `notif-${Date.now()}`,
                 title: 'Pagamento Aprovado!',
-                message: 'Seu pagamento foi confirmado e seu álbum está ativo.',
+                message: 'Seu pagamento foi confirmado e você pode criar álbuns.',
                 type: 'success',
                 date: new Date().toISOString().split('T')[0],
                 read: false
@@ -137,7 +139,7 @@ const AdminDashboard = () => {
     const client = clients.find(c => c.id === clientId);
     toast({
       title: "Pagamento aprovado!",
-      description: `O álbum de ${client?.name} foi ativado.`
+      description: `${client?.name} pode agora criar álbuns.`
     });
   };
 
@@ -153,7 +155,7 @@ const AdminDashboard = () => {
               {
                 id: `notif-${Date.now()}`,
                 title: 'Pagamento Rejeitado',
-                message: 'Seu comprovante foi rejeitado. Por favor, envie um novo comprovante ou entre em contato conosco.',
+                message: 'Seu comprovante foi rejeitado. Por favor, envie um novo comprovante.',
                 type: 'error',
                 date: new Date().toISOString().split('T')[0],
                 read: false
@@ -166,7 +168,7 @@ const AdminDashboard = () => {
     const client = clients.find(c => c.id === clientId);
     toast({
       title: "Pagamento rejeitado",
-      description: `O pagamento de ${client?.name} foi rejeitado. Cliente será notificado.`
+      description: `O pagamento de ${client?.name} foi rejeitado.`
     });
   };
 
@@ -180,20 +182,6 @@ const AdminDashboard = () => {
       title: "Cliente excluído!",
       description: `${client?.name} foi removido do sistema.`
     });
-  };
-
-  const updateClient = () => {
-    if (editingClient) {
-      setClients(clients.map(client => 
-        client.id === editingClient.id ? editingClient : client
-      ));
-      setEditDialog(false);
-      setEditingClient(null);
-      toast({
-        title: "Cliente atualizado!",
-        description: "As informações do cliente foram salvas."
-      });
-    }
   };
 
   const resetPassword = () => {
@@ -229,8 +217,18 @@ const AdminDashboard = () => {
     });
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('pt-BR');
+  const updateClient = () => {
+    if (editingClient) {
+      setClients(clients.map(client => 
+        client.id === editingClient.id ? editingClient : client
+      ));
+      setEditDialog(false);
+      setEditingClient(null);
+      toast({
+        title: "Cliente atualizado!",
+        description: "As informações do cliente foram salvas."
+      });
+    }
   };
 
   return (
@@ -341,7 +339,7 @@ const AdminDashboard = () => {
                   <div>
                     <CardTitle className="text-amber-900">Todos os Clientes</CardTitle>
                     <CardDescription className="text-amber-600">
-                      Visualize e gerencie todos os clientes e seus álbuns
+                      Visualize e gerencie todos os clientes
                     </CardDescription>
                   </div>
                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -360,7 +358,7 @@ const AdminDashboard = () => {
                       </DialogHeader>
                       <form onSubmit={handleCreateClient} className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="name" className="text-amber-800">Nome do Casal</Label>
+                          <Label htmlFor="name" className="text-amber-800">Nome do Cliente</Label>
                           <Input
                             id="name"
                             value={newClient.name}
@@ -378,17 +376,6 @@ const AdminDashboard = () => {
                             value={newClient.email}
                             onChange={(e) => setNewClient({...newClient, email: e.target.value})}
                             placeholder="contato@email.com"
-                            className="border-amber-300"
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="weddingDate" className="text-amber-800">Data do Casamento</Label>
-                          <Input
-                            id="weddingDate"
-                            type="date"
-                            value={newClient.weddingDate}
-                            onChange={(e) => setNewClient({...newClient, weddingDate: e.target.value})}
                             className="border-amber-300"
                             required
                           />
@@ -421,7 +408,7 @@ const AdminDashboard = () => {
                       <TableHead className="text-amber-800">Cliente</TableHead>
                       <TableHead className="text-amber-800">Email</TableHead>
                       <TableHead className="text-amber-800">Álbuns</TableHead>
-                      <TableHead className="text-amber-800">Limite Álbuns</TableHead>
+                      <TableHead className="text-amber-800">Limite</TableHead>
                       <TableHead className="text-amber-800">Google Drive</TableHead>
                       <TableHead className="text-amber-800">Status Pagamento</TableHead>
                       <TableHead className="text-amber-800">Status Ativo</TableHead>
@@ -433,7 +420,7 @@ const AdminDashboard = () => {
                       <TableRow key={client.id}>
                         <TableCell className="font-medium text-amber-900">{client.name}</TableCell>
                         <TableCell className="text-amber-700">{client.email}</TableCell>
-                        <TableCell className="text-amber-700">{formatDate(client.weddingDate)}</TableCell>
+                        <TableCell className="text-amber-700">{client.albums?.length || 0}</TableCell>
                         <TableCell className="text-amber-700">{client.albumLimit || 1}</TableCell>
                         <TableCell>
                           {client.googleDriveConnected ? (
@@ -620,7 +607,7 @@ const AdminDashboard = () => {
                 Confirmar Exclusão
               </DialogTitle>
               <DialogDescription className="text-amber-600">
-                Esta ação não pode ser desfeita. Todos os dados do cliente, incluindo álbum e uploads, serão permanentemente excluídos.
+                Esta ação não pode ser desfeita. Todos os dados do cliente, incluindo álbuns e uploads, serão permanentemente excluídos.
               </DialogDescription>
             </DialogHeader>
             <div className="flex justify-end space-x-2">
@@ -680,7 +667,7 @@ const AdminDashboard = () => {
             {editingClient && (
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="editName" className="text-amber-800">Nome do Casal</Label>
+                  <Label htmlFor="editName" className="text-amber-800">Nome do Cliente</Label>
                   <Input
                     id="editName"
                     value={editingClient.name}
@@ -695,16 +682,6 @@ const AdminDashboard = () => {
                     type="email"
                     value={editingClient.email}
                     onChange={(e) => setEditingClient({...editingClient, email: e.target.value})}
-                    className="border-amber-300"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="editWeddingDate" className="text-amber-800">Data do Casamento</Label>
-                  <Input
-                    id="editWeddingDate"
-                    type="date"
-                    value={editingClient.weddingDate}
-                    onChange={(e) => setEditingClient({...editingClient, weddingDate: e.target.value})}
                     className="border-amber-300"
                   />
                 </div>
