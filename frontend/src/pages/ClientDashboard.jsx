@@ -168,8 +168,7 @@ const ClientDashboard = () => {
   const [tempFolderId, setTempFolderId] = useState('');
   const [newAlbum, setNewAlbum] = useState({ name: '', eventDate: '' });
   const [googleConfig, setGoogleConfig] = useState({
-    account: client?.googleAccount || '',
-    folderId: selectedAlbum?.googleFolderId || ''
+    account: client?.googleAccount || ''
   });
   const [newPassword, setNewPassword] = useState({ current: '', new: '', confirm: '' });
   const { toast } = useToast();
