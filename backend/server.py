@@ -132,12 +132,16 @@ async def create_google_config(config: GoogleConfigCreate, db_session: Session =
     # Desativar configuração anterior
     db_session.query(GoogleConfig).filter(GoogleConfig.is_active == True).update({'is_active': False})
     
+    # URL de callback fixa da aplicação
+    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+    callback_url = f"{base_url}/api/auth/google/callback"
+    
     # Criar nova configuração
     new_config = GoogleConfig(
         id=str(uuid.uuid4()),
         client_id=config.client_id,
         client_secret=config.client_secret,
-        redirect_uri=config.redirect_uri,
+        redirect_uri=callback_url,  # URL fixa da aplicação
         is_active=True
     )
     
