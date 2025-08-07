@@ -16,7 +16,10 @@ from typing import Optional, Dict, Any
 class GoogleDriveService:
     def __init__(self, db: Session):
         self.db = db
-        self.scopes = ['https://www.googleapis.com/auth/drive.file']
+        self.scopes = [
+            'https://www.googleapis.com/auth/drive.file',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ]
     
     def get_google_config(self) -> Optional[GoogleConfig]:
         """Obtém a configuração ativa do Google Cloud API"""
