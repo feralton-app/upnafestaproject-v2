@@ -6,23 +6,30 @@ export const mockClients = [
     name: 'Ana & Carlos Silva',
     email: 'ana.carlos@email.com',
     weddingDate: '2025-09-15',
-    status: 'approved', // 'pending_payment', 'payment_sent', 'approved', 'rejected'
-    albumId: 'album-ana-carlos-2025',
-    albumLimit: 1,
+    status: 'approved',
+    albumLimit: 2,
     createdAt: '2025-01-10',
     paymentDate: '2025-01-12',
     approvalDate: '2025-01-13',
     googleDriveConnected: true,
-    googleFolderId: '1A2B3C4D5E6F7G8H9I0J',
+    googleAccount: 'ana.carlos@gmail.com',
     paymentStatus: 'confirmed',
     enabled: true,
-    customization: {
-      primaryColor: '#8B4513',
-      secondaryColor: '#DEB887',
-      mainPhoto: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-      welcomeMessage: 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
-      thankYouMessage: 'Obrigado por fazer parte da nossa história de amor!'
-    },
+    albums: [
+      {
+        id: 'album-ana-carlos-2025',
+        name: 'Casamento Principal',
+        status: 'active',
+        googleFolderId: '1A2B3C4D5E6F7G8H9I0J',
+        customization: {
+          primaryColor: '#8B4513',
+          secondaryColor: '#DEB887',
+          mainPhoto: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
+          welcomeMessage: 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
+          thankYouMessage: 'Obrigado por fazer parte da nossa história de amor!'
+        }
+      }
+    ],
     notifications: [
       {
         id: '1',
@@ -30,14 +37,6 @@ export const mockClients = [
         message: 'Seu pagamento foi confirmado e seu álbum está ativo.',
         type: 'success',
         date: '2025-01-13',
-        read: true
-      },
-      {
-        id: '2',
-        title: 'Álbum Criado',
-        message: 'Seu álbum foi criado com sucesso. Aguardando confirmação do pagamento.',
-        type: 'info',
-        date: '2025-01-10',
         read: true
       }
     ]
@@ -48,20 +47,26 @@ export const mockClients = [
     email: 'mari.joao@email.com',
     weddingDate: '2025-11-20',
     status: 'payment_sent',
-    albumId: 'album-mari-joao-2025',
-    albumLimit: 2,
+    albumLimit: 1,
     createdAt: '2025-02-05',
     paymentDate: '2025-02-06',
     googleDriveConnected: false,
     paymentStatus: 'pending_review',
     enabled: true,
-    customization: {
-      primaryColor: '#8B4513',
-      secondaryColor: '#DEB887',
-      mainPhoto: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80',
-      welcomeMessage: 'Celebre conosco este momento único!',
-      thankYouMessage: 'Cada foto é uma lembrança preciosa. Obrigado!'
-    },
+    albums: [
+      {
+        id: 'album-mari-joao-2025',
+        name: 'Nosso Casamento',
+        status: 'pending_payment',
+        customization: {
+          primaryColor: '#8B4513',
+          secondaryColor: '#DEB887',
+          mainPhoto: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80',
+          welcomeMessage: 'Celebre conosco este momento único!',
+          thankYouMessage: 'Cada foto é uma lembrança preciosa. Obrigado!'
+        }
+      }
+    ],
     notifications: [
       {
         id: '3',
@@ -70,14 +75,6 @@ export const mockClients = [
         type: 'warning',
         date: '2025-02-06',
         read: false
-      },
-      {
-        id: '4',
-        title: 'Álbum Criado',
-        message: 'Seu álbum foi criado. Por favor, realize o pagamento para ativação.',
-        type: 'info',
-        date: '2025-02-05',
-        read: true
       }
     ]
   },
@@ -86,26 +83,19 @@ export const mockClients = [
     name: 'Sofia & Ricardo Lima',
     email: 'sofia.ricardo@email.com',
     weddingDate: '2025-08-10',
-    status: 'pending_payment',
-    albumId: 'album-sofia-ricardo-2025',
-    albumLimit: 1,
+    status: 'approved',
+    albumLimit: 3,
     createdAt: '2025-02-08',
     googleDriveConnected: false,
-    paymentStatus: 'pending',
+    paymentStatus: 'confirmed',
     enabled: true,
-    customization: {
-      primaryColor: '#D4AF37',
-      secondaryColor: '#F5E6A3',
-      mainPhoto: 'https://images.unsplash.com/photo-1594736797933-d0802ba42407?w=800&q=80',
-      welcomeMessage: 'Venham celebrar conosco!',
-      thankYouMessage: 'Vocês são especiais para nós!'
-    },
+    albums: [],
     notifications: [
       {
         id: '5',
-        title: 'Álbum Criado - Pagamento Necessário',
-        message: 'Seu álbum foi criado! Para ativá-lo, realize o pagamento de R$ 99,90.',
-        type: 'warning',
+        title: 'Pagamento Aprovado!',
+        message: 'Você já pode criar seus álbuns!',
+        type: 'success',
         date: '2025-02-08',
         read: false
       }
