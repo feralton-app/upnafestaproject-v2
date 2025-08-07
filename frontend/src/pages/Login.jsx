@@ -198,6 +198,15 @@ const Login = () => {
               ← Voltar para início
             </Link>
           </div>
+
+          {/* Admin credentials info */}
+          <div className="mt-6 p-3 bg-amber-50 rounded-lg border border-amber-200">
+            <h4 className="text-sm font-semibold text-amber-800 mb-2">Acesso Administrativo:</h4>
+            <p className="text-xs text-amber-700">
+              <strong>Email:</strong> admin@upnafesta.com<br />
+              <strong>Senha:</strong> admin123
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
