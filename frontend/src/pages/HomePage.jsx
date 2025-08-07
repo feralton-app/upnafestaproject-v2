@@ -113,42 +113,32 @@ const HomePage = () => {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
-              Como Funciona
-            </h2>
-            <p className="text-xl text-amber-700 max-w-2xl mx-auto">
-              3 passos simples para coletar todas as fotos do seu casamento
-            </p>
-          </div>
+      {mockSiteConfig.howItWorks.enabled && (
+        <section id="how-it-works" className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
+                {mockSiteConfig.howItWorks.title}
+              </h2>
+              <p className="text-xl text-amber-700 max-w-2xl mx-auto">
+                {mockSiteConfig.howItWorks.subtitle}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-amber-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-amber-900 mb-4">Criar Álbum</h3>
-              <p className="text-amber-700">Crie seu álbum gratuito e conecte com sua conta do Google Drive</p>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-amber-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">
-                2
-              </div>
-              <h3 className="text-xl font-bold text-amber-900 mb-4">Compartilhar Link</h3>
-              <p className="text-amber-700">Compartilhe o link ou QR code com seus convidados</p>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-amber-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-amber-900 mb-4">Receber Fotos</h3>
-              <p className="text-amber-700">Todas as fotos vão automaticamente para seu Google Drive</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {mockSiteConfig.howItWorks.steps.map((step, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-20 h-20 bg-amber-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">
+                    {step.number}
+                  </div>
+                  <h3 className="text-xl font-bold text-amber-900 mb-4">{step.title}</h3>
+                  <p className="text-amber-700">{step.description}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-white">
