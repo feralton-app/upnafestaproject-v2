@@ -151,6 +151,8 @@ const ClientDashboard = () => {
 
   const isAlbumActive = client.status === 'approved';
   const canCustomize = client.status === 'approved';
+  const hasAlbum = client.albumId && client.albumId !== '';
+  const albumLimit = client.albumLimit || 1; // Default limit of 1 album
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
