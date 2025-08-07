@@ -407,6 +407,29 @@ const AdminDashboard = () => {
                                 Ver Álbum
                               </Button>
                             </Link>
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="text-blue-700 border-blue-300"
+                              onClick={() => {
+                                setSelectedClientId(client.id);
+                                setResetPasswordDialogOpen(true);
+                              }}
+                            >
+                              <KeyRound className="w-3 h-3 mr-1" />
+                              Reset Senha
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="destructive"
+                              onClick={() => {
+                                setSelectedClientId(client.id);
+                                setDeleteDialogOpen(true);
+                              }}
+                            >
+                              <Trash2 className="w-3 h-3 mr-1" />
+                              Excluir
+                            </Button>
                           </div>
                         </TableCell>
                       </TableRow>
