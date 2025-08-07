@@ -64,6 +64,33 @@ const ClientDashboard = () => {
     }
   }, [selectedAlbum?.googleFolderId]);
 
+  // Detectar se acabou de conectar Google e focar no campo Folder ID
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('google_connected') === 'true' && client?.googleDriveConnected) {
+      // Abrir automaticamente a aba Configurações
+      setActiveTab('settings');
+      
+      // Focar no campo Folder ID após pequeno delay
+      setTimeout(() => {
+        const folderField = document.getElementById('albumFolder');
+        if (folderField) {
+          folderField.focus();
+          folderField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          toast({
+            title: "🎉 Google Drive conectado!",
+            description: "Configure agora o ID da pasta onde as fotos serão salvas ↓",
+            duration: 8000
+          });
+        }
+      }, 500);
+      
+      // Remover parâmetro da URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [client?.googleDriveConnected]);
+
   // Verificar se foi redirecionado do Google OAuth
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
