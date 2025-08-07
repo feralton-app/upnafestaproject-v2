@@ -381,6 +381,19 @@ const AdminDashboard = () => {
                             required
                           />
                         </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="albumLimit" className="text-amber-800">Limite de Álbuns</Label>
+                          <Input
+                            id="albumLimit"
+                            type="number"
+                            min="1"
+                            max="5"
+                            value={newClient.albumLimit}
+                            onChange={(e) => setNewClient({...newClient, albumLimit: parseInt(e.target.value)})}
+                            className="border-amber-300"
+                            required
+                          />
+                        </div>
                         <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700">
                           Criar Cliente
                         </Button>
