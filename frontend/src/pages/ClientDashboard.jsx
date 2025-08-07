@@ -59,8 +59,8 @@ const ClientDashboard = () => {
   
   // Inicializar tempFolderId com valor atual
   useEffect(() => {
-    if (selectedAlbum?.googleFolderId) {
-      setTempFolderId(selectedAlbum.googleFolderId);
+    if (selectedAlbum?.googleFolderId !== undefined) {
+      setTempFolderId(selectedAlbum.googleFolderId || '');
     }
   }, [selectedAlbum?.googleFolderId]);
 
