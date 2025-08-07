@@ -93,6 +93,7 @@ class AlbumUpdate(BaseModel):
     main_photo: Optional[str] = None
     welcome_message: Optional[str] = None
     thank_you_message: Optional[str] = None
+    google_folder_id: Optional[str] = None
 
 class AlbumResponse(BaseModel):
     id: str
