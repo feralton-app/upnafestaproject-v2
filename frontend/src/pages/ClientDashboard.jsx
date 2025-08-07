@@ -328,6 +328,37 @@ const ClientDashboard = () => {
     }
   };
 
+  const updateAlbumDate = async (newDate) => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/clients/${clientId}/albums/${selectedAlbum.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          event_date: newDate
+        })
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Data do álbum atualizada!",
+          description: `A data do evento foi alterada para ${new Date(newDate).toLocaleDateString('pt-BR')}.`
+        });
+        fetchClientData(); // Recarregar dados
+      } else {
+        throw new Error('Falha ao atualizar');
+      }
+    } catch (error) {
+      toast({
+        title: "Erro ao atualizar data",
+        description: "Não foi possível alterar a data do álbum.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const uploadPaymentProof = () => {
     if (paymentProof) {
       toast({
