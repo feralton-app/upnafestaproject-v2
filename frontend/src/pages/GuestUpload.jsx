@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
 import { Progress } from '../components/ui/progress';
 import { Heart, Upload, CheckCircle, AlertCircle } from 'lucide-react';
 import { mockClients } from '../mock';
