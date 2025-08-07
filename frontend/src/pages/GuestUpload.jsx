@@ -208,147 +208,212 @@ const GuestUpload = () => {
   }
 
   return (
-    <div className="min-h-screen" style={gradientStyle}>
-      <div className="flex items-center justify-center min-h-screen px-4 py-8">
-        <Card className="max-w-lg mx-auto bg-white/95 backdrop-blur-sm">
-          <CardContent className="p-8">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="relative mb-4">
-                <img
-                  src={mainPhoto}
-                  alt={client.name}
-                  className="w-20 h-20 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
-                />
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center" style={{backgroundColor: primaryColor}}>
-                  <Heart className="w-3 h-3 text-white" />
-                </div>
-              </div>
-              
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">{client.name}</h1>
-              <p className="text-gray-600 mb-4">
-                {new Date(client.weddingDate).toLocaleDateString('pt-BR', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
-                })}
-              </p>
-              
-              <p className="text-gray-700 text-sm leading-relaxed">
+    <div className="min-h-screen relative overflow-hidden" style={gradientStyle}>
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-black/20"></div>
+      
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-8">
+        {!showUploadForm ? (
+          /* Guest Info Form */
+          <div className="max-w-md mx-auto text-center text-white">
+            {/* Large couple photo */}
+            <div className="mb-8">
+              <img
+                src={mainPhoto}
+                alt={client.name}
+                className="w-48 h-48 rounded-full mx-auto object-cover border-6 border-white shadow-2xl"
+              />
+            </div>
+            
+            <h1 className="text-4xl font-bold mb-2 drop-shadow-lg">{client.name}</h1>
+            <p className="text-xl mb-6 drop-shadow opacity-90">
+              {new Date(client.weddingDate).toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </p>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-6 border border-white/20">
+              <p className="text-lg leading-relaxed mb-6 drop-shadow">
                 {welcomeMessage}
               </p>
+              
+              <div className="space-y-4">
+                <div>
+                  <Input
+                    placeholder="Seu nome *"
+                    value={guestInfo.name}
+                    onChange={(e) => setGuestInfo({...guestInfo, name: e.target.value})}
+                    className="bg-white/20 border-white/30 text-white placeholder:text-white/70 text-lg py-6"
+                    required
+                  />
+                </div>
+                <div>
+                  <Input
+                    placeholder="Comentário (opcional)"
+                    value={guestInfo.comment}
+                    onChange={(e) => setGuestInfo({...guestInfo, comment: e.target.value})}
+                    className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Upload Section */}
-            <Card className="border-2 border-dashed border-gray-300">
-              <CardContent className="p-6">
-                <div className="text-center mb-4">
-                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <h3 className="font-semibold text-gray-900 mb-1">Enviar Fotos e Vídeos</h3>
-                  <p className="text-sm text-gray-500">Selecione ou arraste seus arquivos aqui!</p>
-                </div>
-
-                {/* File Drop Zone */}
-                <div
-                  className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-                    dragActive 
-                      ? 'border-amber-500 bg-amber-50' 
-                      : 'border-gray-300 hover:border-gray-400'
-                  }`}
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                >
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 mb-2">
-                    Clique aqui ou arraste seus arquivos
-                  </p>
-                  <p className="text-xs text-gray-500 mb-4">
-                    Fotos (JPG, PNG) e Vídeos (MP4, MOV) são aceitos
-                  </p>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*,video/*"
-                    onChange={handleChange}
-                    className="hidden"
-                    id="fileInput"
+            <Button 
+              onClick={startUpload}
+              size="lg"
+              className="text-white border-2 border-white bg-white/20 hover:bg-white/30 backdrop-blur-sm px-8 py-4 text-lg font-semibold rounded-xl"
+              style={{backgroundColor: 'rgba(255, 255, 255, 0.2)'}}
+            >
+              <Heart className="w-5 h-5 mr-2" />
+              Continuar
+            </Button>
+          </div>
+        ) : (
+          /* Upload Form */
+          <div className="max-w-lg mx-auto">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <div className="relative mb-4">
+                  <img
+                    src={mainPhoto}
+                    alt={client.name}
+                    className="w-20 h-20 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
                   />
-                  <label
-                    htmlFor="fileInput"
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
-                  >
-                    Selecionar Arquivos
-                  </label>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center" style={{backgroundColor: primaryColor}}>
+                    <Heart className="w-3 h-3 text-white" />
+                  </div>
                 </div>
+                
+                <h1 className="text-2xl font-bold text-gray-900 mb-1">{client.name}</h1>
+                <p className="text-gray-600 mb-2">
+                  {new Date(client.weddingDate).toLocaleDateString('pt-BR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })}
+                </p>
+                <p className="text-sm text-gray-700">
+                  Enviando como: <strong>{guestInfo.name}</strong>
+                </p>
+                {guestInfo.comment && (
+                  <p className="text-xs text-gray-600 italic">"{guestInfo.comment}"</p>
+                )}
+              </div>
 
-                {/* Selected Files */}
-                {files.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="font-medium text-gray-900 mb-2">
-                      Arquivos selecionados ({files.length})
-                    </h4>
-                    <div className="space-y-2 max-h-40 overflow-y-auto">
-                      {files.map((file, index) => (
-                        <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                          <div className="flex items-center space-x-2">
-                            {file.type.startsWith('image/') ? (
-                              <span className="text-green-500">📷</span>
-                            ) : (
-                              <span className="text-blue-500">🎬</span>
-                            )}
-                            <span className="text-sm text-gray-700 truncate max-w-48">
-                              {file.name}
-                            </span>
-                            <span className="text-xs text-gray-500">
-                              ({(file.size / (1024 * 1024)).toFixed(1)} MB)
-                            </span>
+              {/* Upload Section */}
+              <Card className="border-2 border-dashed border-gray-300">
+                <CardContent className="p-6">
+                  <div className="text-center mb-4">
+                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                    <h3 className="font-semibold text-gray-900 mb-1">Enviar Fotos e Vídeos</h3>
+                    <p className="text-sm text-gray-500">Selecione ou arraste seus arquivos aqui!</p>
+                  </div>
+
+                  {/* File Drop Zone */}
+                  <div
+                    className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                      dragActive 
+                        ? 'border-amber-500 bg-amber-50' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                  >
+                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600 mb-2">
+                      Clique aqui ou arraste seus arquivos
+                    </p>
+                    <p className="text-xs text-gray-500 mb-4">
+                      Fotos (JPG, PNG) e Vídeos (MP4, MOV) são aceitos
+                    </p>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*,video/*"
+                      onChange={handleChange}
+                      className="hidden"
+                      id="fileInput"
+                    />
+                    <label
+                      htmlFor="fileInput"
+                      className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Selecionar Arquivos
+                    </label>
+                  </div>
+
+                  {/* Selected Files */}
+                  {files.length > 0 && (
+                    <div className="mt-4">
+                      <h4 className="font-medium text-gray-900 mb-2">
+                        Arquivos selecionados ({files.length})
+                      </h4>
+                      <div className="space-y-2 max-h-40 overflow-y-auto">
+                        {files.map((file, index) => (
+                          <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                            <div className="flex items-center space-x-2">
+                              {file.type.startsWith('image/') ? (
+                                <span className="text-green-500">📷</span>
+                              ) : (
+                                <span className="text-blue-500">🎬</span>
+                              )}
+                              <span className="text-sm text-gray-700 truncate max-w-48">
+                                {file.name}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                ({(file.size / (1024 * 1024)).toFixed(1)} MB)
+                              </span>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => removeFile(index)}
+                              className="text-red-500 hover:text-red-700 p-1 h-auto"
+                            >
+                              ×
+                            </Button>
                           </div>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => removeFile(index)}
-                            className="text-red-500 hover:text-red-700 p-1 h-auto"
-                          >
-                            ×
-                          </Button>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Upload Progress */}
-                {uploading && (
-                  <div className="mt-4">
-                    <div className="flex justify-between text-sm text-gray-600 mb-1">
-                      <span>Enviando arquivos...</span>
-                      <span>{uploadProgress}%</span>
+                  {/* Upload Progress */}
+                  {uploading && (
+                    <div className="mt-4">
+                      <div className="flex justify-between text-sm text-gray-600 mb-1">
+                        <span>Enviando arquivos...</span>
+                        <span>{uploadProgress}%</span>
+                      </div>
+                      <Progress value={uploadProgress} className="w-full" />
                     </div>
-                    <Progress value={uploadProgress} className="w-full" />
-                  </div>
-                )}
+                  )}
 
-                {/* Upload Button */}
-                <Button
-                  onClick={uploadFiles}
-                  disabled={files.length === 0 || uploading}
-                  className="w-full mt-6 text-white"
-                  style={{backgroundColor: primaryColor}}
-                >
-                  <Heart className="w-4 h-4 mr-2" />
-                  {uploading ? 'Enviando...' : 'Enviar com Amor'}
-                </Button>
-              </CardContent>
-            </Card>
+                  {/* Upload Button */}
+                  <Button
+                    onClick={uploadFiles}
+                    disabled={files.length === 0 || uploading}
+                    className="w-full mt-6 text-white"
+                    style={{backgroundColor: primaryColor}}
+                  >
+                    <Heart className="w-4 h-4 mr-2" />
+                    {uploading ? 'Enviando...' : 'Enviar com Amor'}
+                  </Button>
+                </CardContent>
+              </Card>
 
-            <p className="text-xs text-center text-gray-500 mt-6">
-              Obrigado por fazer parte do nosso dia especial! 💕<br />
-              <span className="text-gray-400">Desenvolvido por UpnaFesta © 2025</span>
-            </p>
-          </CardContent>
-        </Card>
+              <p className="text-xs text-center text-gray-500 mt-6">
+                Obrigado por fazer parte do nosso dia especial! 💕<br />
+                <span className="text-gray-400">Desenvolvido por UpnaFesta © 2025</span>
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
