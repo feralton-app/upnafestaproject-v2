@@ -39,12 +39,14 @@ const AdminDashboard = () => {
   const [newClient, setNewClient] = useState({
     name: '',
     email: '',
-    weddingDate: ''
+    weddingDate: '',
+    albumLimit: 1
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(null);
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleCreateClient = (e) => {
