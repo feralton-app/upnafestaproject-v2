@@ -376,6 +376,44 @@ async def disconnect_google(client_id: str, db_session: Session = Depends(get_db
     
     return {"message": "Google Drive desconectado com sucesso"}
 
+# Endpoint para testar upload de arquivo
+@api_router.post("/test-upload/{client_id}")
+async def test_upload(
+    client_id: str,
+    file: UploadFile = File(...),
+    folder_id: str = Form(...),
+    db_session: Session = Depends(get_db)
+):
+    """Endpoint para testar upload real no Google Drive"""
+    try:
+        drive_service = GoogleDriveService(db_session)
+        
+        # Ler conteúdo do arquivo
+        file_content = await file.read()
+        
+        # Fazer upload para Google Drive
+        google_file_id = drive_service.upload_file(
+            client_id,
+            folder_id,
+            file_content,
+            file.filename,
+            file.content_type
+        )
+        
+        if google_file_id:
+            return {
+                "success": True,
+                "message": "Upload realizado com sucesso!",
+                "google_file_id": google_file_id,
+                "folder_id": folder_id,
+                "filename": file.filename
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Falha no upload")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erro no upload: {str(e)}")
+
 # File Upload for guests
 @api_router.post("/albums/{album_id}/upload")
 async def upload_file_to_album(
