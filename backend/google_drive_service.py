@@ -77,10 +77,17 @@ class GoogleDriveService:
         
         credentials = flow.credentials
         
-        # Obter informações do usuário Google
-        service = build('oauth2', 'v2', credentials=credentials)
-        user_info = service.userinfo().get().execute()
-        google_email = user_info.get('email')
+        # Obter email do usuário de forma mais simples
+        google_email = None
+        try:
+            # Tentar obter informações do usuário
+            service = build('oauth2', 'v2', credentials=credentials)
+            user_info = service.userinfo().get().execute()
+            google_email = user_info.get('email')
+        except Exception as e:
+            print(f"Aviso: Não foi possível obter email do usuário: {e}")
+            # Continuar sem o email - não é crítico
+            google_email = "email_nao_disponivel@example.com"
         
         # Desativar tokens anteriores do cliente
         self.db.query(GoogleToken).filter(
