@@ -225,7 +225,7 @@ const GoogleConfig = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {redirectUrisInfo && (
+              {callbackInfo && (
                 <>
                   <div>
                     <Label className="text-amber-800 font-semibold">URIs de Redirecionamento Autorizadas</Label>
