@@ -121,7 +121,7 @@ const GuestUpload = () => {
     }, 500);
   };
 
-  if (!client) {
+  if (!client || !album) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <Card className="max-w-md mx-4">
@@ -135,7 +135,7 @@ const GuestUpload = () => {
     );
   }
 
-  if (client.status !== 'approved') {
+  if (album.status !== 'active') {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <Card className="max-w-md mx-4">
@@ -149,7 +149,7 @@ const GuestUpload = () => {
     );
   }
 
-  const { primaryColor, secondaryColor, mainPhoto, welcomeMessage, thankYouMessage } = client.customization;
+  const { primaryColor, secondaryColor, mainPhoto, welcomeMessage, thankYouMessage } = album.customization;
   
   // Create gradient style
   const gradientStyle = {
