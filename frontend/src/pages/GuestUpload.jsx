@@ -185,8 +185,10 @@ const GuestUpload = () => {
               <Button 
                 onClick={() => {
                   setUploadComplete(false);
+                  setShowUploadForm(false);
                   setFiles([]);
                   setUploadProgress(0);
+                  setGuestInfo({ name: '', comment: '' });
                 }}
                 variant="outline"
                 className="text-gray-700 border-gray-300"
