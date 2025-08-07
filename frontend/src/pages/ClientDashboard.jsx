@@ -34,10 +34,16 @@ import { useToast } from '../hooks/use-toast';
 
 const ClientDashboard = () => {
   const { clientId } = useParams();
+  const navigate = useNavigate();
   const client = mockClients.find(c => c.id === clientId);
   const [customization, setCustomization] = useState(client?.customization || {});
   const [paymentProof, setPaymentProof] = useState(null);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [showGoogleDialog, setShowGoogleDialog] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [showDeleteAlbumDialog, setShowDeleteAlbumDialog] = useState(false);
+  const [googleFolderId, setGoogleFolderId] = useState(client?.googleFolderId || '');
+  const [newPassword, setNewPassword] = useState({ current: '', new: '', confirm: '' });
   const { toast } = useToast();
 
   if (!client) {
