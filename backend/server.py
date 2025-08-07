@@ -134,7 +134,7 @@ async def create_google_config(config: GoogleConfigCreate, db_session: Session =
     db_session.query(GoogleConfig).filter(GoogleConfig.is_active == True).update({'is_active': False})
     
     # URL de callback fixa da aplicação (URL pública)
-    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://534474ce-4a60-4c82-af75-b8c427671bfd.preview.emergentagent.com')
+    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com')
     callback_url = f"{base_url}/api/auth/google/callback"
     
     # Criar nova configuração
@@ -160,7 +160,7 @@ async def get_google_config(db_session: Session = Depends(get_db)):
 @api_router.get("/admin/google-redirect-uris")
 async def get_google_redirect_uris():
     # Usar a URL pública da aplicação, não localhost
-    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://534474ce-4a60-4c82-af75-b8c427671bfd.preview.emergentagent.com')
+    base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com')
     callback_url = f"{base_url}/api/auth/google/callback"
     
     return {
@@ -283,7 +283,7 @@ async def google_authorize(client_id: str, db_session: Session = Depends(get_db)
     
     try:
         # URL pública de callback da aplicação
-        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://534474ce-4a60-4c82-af75-b8c427671bfd.preview.emergentagent.com')
+        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com')
         redirect_uri = f"{base_url}/api/auth/google/callback"
         
         auth_url, state = drive_service.get_authorization_url(client_id, redirect_uri)
@@ -298,7 +298,7 @@ async def google_callback(code: str, state: str, db_session: Session = Depends(g
     
     try:
         # URL pública de callback da aplicação
-        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://534474ce-4a60-4c82-af75-b8c427671bfd.preview.emergentagent.com')
+        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com')
         redirect_uri = f"{base_url}/api/auth/google/callback"
         
         token = drive_service.handle_oauth_callback(code, state, redirect_uri)
