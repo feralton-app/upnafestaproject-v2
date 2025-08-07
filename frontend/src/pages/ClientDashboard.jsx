@@ -92,18 +92,39 @@ const ClientDashboard = () => {
     navigate('/');
   };
 
-  const connectGoogleDrive = () => {
-    // Simulate Google OAuth2 flow
-    window.open('https://accounts.google.com/oauth/authorize?client_id=mock&redirect_uri=mock&scope=drive', '_blank', 'width=500,height=600');
-    
-    // Simulate OAuth success after 3 seconds
-    setTimeout(() => {
+  const connectGoogleDrive = async () => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/auth/google/authorize/${clientId}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        // Abrir janela de autorização Google OAuth
+        window.open(data.auth_url, '_blank', 'width=500,height=600');
+        
+        toast({
+          title: "Redirecionando para Google",
+          description: "Complete o processo de autorização na nova janela."
+        });
+        
+        // Simular sucesso após delay (na prática, seria via callback)
+        setTimeout(() => {
+          toast({
+            title: "Google Drive conectado!",
+            description: `Conectado à conta Google com sucesso!`
+          });
+          setShowGoogleDialog(false);
+        }, 5000);
+      } else {
+        throw new Error('Falha ao obter URL de autorização');
+      }
+    } catch (error) {
       toast({
-        title: "Google Drive conectado!",
-        description: `Conectado à conta ${googleConfig.account || 'usuario@gmail.com'}`
+        title: "Erro na conexão",
+        description: "Não foi possível conectar ao Google Drive. Verifique as configurações.",
+        variant: "destructive"
       });
-      setShowGoogleDialog(false);
-    }, 3000);
+    }
   };
 
   const disconnectGoogleDrive = () => {
