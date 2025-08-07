@@ -153,6 +153,53 @@ export const mockSiteConfig = {
       subtitle: 'Acesso simples via navegador web.'
     }
   ],
+  howItWorks: {
+    enabled: true,
+    title: 'Como Funciona',
+    subtitle: '3 passos simples para coletar todas as fotos do seu casamento',
+    steps: [
+      {
+        number: 1,
+        title: 'Criar Álbum',
+        description: 'Crie seu álbum e conecte com sua conta do Google Drive'
+      },
+      {
+        number: 2,
+        title: 'Compartilhar Link',
+        description: 'Compartilhe o link ou QR code com seus convidados'
+      },
+      {
+        number: 3,
+        title: 'Receber Fotos',
+        description: 'Todas as fotos vão automaticamente para seu Google Drive'
+      }
+    ]
+  },
+  testimonials: {
+    enabled: true,
+    title: 'Casais Felizes',
+    subtitle: 'Veja o que nossos clientes estão dizendo',
+    items: [
+      {
+        id: '1',
+        name: 'Sofia & Ricardo',
+        text: 'O UpnaFesta tornou muito fácil coletar todas as fotos do nosso casamento. Nossos convidados adoraram a simplicidade!',
+        avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&q=80'
+      },
+      {
+        id: '2',
+        name: 'Camila & Bruno',
+        text: 'Recebemos mais de 500 fotos dos nossos convidados! Foi incrível ver nosso casamento pela perspectiva de todos.',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'
+      },
+      {
+        id: '3',
+        name: 'Amanda & Diego',
+        text: 'Processo super fácil e rápido. Em poucas horas já tínhamos centenas de fotos organizadas no nosso Google Drive.',
+        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80'
+      }
+    ]
+  },
   pricing: {
     price: 'R$ 99,90',
     description: 'Pagamento único por álbum',
