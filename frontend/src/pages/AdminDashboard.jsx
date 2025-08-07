@@ -478,23 +478,29 @@ const AdminDashboard = () => {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-2 flex-wrap gap-1">
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="text-amber-700 border-amber-300"
+                              onClick={() => {
+                                setEditingClient({...client});
+                                setEditDialog(true);
+                              }}
+                            >
+                              <Edit className="w-3 h-3 mr-1" />
+                              Editar
+                            </Button>
                             <Link to={`/client/${client.id}`}>
-                              <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
-                                <Settings className="w-3 h-3 mr-1" />
-                                Editar
-                              </Button>
-                            </Link>
-                            <Link to={`/album/${client.albumId}`}>
-                              <Button size="sm" variant="outline" className="text-amber-700 border-amber-300">
+                              <Button size="sm" variant="outline" className="text-blue-700 border-blue-300">
                                 <ExternalLink className="w-3 h-3 mr-1" />
-                                Ver Álbum
+                                Ver Painel
                               </Button>
                             </Link>
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="text-blue-700 border-blue-300"
+                              className="text-purple-700 border-purple-300"
                               onClick={() => {
                                 setSelectedClientId(client.id);
                                 setResetPasswordDialogOpen(true);
