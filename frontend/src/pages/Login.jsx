@@ -6,6 +6,7 @@ import { Label } from '../components/ui/label';
 import { Camera, Mail, Lock, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../hooks/use-toast';
+import { mockClients } from '../mock';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
