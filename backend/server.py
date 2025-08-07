@@ -295,15 +295,16 @@ async def google_callback(code: str, state: str, db_session: Session = Depends(g
     drive_service = GoogleDriveService(db_session)
     
     try:
-        # Usar URL do frontend como redirect_uri
-        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001').replace('/api', '')
-        redirect_uri = f"{base_url}/client/google-callback"
+        # URL fixa de callback da aplicação
+        base_url = os.environ.get('REACT_APP_BACKEND_URL', 'http://localhost:8001')
+        redirect_uri = f"{base_url}/api/auth/google/callback"
         
         token = drive_service.handle_oauth_callback(code, state, redirect_uri)
         
         # Redirecionar de volta para o frontend com sucesso
         client_id = state.replace('client_id:', '')
-        return RedirectResponse(f"{base_url}/client/{client_id}?google_connected=true")
+        frontend_url = base_url.replace('/api', '') if '/api' in base_url else base_url
+        return RedirectResponse(f"{frontend_url}/client/{client_id}?google_connected=true")
         
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
