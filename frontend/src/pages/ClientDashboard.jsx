@@ -39,9 +39,96 @@ import { useToast } from '../hooks/use-toast';
 const ClientDashboard = () => {
   const { clientId } = useParams();
   const navigate = useNavigate();
-  const client = mockClients.find(c => c.id === clientId);
+  
+  // Estado para dados reais do cliente
+  const [realClient, setRealClient] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  // Fallback para mock se não conseguir buscar dados reais
+  const mockClient = mockClients.find(c => c.id === clientId);
+  const client = realClient || mockClient;
+  
   const [selectedAlbumId, setSelectedAlbumId] = useState(client?.albums[0]?.id || null);
   const selectedAlbum = client?.albums?.find(a => a.id === selectedAlbumId);
+  
+  // Buscar dados reais do cliente
+  useEffect(() => {
+    fetchClientData();
+  }, [clientId]);
+  
+  // Verificar se foi redirecionado do Google OAuth
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('google_connected') === 'true') {
+      // Remover parâmetro da URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      // Recarregar dados do cliente
+      setTimeout(() => {
+        fetchClientData();
+        toast({
+          title: "Google Drive conectado!",
+          description: "Sua conta Google foi conectada com sucesso!"
+        });
+      }, 1000);
+    }
+  }, []);
+  
+  const fetchClientData = async () => {
+    try {
+      setLoading(true);
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/clients/${clientId}`);
+      
+      if (response.ok) {
+        const clientData = await response.json();
+        
+        // Verificar se tem Google token ativo
+        const tokenResponse = await fetch(`${backendUrl}/api/clients/${clientId}/google-status`);
+        let googleDriveConnected = false;
+        let googleAccount = null;
+        
+        if (tokenResponse.ok) {
+          const tokenData = await tokenResponse.json();
+          googleDriveConnected = tokenData.connected;
+          googleAccount = tokenData.email;
+        }
+        
+        // Buscar álbuns do cliente
+        const albumsResponse = await fetch(`${backendUrl}/api/clients/${clientId}/albums`);
+        let albums = [];
+        if (albumsResponse.ok) {
+          albums = await albumsResponse.json();
+        }
+        
+        setRealClient({
+          ...clientData,
+          googleDriveConnected,
+          googleAccount,
+          albums: albums.map(album => ({
+            ...album,
+            id: album.id,
+            name: album.name,
+            eventDate: album.event_date,
+            status: album.status,
+            googleFolderId: album.google_folder_id,
+            customization: {
+              primaryColor: album.primary_color || '#8B4513',
+              secondaryColor: album.secondary_color || '#DEB887',
+              mainPhoto: album.main_photo || 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
+              welcomeMessage: album.welcome_message || 'Queridos amigos e familiares, compartilhem conosco os momentos especiais do nosso grande dia!',
+              thankYouMessage: album.thank_you_message || 'Obrigado por fazer parte da nossa história de amor!'
+            }
+          }))
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados do cliente:', error);
+      // Usar dados mock como fallback
+    } finally {
+      setLoading(false);
+    }
+  };
   
   const [customization, setCustomization] = useState(selectedAlbum?.customization || {});
   const [paymentProof, setPaymentProof] = useState(null);
