@@ -311,6 +311,27 @@ async def google_callback(code: str, state: str, db_session: Session = Depends(g
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@api_router.get("/clients/{client_id}/google-status")
+async def get_google_status(client_id: str, db_session: Session = Depends(get_db)):
+    """Verifica se o cliente tem Google Drive conectado"""
+    token = db_session.query(GoogleToken).filter(
+        GoogleToken.client_id == client_id,
+        GoogleToken.is_active == True
+    ).first()
+    
+    if token:
+        return {
+            "connected": True,
+            "email": token.google_email,
+            "expires_at": token.expires_at
+        }
+    else:
+        return {
+            "connected": False,
+            "email": None,
+            "expires_at": None
+        }
+
 @api_router.delete("/clients/{client_id}/google-connection")
 async def disconnect_google(client_id: str, db_session: Session = Depends(get_db)):
     drive_service = GoogleDriveService(db_session)
