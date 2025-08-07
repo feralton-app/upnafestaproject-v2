@@ -15,6 +15,8 @@ const GuestUpload = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadComplete, setUploadComplete] = useState(false);
+  const [guestInfo, setGuestInfo] = useState({ name: '', comment: '' });
+  const [showUploadForm, setShowUploadForm] = useState(false);
   const { toast } = useToast();
 
   const handleDrag = useCallback((e) => {
