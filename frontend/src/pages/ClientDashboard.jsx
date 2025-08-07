@@ -1011,8 +1011,10 @@ const ClientDashboard = () => {
                                 updateAlbumFolderId(newFolderId);
                               }, 1000);
                             }}
-                            placeholder="1A2B3C4D5E6F7G8H9I0J ou 1BxYz-AbC_123"
+                            placeholder="1A2B3C4D5E6F7G8H9I0J ou 1BxYz-AbC_123_456789"
                             className="border-amber-300 font-mono"
+                            maxLength={null}
+                            minLength={null}
                           />
                           <p className="text-xs text-amber-600">
                             Deixe vazio para usar a pasta padrão da conta
