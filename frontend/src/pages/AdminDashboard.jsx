@@ -420,7 +420,7 @@ const AdminDashboard = () => {
                     <TableRow>
                       <TableHead className="text-amber-800">Cliente</TableHead>
                       <TableHead className="text-amber-800">Email</TableHead>
-                      <TableHead className="text-amber-800">Data do Casamento</TableHead>
+                      <TableHead className="text-amber-800">Álbuns</TableHead>
                       <TableHead className="text-amber-800">Limite Álbuns</TableHead>
                       <TableHead className="text-amber-800">Google Drive</TableHead>
                       <TableHead className="text-amber-800">Status Pagamento</TableHead>
