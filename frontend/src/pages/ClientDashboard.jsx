@@ -565,11 +565,18 @@ const ClientDashboard = () => {
                         <div className="flex justify-between items-center">
                           <div>
                             <h4 className="font-semibold text-amber-900">{album.name}</h4>
-                            <p className="text-sm text-amber-600">Status: {album.status}</p>
+                            <div className="flex justify-between items-center">
+                              <p className="text-sm text-amber-600">Status: {album.status}</p>
+                              <div className="text-right">
+                                <p className="text-xs text-amber-600">
+                                  {new Date(album.eventDate).toLocaleDateString('pt-BR')}
+                                </p>
+                                <Badge variant="secondary" className={album.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
+                                  {album.status === 'active' ? 'Ativo' : 'Pendente'}
+                                </Badge>
+                              </div>
+                            </div>
                           </div>
-                          <Badge variant="secondary" className={album.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
-                            {album.status === 'active' ? 'Ativo' : 'Pendente'}
-                          </Badge>
                         </div>
                       </div>
                     ))}
