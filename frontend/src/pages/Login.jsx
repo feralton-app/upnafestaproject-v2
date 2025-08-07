@@ -93,8 +93,8 @@ const Login = () => {
           </CardTitle>
           <CardDescription className="text-amber-600">
             {isLogin 
-              ? 'Acesse seu painel de álbuns de casamento' 
-              : 'Comece a coletar fotos do seu casamento gratuitamente'
+              ? 'Acesse seu painel de álbum ou área administrativa' 
+              : 'Comece a coletar fotos do seu casamento'
             }
           </CardDescription>
         </CardHeader>
