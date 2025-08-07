@@ -282,19 +282,25 @@ const ClientDashboard = () => {
                           Conecte sua conta do Google Drive para que as fotos dos convidados sejam salvas automaticamente.
                         </p>
                         
-                        <div>
-                          <Label htmlFor="googleAccount" className="text-amber-800">Conta Google</Label>
-                          <Input
-                            id="googleAccount"
-                            value={googleConfig.account}
-                            onChange={(e) => setGoogleConfig({...googleConfig, account: e.target.value})}
-                            placeholder="seu.email@gmail.com"
-                            className="border-amber-300"
-                          />
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                          <div className="flex items-center">
+                            <LinkIcon className="w-5 h-5 text-blue-600 mr-2" />
+                            <div>
+                              <p className="text-sm font-medium text-blue-900">Autorização Segura</p>
+                              <p className="text-sm text-blue-700">
+                                Você será redirecionado para o Google para autorizar o acesso
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        
-                        <div>
-                          <Label htmlFor="googleFolder" className="text-amber-800">ID da Pasta do Google Drive</Label>
+
+                        <Button onClick={connectGoogleDrive} className="w-full bg-amber-600 hover:bg-amber-700">
+                          <FolderOpen className="w-4 h-4 mr-2" />
+                          Conectar com Google OAuth
+                        </Button>
+
+                        <div className="mt-4">
+                          <Label htmlFor="googleFolder" className="text-amber-800">ID da Pasta (opcional)</Label>
                           <Input
                             id="googleFolder"
                             value={googleConfig.folderId}
@@ -303,14 +309,9 @@ const ClientDashboard = () => {
                             className="border-amber-300"
                           />
                           <p className="text-xs text-amber-600 mt-1">
-                            Crie uma pasta no Google Drive e cole o ID aqui
+                            Se não informado, será criada uma pasta automaticamente
                           </p>
                         </div>
-
-                        <Button onClick={connectGoogleDrive} className="w-full bg-amber-600 hover:bg-amber-700">
-                          <FolderOpen className="w-4 h-4 mr-2" />
-                          Conectar Google Drive
-                        </Button>
                       </div>
                     )}
                   </div>
