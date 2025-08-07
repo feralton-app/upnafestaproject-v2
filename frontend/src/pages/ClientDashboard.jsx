@@ -87,7 +87,8 @@ const ClientDashboard = () => {
         fetchClientData();
         toast({
           title: "Google Drive conectado!",
-          description: `Conectado com a conta ${event.data.email}!`
+          description: `Conectado com ${event.data.email}! Agora configure o ID da pasta na aba 'Configurações'.`,
+          duration: 6000
         });
       }
     };
