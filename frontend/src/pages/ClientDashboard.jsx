@@ -788,8 +788,31 @@ const ClientDashboard = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                      {/* Google Drive for this album */}
+                      {/* Album Date */}
                       <div>
+                        <h4 className="font-semibold text-amber-900 mb-2">Informações do Álbum</h4>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="albumEventDate" className="text-amber-800">Data do Evento</Label>
+                            <Input
+                              id="albumEventDate"
+                              type="date"
+                              value={selectedAlbum?.eventDate ? selectedAlbum.eventDate.split('T')[0] : ''}
+                              onChange={(e) => {
+                                // Update album event date
+                                updateAlbumDate(e.target.value);
+                              }}
+                              className="border-amber-300"
+                            />
+                            <p className="text-xs text-amber-600 mt-1">
+                              Esta data aparecerá na página de upload para os convidados
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Google Drive for this album */}
+                      <div className="border-t border-amber-200 pt-4">
                         <h4 className="font-semibold text-amber-900 mb-2">Google Drive deste Álbum</h4>
                         <div className="space-y-2">
                           <Label htmlFor="albumFolder" className="text-amber-800">ID da Pasta (específica para este álbum)</Label>
