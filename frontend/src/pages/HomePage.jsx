@@ -117,13 +117,13 @@ const HomePage = () => {
 
       {/* How It Works */}
       {mockSiteConfig.howItWorks.enabled && (
-        <section id="how-it-works" className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+        <section id="how-it-works" className="py-20" style={{background: 'linear-gradient(to bottom, var(--color-background), var(--color-surface))'}}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{color: 'var(--color-textPrimary)'}}>
                 {mockSiteConfig.howItWorks.title}
               </h2>
-              <p className="text-xl text-amber-700 max-w-2xl mx-auto">
+              <p className="text-xl max-w-2xl mx-auto" style={{color: 'var(--color-textSecondary)'}}>
                 {mockSiteConfig.howItWorks.subtitle}
               </p>
             </div>
@@ -131,11 +131,11 @@ const HomePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {mockSiteConfig.howItWorks.steps.map((step, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-20 h-20 bg-amber-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold">
+                  <div className="w-20 h-20 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold" style={{backgroundColor: 'var(--color-buttonPrimary)'}}>
                     {step.number}
                   </div>
-                  <h3 className="text-xl font-bold text-amber-900 mb-4">{step.title}</h3>
-                  <p className="text-amber-700">{step.description}</p>
+                  <h3 className="text-xl font-bold mb-4" style={{color: 'var(--color-textPrimary)'}}>{step.title}</h3>
+                  <p style={{color: 'var(--color-textSecondary)'}}>{step.description}</p>
                 </div>
               ))}
             </div>
