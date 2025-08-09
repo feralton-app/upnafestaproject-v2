@@ -110,6 +110,53 @@ class AlbumResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class SiteColorsCreate(BaseModel):
+    primary: str = "#8B4513"
+    secondary: str = "#DEB887"
+    accent: str = "#D2691E"
+    background: str = "#FFF8DC"
+    surface: str = "#FFFFFF"
+    header_bg: str = "#8B4513"
+    text_primary: str = "#2D1810"
+    text_secondary: str = "#8B4513"
+    header_text: str = "#FFFFFF"
+    button_primary: str = "#8B4513"
+    button_secondary: str = "#DEB887"
+    hover_color: str = "#6B3410"
+    success: str = "#22C55E"
+    warning: str = "#F59E0B"
+    error: str = "#EF4444"
+    border: str = "#E5E7EB"
+    link_color: str = "#3B82F6"
+    input_border: str = "#D1D5DB"
+
+class SiteColorsResponse(BaseModel):
+    id: str
+    primary: str
+    secondary: str
+    accent: str
+    background: str
+    surface: str
+    header_bg: str
+    text_primary: str
+    text_secondary: str
+    header_text: str
+    button_primary: str
+    button_secondary: str
+    hover_color: str
+    success: str
+    warning: str
+    error: str
+    border: str
+    link_color: str
+    input_border: str
+    is_active: bool
+    created_at: str
+    updated_at: str
+
+    class Config:
+        from_attributes = True
+
 # Original routes (mantendo compatibilidade)
 @api_router.get("/")
 async def root():
