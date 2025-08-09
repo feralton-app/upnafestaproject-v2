@@ -38,15 +38,15 @@ const HomePage = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-amber-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight" style={{color: 'var(--color-textPrimary)'}}>
               {mockSiteConfig.heroTitle}
             </h1>
-            <p className="text-xl text-amber-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed" style={{color: 'var(--color-textSecondary)'}}>
               {mockSiteConfig.heroSubtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link to="/login">
-                <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg">
+                <Button size="lg" className="px-8 py-4 text-lg text-white" style={{backgroundColor: 'var(--color-buttonPrimary)'}} onMouseOver={(e) => e.target.style.backgroundColor = 'var(--color-hoverColor)'} onMouseOut={(e) => e.target.style.backgroundColor = 'var(--color-buttonPrimary)'}>
                   <Heart className="w-5 h-5 mr-2" />
                   Criar Álbum
                 </Button>
@@ -54,7 +54,10 @@ const HomePage = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="text-amber-700 border-amber-300 hover:bg-amber-50 px-8 py-4 text-lg"
+                className="border px-8 py-4 text-lg"
+                style={{color: 'var(--color-textSecondary)', borderColor: 'var(--color-border)', backgroundColor: 'transparent'}}
+                onMouseOver={(e) => {e.target.style.backgroundColor = 'var(--color-surface)'; e.target.style.color = 'var(--color-hoverColor)'}}
+                onMouseOut={(e) => {e.target.style.backgroundColor = 'transparent'; e.target.style.color = 'var(--color-textSecondary)'}}
                 onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}
               >
                 Ver Como Funciona
