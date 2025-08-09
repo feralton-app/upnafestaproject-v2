@@ -128,6 +128,47 @@ class Notification(Base):
     # Relationships
     client = relationship("Client", back_populates="notifications")
 
+class SiteColors(Base):
+    """Configurações de cores do site"""
+    __tablename__ = "site_colors"
+    
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    
+    # Cores principais
+    primary = Column(String(7), default='#8B4513')
+    secondary = Column(String(7), default='#DEB887')
+    accent = Column(String(7), default='#D2691E')
+    
+    # Cores de fundo
+    background = Column(String(7), default='#FFF8DC')
+    surface = Column(String(7), default='#FFFFFF')
+    header_bg = Column(String(7), default='#8B4513')
+    
+    # Cores de texto
+    text_primary = Column(String(7), default='#2D1810')
+    text_secondary = Column(String(7), default='#8B4513')
+    header_text = Column(String(7), default='#FFFFFF')
+    
+    # Cores de botões
+    button_primary = Column(String(7), default='#8B4513')
+    button_secondary = Column(String(7), default='#DEB887')
+    hover_color = Column(String(7), default='#6B3410')
+    
+    # Cores de status
+    success = Column(String(7), default='#22C55E')
+    warning = Column(String(7), default='#F59E0B')
+    error = Column(String(7), default='#EF4444')
+    
+    # Outras cores
+    border = Column(String(7), default='#E5E7EB')
+    link_color = Column(String(7), default='#3B82F6')
+    input_border = Column(String(7), default='#D1D5DB')
+    
+    # Meta dados
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 def get_db():
     """Dependency para obter sessão do banco de dados"""
     db = SessionLocal()
