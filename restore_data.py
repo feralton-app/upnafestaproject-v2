@@ -14,7 +14,7 @@ import uuid
 def restore_database():
     """Restaura todas as tabelas e dados necessários"""
     try:
-        from database import SessionLocal, Client, Album, GoogleConfig, create_tables
+        from database import SessionLocal, Client, Album, GoogleConfig, SiteColors, create_tables
         
         print("🏗️  Criando tabelas do banco...")
         create_tables()
