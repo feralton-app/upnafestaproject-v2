@@ -75,7 +75,6 @@ def restore_database():
             existing_album.name = 'Casamento Principal'
             existing_album.event_date = datetime(2025, 9, 15)
             existing_album.status = 'active'
-            existing_album.background_color = '#DEB887'
         else:
             print("📷 Criando álbum de teste...")
             album = Album(
