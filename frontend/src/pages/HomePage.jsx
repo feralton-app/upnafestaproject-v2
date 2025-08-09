@@ -208,7 +208,7 @@ const HomePage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {mockSiteConfig.testimonials.items.map((testimonial) => (
-                <Card key={testimonial.id} className="border-amber-200">
+                <Card key={testimonial.id} style={{borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)'}}>
                   <CardContent className="p-8">
                     <div className="flex items-center mb-6">
                       <img 
@@ -217,10 +217,10 @@ const HomePage = () => {
                         className="w-12 h-12 rounded-full mr-4"
                       />
                       <div>
-                        <h4 className="font-bold text-amber-900">{testimonial.name}</h4>
+                        <h4 className="font-bold" style={{color: 'var(--color-textPrimary)'}}>{testimonial.name}</h4>
                       </div>
                     </div>
-                    <p className="text-amber-700 italic">"{testimonial.text}"</p>
+                    <p className="italic" style={{color: 'var(--color-textSecondary)'}}>"{testimonial.text}"</p>
                   </CardContent>
                 </Card>
               ))}
@@ -230,7 +230,7 @@ const HomePage = () => {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-600 to-orange-600 text-white">
+      <section className="py-20 text-white" style={{background: `linear-gradient(to right, var(--color-buttonPrimary), var(--color-hoverColor))`}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Pronto para Coletar suas Fotos de Casamento?
@@ -239,7 +239,7 @@ const HomePage = () => {
             Crie seu álbum em menos de 2 minutos
           </p>
           <Link to="/login">
-            <Button size="lg" className="bg-white text-amber-600 hover:bg-amber-50 px-8 py-4 text-lg font-semibold">
+            <Button size="lg" className="px-8 py-4 text-lg font-semibold" style={{backgroundColor: 'var(--color-surface)', color: 'var(--color-primary)'}} onMouseOver={(e) => {e.target.style.backgroundColor = 'var(--color-secondary)'; e.target.style.color = 'var(--color-textPrimary)'}} onMouseOut={(e) => {e.target.style.backgroundColor = 'var(--color-surface)'; e.target.style.color = 'var(--color-primary)'}}>
               <Camera className="w-5 h-5 mr-2" />
               Começar Agora
             </Button>
