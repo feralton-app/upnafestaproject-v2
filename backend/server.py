@@ -265,6 +265,53 @@ async def get_client(client_id: str, db_session: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Cliente não encontrado")
     return client
 
+# Site Colors Management (Admin only)
+@api_router.get("/admin/site-colors", response_model=Optional[SiteColorsResponse])
+async def get_site_colors(db_session: Session = Depends(get_db)):
+    """Obter as cores ativas do site"""
+    colors = db_session.query(SiteColors).filter(SiteColors.is_active == True).first()
+    if not colors:
+        # Se não existir, criar com cores padrão
+        default_colors = SiteColors()
+        db_session.add(default_colors)
+        db_session.commit()
+        db_session.refresh(default_colors)
+        return default_colors
+    return colors
+
+@api_router.post("/admin/site-colors", response_model=SiteColorsResponse)
+async def save_site_colors(colors_data: SiteColorsCreate, db_session: Session = Depends(get_db)):
+    """Salvar as cores do site"""
+    # Desativar configurações anteriores
+    db_session.query(SiteColors).update({"is_active": False})
+    
+    # Criar nova configuração
+    new_colors = SiteColors(**colors_data.dict(), is_active=True)
+    db_session.add(new_colors)
+    db_session.commit()
+    db_session.refresh(new_colors)
+    
+    return new_colors
+
+@api_router.put("/admin/site-colors/{colors_id}", response_model=SiteColorsResponse)
+async def update_site_colors(colors_id: str, colors_data: SiteColorsCreate, db_session: Session = Depends(get_db)):
+    """Atualizar cores existentes"""
+    colors = db_session.query(SiteColors).filter(SiteColors.id == colors_id).first()
+    if not colors:
+        raise HTTPException(status_code=404, detail="Configuração de cores não encontrada")
+    
+    # Atualizar campos
+    for field, value in colors_data.dict().items():
+        setattr(colors, field, value)
+    
+    from datetime import datetime
+    colors.updated_at = datetime.utcnow()
+    
+    db_session.commit()
+    db_session.refresh(colors)
+    
+    return colors
+
 # Album Management
 @api_router.post("/clients/{client_id}/albums", response_model=AlbumResponse)
 async def create_album(client_id: str, album_data: AlbumCreate, db_session: Session = Depends(get_db)):
