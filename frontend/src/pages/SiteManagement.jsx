@@ -59,23 +59,94 @@ const SiteManagement = () => {
     accent: '#D2691E',           // Laranja 
     background: '#FFF8DC',        // Fundo creme
     surface: '#FFFFFF',          // Superfície branca
-    textPrimary: '#2D1810',      // Texto principal escuro
-    textSecondary: '#8B4513',    // Texto secundário marrom
+    text_primary: '#2D1810',     // Texto principal escuro
+    text_secondary: '#8B4513',   // Texto secundário marrom
     success: '#22C55E',          // Verde sucesso
     warning: '#F59E0B',          // Amarelo aviso
     error: '#EF4444',           // Vermelho erro
     border: '#E5E7EB',          // Borda cinza
-    buttonPrimary: '#8B4513',    // Botão principal
-    buttonSecondary: '#DEB887',  // Botão secundário
-    headerBg: '#8B4513',         // Fundo header
-    headerText: '#FFFFFF',       // Texto header
-    cardBg: '#FFFFFF',           // Fundo cards
-    inputBorder: '#D1D5DB',      // Borda inputs
-    linkColor: '#3B82F6',        // Cor links
-    hoverColor: '#6B3410'        // Cor hover
+    button_primary: '#8B4513',   // Botão principal
+    button_secondary: '#DEB887', // Botão secundário
+    header_bg: '#8B4513',        // Fundo header
+    header_text: '#FFFFFF',      // Texto header
+    input_border: '#D1D5DB',     // Borda inputs
+    link_color: '#3B82F6',       // Cor links
+    hover_color: '#6B3410'       // Cor hover
   });
+  const [colorConfigId, setColorConfigId] = useState(null);
   
   const { toast } = useToast();
+
+  // Carregar cores salvas do backend
+  useEffect(() => {
+    const loadSiteColors = async () => {
+      try {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+        const response = await fetch(`${backendUrl}/api/admin/site-colors`);
+        
+        if (response.ok) {
+          const colors = await response.json();
+          setColorConfig({
+            primary: colors.primary,
+            secondary: colors.secondary,
+            accent: colors.accent,
+            background: colors.background,
+            surface: colors.surface,
+            text_primary: colors.text_primary,
+            text_secondary: colors.text_secondary,
+            success: colors.success,
+            warning: colors.warning,
+            error: colors.error,
+            border: colors.border,
+            button_primary: colors.button_primary,
+            button_secondary: colors.button_secondary,
+            header_bg: colors.header_bg,
+            header_text: colors.header_text,
+            input_border: colors.input_border,
+            link_color: colors.link_color,
+            hover_color: colors.hover_color
+          });
+          setColorConfigId(colors.id);
+          
+          // Aplicar cores carregadas automaticamente
+          applyColors(colors);
+        }
+      } catch (error) {
+        console.error('Erro ao carregar cores:', error);
+      }
+    };
+
+    loadSiteColors();
+  }, []);
+
+  // Função para aplicar cores
+  const applyColors = (colors) => {
+    const root = document.documentElement;
+    const colorMap = {
+      primary: colors.primary,
+      secondary: colors.secondary,
+      accent: colors.accent,
+      background: colors.background,
+      surface: colors.surface,
+      textPrimary: colors.text_primary,
+      textSecondary: colors.text_secondary,
+      success: colors.success,
+      warning: colors.warning,
+      error: colors.error,
+      border: colors.border,
+      buttonPrimary: colors.button_primary,
+      buttonSecondary: colors.button_secondary,
+      headerBg: colors.header_bg,
+      headerText: colors.header_text,
+      inputBorder: colors.input_border,
+      linkColor: colors.link_color,
+      hoverColor: colors.hover_color
+    };
+    
+    Object.entries(colorMap).forEach(([key, value]) => {
+      root.style.setProperty(`--color-${key}`, value);
+    });
+  };
 
   const handleConfigChange = (section, field, value) => {
     setSiteConfig(prev => ({
