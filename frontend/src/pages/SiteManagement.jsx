@@ -20,7 +20,9 @@ import {
   Plus,
   Users,
   ToggleLeft,
-  ToggleRight
+  ToggleRight,
+  Search,
+  Paintbrush
 } from 'lucide-react';
 import { mockSiteConfig } from '../mock';
 import { Link } from 'react-router-dom';
