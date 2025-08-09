@@ -10,6 +10,7 @@ A aplicação está configurada com:
 - ✅ **Álbum de teste**: Casamento Principal
 - ✅ **Google OAuth** configurado e funcionando
 - ✅ **2 novas abas**: Cores do Site + SEO
+- ✅ **Sistema de cores persistente** (MariaDB + CSS dinâmico)
 - ✅ **Backend/Frontend** em sincronia
 
 ## 🚀 Scripts Disponíveis
