@@ -106,6 +106,35 @@ def restore_database():
             )
             db.add(google_config)
         
+        # Verificar se configuração de cores padrão existe
+        existing_colors = db.query(SiteColors).filter(SiteColors.is_active == True).first()
+        if not existing_colors:
+            print("🎨 Configurando cores padrão do site...")
+            default_colors = SiteColors(
+                primary='#8B4513',
+                secondary='#DEB887',
+                accent='#D2691E',
+                background='#FFF8DC',
+                surface='#FFFFFF',
+                header_bg='#8B4513',
+                text_primary='#2D1810',
+                text_secondary='#8B4513',
+                header_text='#FFFFFF',
+                button_primary='#8B4513',
+                button_secondary='#DEB887',
+                hover_color='#6B3410',
+                success='#22C55E',
+                warning='#F59E0B',
+                error='#EF4444',
+                border='#E5E7EB',
+                link_color='#3B82F6',
+                input_border='#D1D5DB',
+                is_active=True
+            )
+            db.add(default_colors)
+        else:
+            print("🎨 Cores do site já configuradas")
+        
         # Salvar tudo
         print("💾 Salvando dados...")
         db.commit()
