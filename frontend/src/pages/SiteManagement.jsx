@@ -897,6 +897,670 @@ const SiteManagement = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Colors Tab */}
+          <TabsContent value="colors" className="space-y-6 mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <CardTitle className="text-amber-900">Personalização de Cores</CardTitle>
+                <CardDescription className="text-amber-600">
+                  Configure todas as cores do site público e área do cliente
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  
+                  {/* Cores Principais */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Cores Principais</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorPrimary" className="text-amber-800">Cor Primária</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorPrimary"
+                          type="color"
+                          value={colorConfig.primary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, primary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.primary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, primary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#8B4513"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorSecondary" className="text-amber-800">Cor Secundária</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorSecondary"
+                          type="color"
+                          value={colorConfig.secondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, secondary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.secondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, secondary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#DEB887"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorAccent" className="text-amber-800">Cor de Destaque</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorAccent"
+                          type="color"
+                          value={colorConfig.accent}
+                          onChange={(e) => setColorConfig(prev => ({...prev, accent: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.accent}
+                          onChange={(e) => setColorConfig(prev => ({...prev, accent: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#D2691E"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cores de Fundo */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Cores de Fundo</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorBackground" className="text-amber-800">Fundo Principal</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorBackground"
+                          type="color"
+                          value={colorConfig.background}
+                          onChange={(e) => setColorConfig(prev => ({...prev, background: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.background}
+                          onChange={(e) => setColorConfig(prev => ({...prev, background: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#FFF8DC"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorSurface" className="text-amber-800">Superfície/Cards</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorSurface"
+                          type="color"
+                          value={colorConfig.surface}
+                          onChange={(e) => setColorConfig(prev => ({...prev, surface: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.surface}
+                          onChange={(e) => setColorConfig(prev => ({...prev, surface: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#FFFFFF"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorHeaderBg" className="text-amber-800">Fundo Header</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorHeaderBg"
+                          type="color"
+                          value={colorConfig.headerBg}
+                          onChange={(e) => setColorConfig(prev => ({...prev, headerBg: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.headerBg}
+                          onChange={(e) => setColorConfig(prev => ({...prev, headerBg: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#8B4513"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cores de Texto */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Cores de Texto</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorTextPrimary" className="text-amber-800">Texto Principal</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorTextPrimary"
+                          type="color"
+                          value={colorConfig.textPrimary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, textPrimary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.textPrimary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, textPrimary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#2D1810"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorTextSecondary" className="text-amber-800">Texto Secundário</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorTextSecondary"
+                          type="color"
+                          value={colorConfig.textSecondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, textSecondary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.textSecondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, textSecondary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#8B4513"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorHeaderText" className="text-amber-800">Texto Header</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorHeaderText"
+                          type="color"
+                          value={colorConfig.headerText}
+                          onChange={(e) => setColorConfig(prev => ({...prev, headerText: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.headerText}
+                          onChange={(e) => setColorConfig(prev => ({...prev, headerText: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#FFFFFF"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cores de Botões */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Cores de Botões</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorButtonPrimary" className="text-amber-800">Botão Principal</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorButtonPrimary"
+                          type="color"
+                          value={colorConfig.buttonPrimary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, buttonPrimary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.buttonPrimary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, buttonPrimary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#8B4513"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorButtonSecondary" className="text-amber-800">Botão Secundário</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorButtonSecondary"
+                          type="color"
+                          value={colorConfig.buttonSecondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, buttonSecondary: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.buttonSecondary}
+                          onChange={(e) => setColorConfig(prev => ({...prev, buttonSecondary: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#DEB887"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorHover" className="text-amber-800">Cor Hover</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorHover"
+                          type="color"
+                          value={colorConfig.hoverColor}
+                          onChange={(e) => setColorConfig(prev => ({...prev, hoverColor: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.hoverColor}
+                          onChange={(e) => setColorConfig(prev => ({...prev, hoverColor: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#6B3410"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cores de Status */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Cores de Status</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorSuccess" className="text-amber-800">Sucesso</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorSuccess"
+                          type="color"
+                          value={colorConfig.success}
+                          onChange={(e) => setColorConfig(prev => ({...prev, success: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.success}
+                          onChange={(e) => setColorConfig(prev => ({...prev, success: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#22C55E"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorWarning" className="text-amber-800">Aviso</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorWarning"
+                          type="color"
+                          value={colorConfig.warning}
+                          onChange={(e) => setColorConfig(prev => ({...prev, warning: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.warning}
+                          onChange={(e) => setColorConfig(prev => ({...prev, warning: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#F59E0B"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorError" className="text-amber-800">Erro</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorError"
+                          type="color"
+                          value={colorConfig.error}
+                          onChange={(e) => setColorConfig(prev => ({...prev, error: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.error}
+                          onChange={(e) => setColorConfig(prev => ({...prev, error: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#EF4444"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Outras Cores */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Outras Cores</h3>
+                    
+                    <div>
+                      <Label htmlFor="colorBorder" className="text-amber-800">Bordas</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorBorder"
+                          type="color"
+                          value={colorConfig.border}
+                          onChange={(e) => setColorConfig(prev => ({...prev, border: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.border}
+                          onChange={(e) => setColorConfig(prev => ({...prev, border: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#E5E7EB"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorLinks" className="text-amber-800">Links</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorLinks"
+                          type="color"
+                          value={colorConfig.linkColor}
+                          onChange={(e) => setColorConfig(prev => ({...prev, linkColor: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.linkColor}
+                          onChange={(e) => setColorConfig(prev => ({...prev, linkColor: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#3B82F6"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="colorInputBorder" className="text-amber-800">Borda Inputs</Label>
+                      <div className="flex space-x-2">
+                        <Input
+                          id="colorInputBorder"
+                          type="color"
+                          value={colorConfig.inputBorder}
+                          onChange={(e) => setColorConfig(prev => ({...prev, inputBorder: e.target.value}))}
+                          className="w-16 h-10 border-amber-300"
+                        />
+                        <Input
+                          value={colorConfig.inputBorder}
+                          onChange={(e) => setColorConfig(prev => ({...prev, inputBorder: e.target.value}))}
+                          className="border-amber-300"
+                          placeholder="#D1D5DB"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center pt-6 border-t border-amber-200">
+                  <div className="flex space-x-4">
+                    <Button 
+                      onClick={() => {
+                        // Reset to default colors
+                        setColorConfig({
+                          primary: '#8B4513',
+                          secondary: '#DEB887', 
+                          accent: '#D2691E',
+                          background: '#FFF8DC',
+                          surface: '#FFFFFF',
+                          textPrimary: '#2D1810',
+                          textSecondary: '#8B4513',
+                          success: '#22C55E',
+                          warning: '#F59E0B',
+                          error: '#EF4444',
+                          border: '#E5E7EB',
+                          buttonPrimary: '#8B4513',
+                          buttonSecondary: '#DEB887',
+                          headerBg: '#8B4513',
+                          headerText: '#FFFFFF',
+                          cardBg: '#FFFFFF',
+                          inputBorder: '#D1D5DB',
+                          linkColor: '#3B82F6',
+                          hoverColor: '#6B3410'
+                        });
+                        toast({
+                          title: "Cores resetadas!",
+                          description: "As cores foram restauradas para os valores padrão."
+                        });
+                      }}
+                      variant="outline"
+                      className="border-amber-300 text-amber-700"
+                    >
+                      Restaurar Padrão
+                    </Button>
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      // Apply colors (generate CSS variables)
+                      const root = document.documentElement;
+                      Object.entries(colorConfig).forEach(([key, value]) => {
+                        root.style.setProperty(`--color-${key}`, value);
+                      });
+                      
+                      toast({
+                        title: "Cores aplicadas!",
+                        description: "As alterações de cores foram aplicadas ao site."
+                      });
+                    }}
+                    className="bg-amber-600 hover:bg-amber-700"
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    Aplicar Cores
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* SEO Tab */}
+          <TabsContent value="seo" className="space-y-6 mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <CardTitle className="text-amber-900">Configurações de SEO</CardTitle>
+                <CardDescription className="text-amber-600">
+                  Configure todas as meta tags e otimizações para buscadores
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  
+                  {/* Meta Tags Básicas */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Meta Tags Básicas</h3>
+                    
+                    <div>
+                      <Label htmlFor="seoTitle" className="text-amber-800">Título da Página (Title)</Label>
+                      <Input
+                        id="seoTitle"
+                        value={seoConfig.title}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, title: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="UpnaFesta - Compartilhamento de Fotos para Casamentos"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">Recomendado: 50-60 caracteres</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="seoDescription" className="text-amber-800">Descrição (Meta Description)</Label>
+                      <Textarea
+                        id="seoDescription"
+                        value={seoConfig.description}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, description: e.target.value}))}
+                        className="border-amber-300"
+                        rows={3}
+                        placeholder="Plataforma completa para compartilhamento de fotos de casamentos com integração ao Google Drive"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">Recomendado: 150-160 caracteres</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="seoKeywords" className="text-amber-800">Palavras-chave</Label>
+                      <Input
+                        id="seoKeywords"
+                        value={seoConfig.keywords}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, keywords: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="casamento, fotos, compartilhamento, google drive, upload, festa"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">Separe por vírgulas</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="seoCanonical" className="text-amber-800">URL Canônica</Label>
+                      <Input
+                        id="seoCanonical"
+                        value={seoConfig.canonical}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, canonical: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="https://upnafesta.com"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Open Graph / Social Media */}
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-amber-900">Open Graph (Redes Sociais)</h3>
+                    
+                    <div>
+                      <Label htmlFor="ogTitle" className="text-amber-800">Título OG</Label>
+                      <Input
+                        id="ogTitle"
+                        value={seoConfig.ogTitle}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, ogTitle: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="UpnaFesta - Fotos do Seu Casamento"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="ogDescription" className="text-amber-800">Descrição OG</Label>
+                      <Textarea
+                        id="ogDescription"
+                        value={seoConfig.ogDescription}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, ogDescription: e.target.value}))}
+                        className="border-amber-300"
+                        rows={3}
+                        placeholder="Compartilhe e receba fotos do seu casamento de forma simples e organizada"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="ogImage" className="text-amber-800">Imagem OG</Label>
+                      <Input
+                        id="ogImage"
+                        value={seoConfig.ogImage}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, ogImage: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">Recomendado: 1200x630px</p>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="favicon" className="text-amber-800">Favicon</Label>
+                      <Input
+                        id="favicon"
+                        value={seoConfig.favicon}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, favicon: e.target.value}))}
+                        className="border-amber-300"
+                        placeholder="/favicon.ico"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Configurações Avançadas */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-amber-900">Configurações Avançadas</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="robots" className="text-amber-800">Robots Meta Tag</Label>
+                      <select
+                        id="robots"
+                        value={seoConfig.robots}
+                        onChange={(e) => setSeoConfig(prev => ({...prev, robots: e.target.value}))}
+                        className="w-full rounded-md border border-amber-300 bg-background px-3 py-2 text-sm"
+                      >
+                        <option value="index, follow">Index, Follow (Padrão)</option>
+                        <option value="noindex, follow">No Index, Follow</option>
+                        <option value="index, nofollow">Index, No Follow</option>
+                        <option value="noindex, nofollow">No Index, No Follow</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Preview */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-amber-900">Preview nos Buscadores</h3>
+                  <div className="border border-amber-200 rounded-lg p-4 bg-amber-50">
+                    <div className="space-y-2">
+                      <div className="text-blue-600 text-lg hover:underline cursor-pointer">
+                        {seoConfig.title || "Título da página"}
+                      </div>
+                      <div className="text-green-700 text-sm">
+                        {seoConfig.canonical || "https://upnafesta.com"}
+                      </div>
+                      <div className="text-gray-600 text-sm">
+                        {seoConfig.description || "Descrição da página aparecerá aqui..."}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-6 border-t border-amber-200">
+                  <Button 
+                    onClick={() => {
+                      // Generate and inject SEO meta tags
+                      document.title = seoConfig.title;
+                      
+                      // Update or create meta tags
+                      const metaTags = [
+                        { name: 'description', content: seoConfig.description },
+                        { name: 'keywords', content: seoConfig.keywords },
+                        { name: 'robots', content: seoConfig.robots },
+                        { property: 'og:title', content: seoConfig.ogTitle },
+                        { property: 'og:description', content: seoConfig.ogDescription },
+                        { property: 'og:image', content: seoConfig.ogImage },
+                        { property: 'og:type', content: 'website' },
+                        { property: 'og:url', content: seoConfig.canonical }
+                      ];
+                      
+                      metaTags.forEach(tag => {
+                        let metaElement = document.querySelector(`meta[${tag.name ? 'name' : 'property'}="${tag.name || tag.property}"]`);
+                        if (!metaElement) {
+                          metaElement = document.createElement('meta');
+                          if (tag.name) metaElement.name = tag.name;
+                          if (tag.property) metaElement.setAttribute('property', tag.property);
+                          document.head.appendChild(metaElement);
+                        }
+                        metaElement.content = tag.content;
+                      });
+                      
+                      // Update canonical link
+                      let canonicalLink = document.querySelector('link[rel="canonical"]');
+                      if (!canonicalLink) {
+                        canonicalLink = document.createElement('link');
+                        canonicalLink.rel = 'canonical';
+                        document.head.appendChild(canonicalLink);
+                      }
+                      canonicalLink.href = seoConfig.canonical;
+                      
+                      // Update favicon
+                      let faviconLink = document.querySelector('link[rel="icon"]');
+                      if (!faviconLink) {
+                        faviconLink = document.createElement('link');
+                        faviconLink.rel = 'icon';
+                        document.head.appendChild(faviconLink);
+                      }
+                      faviconLink.href = seoConfig.favicon;
+                      
+                      toast({
+                        title: "SEO configurado!",
+                        description: "As configurações de SEO foram aplicadas ao site."
+                      });
+                    }}
+                    className="bg-amber-600 hover:bg-amber-700"
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    Aplicar SEO
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
