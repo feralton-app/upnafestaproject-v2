@@ -25,50 +25,88 @@ def restore_database():
         # Limpar dados existentes para evitar conflitos
         print("🧹 Limpando dados antigos...")
         try:
+            # Ordem correta para evitar constraint errors
             db.query(Album).delete()
-            db.query(Client).delete() 
-            db.query(GoogleConfig).delete()
             db.commit()
+            
+            db.query(GoogleConfig).delete() 
+            db.commit()
+            
+            # Verificar se há tokens Google antes de deletar cliente
+            from sqlalchemy import text
+            db.execute(text("DELETE FROM google_tokens WHERE client_id = '1'"))
+            db.commit()
+            
+            db.query(Client).delete()
+            db.commit()
+            
         except Exception as e:
             print(f"⚠️  Aviso ao limpar dados: {e}")
             db.rollback()
         
-        # Criar cliente de teste principal
-        print("👤 Criando cliente de teste...")
-        client = Client(
-            id='1',
-            name='Ana & Carlos Silva',
-            email='ana.carlos@email.com',
-            status='approved',
-            album_limit=2,
-            enabled=True
-        )
-        db.add(client)
+        # Verificar se cliente já existe antes de criar
+        existing_client = db.query(Client).filter(Client.id == '1').first()
+        if existing_client:
+            print("👤 Cliente já existe, atualizando...")
+            existing_client.name = 'Ana & Carlos Silva'
+            existing_client.email = 'ana.carlos@email.com'
+            existing_client.status = 'approved'
+            existing_client.album_limit = 2
+            existing_client.enabled = True
+        else:
+            print("👤 Criando cliente de teste...")
+            client = Client(
+                id='1',
+                name='Ana & Carlos Silva',
+                email='ana.carlos@email.com',
+                status='approved',
+                album_limit=2,
+                enabled=True
+            )
+            db.add(client)
+        
         db.flush()
         
-        # Criar álbum de teste
-        print("📷 Criando álbum de teste...")
-        album = Album(
-            id='album-ana-carlos-2025',
-            client_id='1',
-            name='Casamento Principal',
-            event_date=datetime(2025, 9, 15),
-            status='active',
-            google_folder_id=None,
-            background_color='#DEB887'
-        )
-        db.add(album)
+        # Verificar se álbum já existe
+        existing_album = db.query(Album).filter(Album.id == 'album-ana-carlos-2025').first()
+        if existing_album:
+            print("📷 Álbum já existe, atualizando...")
+            existing_album.client_id = '1'
+            existing_album.name = 'Casamento Principal'
+            existing_album.event_date = datetime(2025, 9, 15)
+            existing_album.status = 'active'
+            existing_album.background_color = '#DEB887'
+        else:
+            print("📷 Criando álbum de teste...")
+            album = Album(
+                id='album-ana-carlos-2025',
+                client_id='1',
+                name='Casamento Principal',
+                event_date=datetime(2025, 9, 15),
+                status='active',
+                google_folder_id=None,
+                background_color='#DEB887'
+            )
+            db.add(album)
         
-        # Criar configuração Google funcional
-        print("🔑 Configurando Google API...")
-        google_config = GoogleConfig(
-            id=str(uuid.uuid4()),
-            client_id='647057111691-ic0mmi5npdicob3shpo2j0p0vdnj60d5.apps.googleusercontent.com',
-            client_secret='GOCSPX-abcdefghijklmnopqrstuvwxyz',
-            redirect_uri='https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com/api/auth/google/callback',
-            is_active=True
-        )
-        db.add(google_config)
+        # Verificar se configuração Google já existe
+        existing_google = db.query(GoogleConfig).filter(GoogleConfig.is_active == True).first()
+        if existing_google:
+            print("🔑 Google Config já existe, atualizando...")
+            existing_google.client_id = '647057111691-ic0mmi5npdicob3shpo2j0p0vdnj60d5.apps.googleusercontent.com'
+            existing_google.client_secret = 'GOCSPX-abcdefghijklmnopqrstuvwxyz'
+            existing_google.redirect_uri = 'https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com/api/auth/google/callback'
+            existing_google.is_active = True
+        else:
+            print("🔑 Configurando Google API...")
+            google_config = GoogleConfig(
+                id=str(uuid.uuid4()),
+                client_id='647057111691-ic0mmi5npdicob3shpo2j0p0vdnj60d5.apps.googleusercontent.com',
+                client_secret='GOCSPX-abcdefghijklmnopqrstuvwxyz',
+                redirect_uri='https://43176524-faa8-4080-8ac0-2263718744a5.preview.emergentagent.com/api/auth/google/callback',
+                is_active=True
+            )
+            db.add(google_config)
         
         # Salvar tudo
         print("💾 Salvando dados...")
