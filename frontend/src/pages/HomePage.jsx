@@ -82,32 +82,32 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
+      <section id="features" className="py-20" style={{backgroundColor: 'var(--color-surface)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4 bg-amber-100 text-amber-800">
+            <Badge variant="secondary" className="mb-4" style={{backgroundColor: 'var(--color-secondary)', color: 'var(--color-textPrimary)'}}>
               Recursos Principais
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{color: 'var(--color-textPrimary)'}}>
               Facilitamos a Coleta das suas Fotos de Casamento
             </h2>
-            <p className="text-xl text-amber-700 max-w-2xl mx-auto">
+            <p className="text-xl max-w-2xl mx-auto" style={{color: 'var(--color-textSecondary)'}}>
               Reviva seu grande dia através dos olhos dos seus entes queridos
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {mockSiteConfig.features.map((feature, index) => (
-              <Card key={index} className="border-amber-200 hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="hover:shadow-lg transition-shadow duration-300" style={{borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)'}}>
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    {index === 0 && <Camera className="w-8 h-8 text-amber-600" />}
-                    {index === 1 && <Shield className="w-8 h-8 text-amber-600" />}
-                    {index === 2 && <Smartphone className="w-8 h-8 text-amber-600" />}
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{backgroundColor: 'var(--color-secondary)'}}>
+                    {index === 0 && <Camera className="w-8 h-8" style={{color: 'var(--color-primary)'}} />}
+                    {index === 1 && <Shield className="w-8 h-8" style={{color: 'var(--color-primary)'}} />}
+                    {index === 2 && <Smartphone className="w-8 h-8" style={{color: 'var(--color-primary)'}} />}
                   </div>
-                  <h3 className="text-xl font-bold text-amber-900 mb-4">{feature.title}</h3>
-                  <p className="text-amber-700 mb-4">{feature.description}</p>
-                  <p className="text-sm text-amber-600 font-medium">{feature.subtitle}</p>
+                  <h3 className="text-xl font-bold mb-4" style={{color: 'var(--color-textPrimary)'}}>{feature.title}</h3>
+                  <p className="mb-4" style={{color: 'var(--color-textSecondary)'}}>{feature.description}</p>
+                  <p className="text-sm font-medium" style={{color: 'var(--color-primary)'}}>{feature.subtitle}</p>
                 </CardContent>
               </Card>
             ))}
