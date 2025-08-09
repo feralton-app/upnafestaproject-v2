@@ -248,7 +248,7 @@ const HomePage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-amber-900 text-amber-100 py-12">
+      <footer className="py-12" style={{backgroundColor: 'var(--color-headerBg)', color: 'var(--color-headerText)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -256,13 +256,13 @@ const HomePage = () => {
                 <Camera className="h-6 w-6" />
                 <span className="text-xl font-bold">UpnaFesta</span>
               </div>
-              <p className="text-amber-200">
+              <p style={{color: 'var(--color-headerText)', opacity: 0.8}}>
                 A forma mais simples de coletar fotos de casamento dos seus convidados.
               </p>
             </div>
             <div>
               <h3 className="font-bold mb-4">Recursos</h3>
-              <ul className="space-y-2 text-amber-200">
+              <ul className="space-y-2" style={{color: 'var(--color-headerText)', opacity: 0.8}}>
                 <li>Álbuns Ilimitados</li>
                 <li>Google Drive</li>
                 <li>QR Code</li>
@@ -271,7 +271,7 @@ const HomePage = () => {
             </div>
             <div>
               <h3 className="font-bold mb-4">Suporte</h3>
-              <ul className="space-y-2 text-amber-200">
+              <ul className="space-y-2" style={{color: 'var(--color-headerText)', opacity: 0.8}}>
                 <li>Como Funciona</li>
                 <li>FAQ</li>
                 <li>Contato</li>
@@ -280,14 +280,14 @@ const HomePage = () => {
             </div>
             <div>
               <h3 className="font-bold mb-4">Legal</h3>
-              <ul className="space-y-2 text-amber-200">
+              <ul className="space-y-2" style={{color: 'var(--color-headerText)', opacity: 0.8}}>
                 <li>Privacidade</li>
                 <li>Termos</li>
                 <li>Cookies</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-amber-800 mt-8 pt-8 text-center text-amber-200">
+          <div className="mt-8 pt-8 text-center" style={{borderTop: `1px solid var(--color-border)`, color: 'var(--color-headerText)', opacity: 0.8}}>
             <p>&copy; 2025 UpnaFesta. Todos os direitos reservados.</p>
           </div>
         </div>
