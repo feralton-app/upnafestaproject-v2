@@ -83,8 +83,7 @@ def restore_database():
                 name='Casamento Principal',
                 event_date=datetime(2025, 9, 15),
                 status='active',
-                google_folder_id=None,
-                background_color='#DEB887'
+                google_folder_id=None
             )
             db.add(album)
         
