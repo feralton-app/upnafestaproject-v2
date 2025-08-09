@@ -1359,30 +1359,30 @@ const SiteManagement = () => {
                     <Button 
                       onClick={() => {
                         // Reset to default colors
-                        setColorConfig({
+                        const defaultColors = {
                           primary: '#8B4513',
                           secondary: '#DEB887', 
                           accent: '#D2691E',
                           background: '#FFF8DC',
                           surface: '#FFFFFF',
-                          textPrimary: '#2D1810',
-                          textSecondary: '#8B4513',
+                          text_primary: '#2D1810',
+                          text_secondary: '#8B4513',
                           success: '#22C55E',
                           warning: '#F59E0B',
                           error: '#EF4444',
                           border: '#E5E7EB',
-                          buttonPrimary: '#8B4513',
-                          buttonSecondary: '#DEB887',
-                          headerBg: '#8B4513',
-                          headerText: '#FFFFFF',
-                          cardBg: '#FFFFFF',
-                          inputBorder: '#D1D5DB',
-                          linkColor: '#3B82F6',
-                          hoverColor: '#6B3410'
-                        });
+                          button_primary: '#8B4513',
+                          button_secondary: '#DEB887',
+                          header_bg: '#8B4513',
+                          header_text: '#FFFFFF',
+                          input_border: '#D1D5DB',
+                          link_color: '#3B82F6',
+                          hover_color: '#6B3410'
+                        };
+                        setColorConfig(defaultColors);
                         toast({
                           title: "Cores resetadas!",
-                          description: "As cores foram restauradas para os valores padrão."
+                          description: "As cores foram restauradas para os valores padrão. Clique em 'Aplicar e Salvar' para confirmar."
                         });
                       }}
                       variant="outline"
