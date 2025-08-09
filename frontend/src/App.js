@@ -11,8 +11,11 @@ import SiteManagement from "./pages/SiteManagement";
 import GoogleConfig from "./pages/GoogleConfig";
 import Login from "./pages/Login";
 import { Toaster } from "./components/ui/toaster";
+import { useSiteColors } from "./hooks/use-site-colors";
 
 function App() {
+  // Carregar cores do site automaticamente
+  useSiteColors();
   return (
     <div className="App">
       <BrowserRouter>
