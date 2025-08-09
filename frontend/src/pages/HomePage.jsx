@@ -8,24 +8,24 @@ import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen" style={{background: 'linear-gradient(to bottom, var(--color-background), var(--color-surface))'}}>
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-amber-100 sticky top-0 z-50">
+      <nav className="backdrop-blur-sm border-b sticky top-0 z-50" style={{backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <Camera className="h-8 w-8 text-amber-600" />
-              <span className="text-2xl font-bold text-amber-800">UpnaFesta</span>
+              <Camera className="h-8 w-8" style={{color: 'var(--color-primary)'}} />
+              <span className="text-2xl font-bold" style={{color: 'var(--color-textPrimary)'}}>UpnaFesta</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-amber-700 hover:text-amber-900 transition-colors">Recursos</a>
-              <a href="#how-it-works" className="text-amber-700 hover:text-amber-900 transition-colors">Como Funciona</a>
-              <a href="#testimonials" className="text-amber-700 hover:text-amber-900 transition-colors">Depoimentos</a>
-              <a href="#pricing" className="text-amber-700 hover:text-amber-900 transition-colors">Preços</a>
+              <a href="#features" className="transition-colors" style={{color: 'var(--color-textSecondary)'}} onMouseOver={(e) => e.target.style.color = 'var(--color-hoverColor)'} onMouseOut={(e) => e.target.style.color = 'var(--color-textSecondary)'}>Recursos</a>
+              <a href="#how-it-works" className="transition-colors" style={{color: 'var(--color-textSecondary)'}} onMouseOver={(e) => e.target.style.color = 'var(--color-hoverColor)'} onMouseOut={(e) => e.target.style.color = 'var(--color-textSecondary)'}>Como Funciona</a>
+              <a href="#testimonials" className="transition-colors" style={{color: 'var(--color-textSecondary)'}} onMouseOver={(e) => e.target.style.color = 'var(--color-hoverColor)'} onMouseOut={(e) => e.target.style.color = 'var(--color-textSecondary)'}>Depoimentos</a>
+              <a href="#pricing" className="transition-colors" style={{color: 'var(--color-textSecondary)'}} onMouseOver={(e) => e.target.style.color = 'var(--color-hoverColor)'} onMouseOut={(e) => e.target.style.color = 'var(--color-textSecondary)'}>Preços</a>
             </div>
             <div className="flex items-center space-x-4">
               <Link to="/login">
-                <Button variant="outline" className="text-amber-700 border-amber-300 hover:bg-amber-50">
+                <Button variant="outline" className="border" style={{color: 'var(--color-textSecondary)', borderColor: 'var(--color-border)', backgroundColor: 'transparent'}}>
                   Entrar
                 </Button>
               </Link>
