@@ -38,6 +38,43 @@ const SiteManagement = () => {
   const [showImageDialog, setShowImageDialog] = useState(false);
   const [showStepDialog, setShowStepDialog] = useState(false);
   const [showTestimonialDialog, setShowTestimonialDialog] = useState(false);
+  
+  // Estados para SEO
+  const [seoConfig, setSeoConfig] = useState({
+    title: 'UpnaFesta - Compartilhamento de Fotos para Casamentos',
+    description: 'Plataforma completa para compartilhamento de fotos de casamentos com integração ao Google Drive',
+    keywords: 'casamento, fotos, compartilhamento, google drive, upload, festa',
+    ogTitle: 'UpnaFesta - Fotos do Seu Casamento',
+    ogDescription: 'Compartilhe e receba fotos do seu casamento de forma simples e organizada',
+    ogImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80',
+    favicon: '/favicon.ico',
+    robots: 'index, follow',
+    canonical: 'https://upnafesta.com'
+  });
+  
+  // Estados para cores
+  const [colorConfig, setColorConfig] = useState({
+    primary: '#8B4513',           // Marrom principal
+    secondary: '#DEB887',         // Bege
+    accent: '#D2691E',           // Laranja 
+    background: '#FFF8DC',        // Fundo creme
+    surface: '#FFFFFF',          // Superfície branca
+    textPrimary: '#2D1810',      // Texto principal escuro
+    textSecondary: '#8B4513',    // Texto secundário marrom
+    success: '#22C55E',          // Verde sucesso
+    warning: '#F59E0B',          // Amarelo aviso
+    error: '#EF4444',           // Vermelho erro
+    border: '#E5E7EB',          // Borda cinza
+    buttonPrimary: '#8B4513',    // Botão principal
+    buttonSecondary: '#DEB887',  // Botão secundário
+    headerBg: '#8B4513',         // Fundo header
+    headerText: '#FFFFFF',       // Texto header
+    cardBg: '#FFFFFF',           // Fundo cards
+    inputBorder: '#D1D5DB',      // Borda inputs
+    linkColor: '#3B82F6',        // Cor links
+    hoverColor: '#6B3410'        // Cor hover
+  });
+  
   const { toast } = useToast();
 
   const handleConfigChange = (section, field, value) => {
