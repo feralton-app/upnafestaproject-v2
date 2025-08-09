@@ -280,7 +280,7 @@ const SiteManagement = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="content" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 bg-amber-100">
+          <TabsList className="grid w-full grid-cols-7 bg-amber-100">
             <TabsTrigger value="content" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Type className="w-4 h-4 mr-2" />
               Conteúdo
@@ -288,6 +288,14 @@ const SiteManagement = () => {
             <TabsTrigger value="images" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Image className="w-4 h-4 mr-2" />
               Imagens
+            </TabsTrigger>
+            <TabsTrigger value="colors" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Paintbrush className="w-4 h-4 mr-2" />
+              Cores do Site
+            </TabsTrigger>
+            <TabsTrigger value="seo" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Search className="w-4 h-4 mr-2" />
+              SEO
             </TabsTrigger>
             <TabsTrigger value="features" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Settings className="w-4 h-4 mr-2" />
