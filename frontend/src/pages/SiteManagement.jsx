@@ -1392,22 +1392,68 @@ const SiteManagement = () => {
                     </Button>
                   </div>
                   <Button 
-                    onClick={() => {
-                      // Apply colors (generate CSS variables)
-                      const root = document.documentElement;
-                      Object.entries(colorConfig).forEach(([key, value]) => {
-                        root.style.setProperty(`--color-${key}`, value);
-                      });
-                      
-                      toast({
-                        title: "Cores aplicadas!",
-                        description: "As alterações de cores foram aplicadas ao site."
-                      });
+                    onClick={async () => {
+                      try {
+                        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                        
+                        // Preparar dados para o backend
+                        const colorsData = {
+                          primary: colorConfig.primary,
+                          secondary: colorConfig.secondary,
+                          accent: colorConfig.accent,
+                          background: colorConfig.background,
+                          surface: colorConfig.surface,
+                          text_primary: colorConfig.text_primary,
+                          text_secondary: colorConfig.text_secondary,
+                          success: colorConfig.success,
+                          warning: colorConfig.warning,
+                          error: colorConfig.error,
+                          border: colorConfig.border,
+                          button_primary: colorConfig.button_primary,
+                          button_secondary: colorConfig.button_secondary,
+                          header_bg: colorConfig.header_bg,
+                          header_text: colorConfig.header_text,
+                          input_border: colorConfig.input_border,
+                          link_color: colorConfig.link_color,
+                          hover_color: colorConfig.hover_color
+                        };
+
+                        // Salvar no backend
+                        const response = await fetch(`${backendUrl}/api/admin/site-colors`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(colorsData),
+                        });
+
+                        if (response.ok) {
+                          const savedColors = await response.json();
+                          setColorConfigId(savedColors.id);
+                          
+                          // Aplicar cores visualmente
+                          applyColors(savedColors);
+                          
+                          toast({
+                            title: "Cores aplicadas e salvas!",
+                            description: "As alterações de cores foram aplicadas ao site e salvas no servidor."
+                          });
+                        } else {
+                          throw new Error('Erro ao salvar cores');
+                        }
+                      } catch (error) {
+                        console.error('Erro ao salvar cores:', error);
+                        toast({
+                          title: "Erro ao salvar cores",
+                          description: "Não foi possível salvar as alterações. Tente novamente.",
+                          variant: "destructive"
+                        });
+                      }
                     }}
                     className="bg-amber-600 hover:bg-amber-700"
                   >
                     <Save className="w-4 h-4 mr-2" />
-                    Aplicar Cores
+                    Aplicar e Salvar Cores
                   </Button>
                 </div>
               </CardContent>
