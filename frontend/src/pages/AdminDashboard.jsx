@@ -30,8 +30,8 @@ import {
   LogOut,
   UserCheck,
   Upload,
-  AlbumIcon,
-  Cog
+  Album,
+  Cog,
   UserX,
   Edit,
   Cloud
