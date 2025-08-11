@@ -1014,84 +1014,100 @@ const ClientDashboard = () => {
                           </p>
                           
                           {/* Botões do Google Drive */}
-                          <div className="space-y-2">
+                          <div className="space-y-4">
                             {!client.googleDriveConnected ? (
                               <Button 
                                 onClick={connectGoogleDrive} 
-                                className="w-full bg-blue-600 hover:bg-blue-700"
+                                className="w-full bg-blue-600 hover:bg-blue-700 py-3"
                               >
                                 <LinkIcon className="w-4 h-4 mr-2" />
                                 Conectar Google Drive
                               </Button>
                             ) : (
-                              <div className="bg-green-50 p-3 rounded-lg border border-green-200">
-                                <div className="flex items-center mb-2">
-                                  <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
-                                  <span className="text-sm font-medium text-green-900">Google Drive Conectado</span>
-                                </div>
-                                <div className="flex space-x-2 mb-3">
-                                  <Button 
-                                    variant="outline" 
-                                    onClick={disconnectGoogleDrive} 
-                                    className="text-red-600 border-red-300"
-                                  >
-                                    <LogOut className="w-4 h-4 mr-2" />
-                                    Desconectar
-                                  </Button>
-                                </div>
-                                
-                                {/* Área de Teste Upload - só aparece se tiver Folder ID */}
-                                {tempFolderId && (
-                                  <div className="border-t border-green-200 pt-3 mt-3">
-                                    <h5 className="font-medium text-green-900 mb-2">🧪 Teste Real de Upload</h5>
-                                    <div className="space-y-3">
-                                      <div>
-                                        <Label htmlFor="testFile" className="text-green-800">Arquivo para teste</Label>
-                                        <input
-                                          id="testFile"
-                                          type="file"
-                                          accept="image/*"
-                                          onChange={(e) => setTestFile(e.target.files[0])}
-                                          className="w-full border border-green-300 rounded p-2 text-sm"
-                                        />
-                                      </div>
-                                      
-                                      <Button 
-                                        onClick={testRealUpload}
-                                        disabled={!testFile}
-                                        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400"
-                                      >
-                                        <Camera className="w-4 h-4 mr-2" />
-                                        {!testFile ? "Selecione um arquivo primeiro" : "🚀 FAZER TESTE REAL"}
-                                      </Button>
-                                      
-                                      {testResult && (
-                                        <div className="bg-blue-50 p-3 rounded border border-blue-200">
-                                          <h6 className="font-semibold text-blue-900">✅ TESTE SUCESSO!</h6>
-                                          <p className="text-sm text-blue-700">
-                                            <strong>Arquivo:</strong> {testResult.filename}<br/>
-                                            <strong>Google File ID:</strong> {testResult.google_file_id}<br/>
-                                            <strong>Folder ID:</strong> {testResult.folder_id}
-                                          </p>
-                                          <p className="text-xs text-blue-600 mt-1">
-                                            ✅ Arquivo salvo com sucesso no Google Drive!
-                                          </p>
-                                        </div>
-                                      )}
+                              <div className="space-y-4">
+                                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                                  <div className="text-center mb-4">
+                                    <div className="flex items-center justify-center mb-2">
+                                      <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                                      <span className="text-lg font-semibold text-green-900">Google Drive Conectado</span>
                                     </div>
                                   </div>
-                                )}
+                                  
+                                  {/* Área de Teste Upload - só aparece se tiver Folder ID */}
+                                  {tempFolderId && (
+                                    <div className="bg-green-100 p-4 rounded-lg border border-green-300 mb-4">
+                                      <div className="text-center mb-3">
+                                        <div className="flex items-center justify-center mb-2">
+                                          <Camera className="w-5 h-5 text-green-700 mr-2" />
+                                          <h5 className="text-lg font-semibold text-green-900">Teste Real de Upload</h5>
+                                        </div>
+                                        <p className="text-sm text-green-700">Arquivo para teste</p>
+                                      </div>
+                                      
+                                      <div className="space-y-3">
+                                        <div className="bg-white p-3 rounded border border-green-300">
+                                          <input
+                                            id="testFile"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => setTestFile(e.target.files[0])}
+                                            className="w-full text-sm text-gray-700"
+                                          />
+                                        </div>
+                                        
+                                        <Button 
+                                          onClick={testRealUpload}
+                                          disabled={!testFile}
+                                          className="w-full py-3 bg-gray-400 hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                          style={testFile ? {backgroundColor: '#2563eb'} : {}}
+                                        >
+                                          <Camera className="w-4 h-4 mr-2" />
+                                          {!testFile ? "Selecione um arquivo primeiro" : "🚀 FAZER TESTE REAL"}
+                                        </Button>
+                                        
+                                        {testResult && (
+                                          <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                                            <h6 className="font-semibold text-blue-900">✅ TESTE SUCESSO!</h6>
+                                            <p className="text-sm text-blue-700">
+                                              <strong>Arquivo:</strong> {testResult.filename}<br/>
+                                              <strong>Google File ID:</strong> {testResult.google_file_id}<br/>
+                                              <strong>Folder ID:</strong> {testResult.folder_id}
+                                            </p>
+                                            <p className="text-xs text-blue-600 mt-1">
+                                              ✅ Arquivo salvo com sucesso no Google Drive!
+                                            </p>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                  
+                                  {/* Botão Desconectar centralizado */}
+                                  <div className="flex justify-center">
+                                    <Button 
+                                      variant="outline" 
+                                      onClick={disconnectGoogleDrive} 
+                                      className="px-8 py-2 text-red-600 border-red-300 bg-red-50 hover:bg-red-100"
+                                    >
+                                      <LogOut className="w-4 h-4 mr-2" />
+                                      Desconectar
+                                    </Button>
+                                  </div>
+                                </div>
                               </div>
                             )}
                           </div>
                           
-                          <Button 
-                            onClick={() => updateAlbumFolderId(tempFolderId)}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
-                            <Save className="w-4 h-4 mr-2" />
-                            Salvar Configuração
-                          </Button>
+                          {/* Botão Salvar Configuração - sempre do mesmo tamanho */}
+                          <div className="pt-4">
+                            <Button 
+                              onClick={() => updateAlbumFolderId(tempFolderId)}
+                              className="w-full bg-green-600 hover:bg-green-700 py-3 text-lg font-semibold"
+                            >
+                              <Save className="w-5 h-5 mr-2" />
+                              Salvar Configuração
+                            </Button>
+                          </div>
                         </div>
                       </div>
 
