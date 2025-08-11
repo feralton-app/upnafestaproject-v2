@@ -16,6 +16,33 @@ from datetime import datetime, timedelta
 from database import get_db, create_tables, GoogleConfig, Client, Album, GoogleToken, Notification, SiteColors, SystemSettings
 from google_drive_service import GoogleDriveService, get_redirect_uris_info
 
+# Utility functions
+def calculate_album_expiry(event_date, expiry_days):
+    """Calcular data de vencimento do álbum baseado na data do evento"""
+    if not event_date or not expiry_days:
+        return None
+    
+    # Se event_date é datetime, converter para date
+    if hasattr(event_date, 'date'):
+        event_date = event_date.date()
+    
+    return event_date + timedelta(days=expiry_days)
+
+def update_album_expiry(album, db_session):
+    """Atualizar data de vencimento do álbum"""
+    if album.event_date:
+        # Buscar configurações do sistema
+        settings = db_session.query(SystemSettings).filter(SystemSettings.is_active == True).first()
+        if settings:
+            album.expires_at = calculate_album_expiry(album.event_date, settings.album_expiry_days)
+            
+            # Verificar se o álbum está vencido
+            from datetime import date
+            if album.expires_at and album.expires_at < date.today():
+                album.status = 'expired'
+            elif album.status == 'expired':
+                album.status = 'active'  # Reativar se não estiver mais vencido
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
