@@ -1096,6 +1096,21 @@ const ClientDashboard = () => {
                               Esta data aparecerá na página de upload para os convidados
                             </p>
                           </div>
+                          
+                          {/* Campo de vencimento do álbum (somente leitura) */}
+                          <div>
+                            <Label className="text-amber-800">Data de Vencimento</Label>
+                            <Input
+                              type="date"
+                              value={selectedAlbum?.expires_at ? selectedAlbum.expires_at.split('T')[0] : ''}
+                              readOnly
+                              disabled
+                              className="border-amber-300 bg-amber-50 cursor-not-allowed"
+                            />
+                            <p className="text-xs text-amber-600 mt-1">
+                              Data até quando o álbum estará disponível para os convidados (configurado pelo administrador)
+                            </p>
+                          </div>
                         </div>
                       </div>
 
