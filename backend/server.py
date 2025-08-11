@@ -431,18 +431,21 @@ async def create_album(client_id: str, album_data: AlbumCreate, db_session: Sess
     if client.status != 'approved':
         raise HTTPException(status_code=400, detail="Cliente precisa ter pagamento aprovado")
     
-    # Verificar limite de álbuns
+    # Novo: Verificar se cliente já tem 1 álbum (limite máximo)
     album_count = db_session.query(Album).filter(Album.client_id == client_id).count()
-    if album_count >= client.album_limit:
-        raise HTTPException(status_code=400, detail="Limite de álbuns atingido")
+    if album_count >= 1:
+        raise HTTPException(status_code=400, detail="Cliente só pode ter 1 álbum. Exclua o álbum atual para criar um novo.")
     
     new_album = Album(
         id=str(uuid.uuid4()),
         client_id=client_id,
         name=album_data.name,
         event_date=album_data.event_date,
-        status='inactive'
+        status='active'  # Novo: álbums já começam ativos
     )
+    
+    # Calcular data de vencimento automaticamente
+    update_album_expiry(new_album, db_session)
     
     db_session.add(new_album)
     db_session.commit()
