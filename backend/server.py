@@ -13,7 +13,7 @@ import uuid
 from datetime import datetime
 
 # Import database models and services
-from database import get_db, create_tables, GoogleConfig, Client, Album, GoogleToken, Notification, SiteColors
+from database import get_db, create_tables, GoogleConfig, Client, Album, GoogleToken, Notification, SiteColors, SystemSettings
 from google_drive_service import GoogleDriveService, get_redirect_uris_info
 
 ROOT_DIR = Path(__file__).parent
