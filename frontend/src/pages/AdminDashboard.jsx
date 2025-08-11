@@ -703,6 +703,102 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Settings Tab */}
+          <TabsContent value="settings" className="mt-6">
+            <Card className="border-amber-200">
+              <CardHeader>
+                <CardTitle className="text-amber-900">Configurações do Sistema</CardTitle>
+                <CardDescription className="text-amber-600">
+                  Configure parâmetros globais que se aplicam a todos os usuários do sistema
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                
+                {/* Configurações de Álbuns */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-amber-900">Configurações de Álbuns</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="albumExpiryDays" className="text-amber-800">
+                        Vencimento de Álbuns (dias)
+                      </Label>
+                      <Input
+                        id="albumExpiryDays"
+                        type="number"
+                        min="1"
+                        max="3650"
+                        value={systemSettings.album_expiry_days}
+                        onChange={(e) => setSystemSettings({
+                          ...systemSettings, 
+                          album_expiry_days: parseInt(e.target.value) || 365
+                        })}
+                        className="border-amber-300"
+                      />
+                      <p className="text-xs text-amber-600 mt-1">
+                        Número de dias após a data do evento que o álbum permanecerá ativo
+                      </p>
+                    </div>
+                    
+                    <div className="bg-amber-50 p-4 rounded-lg">
+                      <h4 className="font-medium text-amber-900 mb-2">Como funciona o vencimento:</h4>
+                      <ul className="text-sm text-amber-700 space-y-1">
+                        <li>• Data de vencimento = Data do evento + {systemSettings.album_expiry_days} dias</li>
+                        <li>• Álbuns vencidos ficam desabilitados automaticamente</li>
+                        <li>• Convidados não conseguem mais acessar álbuns vencidos</li>
+                        <li>• Administrador pode reativar alterando a data de vencimento</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Configurações Gerais do Site */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-amber-900">Configurações Gerais</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="siteName" className="text-amber-800">Nome do Site</Label>
+                      <Input
+                        id="siteName"
+                        value={systemSettings.site_name}
+                        onChange={(e) => setSystemSettings({
+                          ...systemSettings, 
+                          site_name: e.target.value
+                        })}
+                        className="border-amber-300"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="siteDescription" className="text-amber-800">Descrição do Site</Label>
+                      <Input
+                        id="siteDescription"
+                        value={systemSettings.site_description}
+                        onChange={(e) => setSystemSettings({
+                          ...systemSettings, 
+                          site_description: e.target.value
+                        })}
+                        className="border-amber-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Botão Salvar */}
+                <div className="flex justify-end pt-6 border-t border-amber-200">
+                  <Button 
+                    onClick={saveSystemSettings}
+                    className="bg-amber-600 hover:bg-amber-700"
+                  >
+                    <Settings className="w-4 h-4 mr-2" />
+                    Salvar Configurações
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
 
         {/* Delete Client Dialog */}
