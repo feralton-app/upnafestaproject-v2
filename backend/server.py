@@ -126,6 +126,7 @@ class AlbumResponse(BaseModel):
     id: str
     name: str
     event_date: datetime
+    expires_at: Optional[datetime]  # Data de vencimento do álbum
     status: str
     google_folder_id: Optional[str]
     primary_color: str
