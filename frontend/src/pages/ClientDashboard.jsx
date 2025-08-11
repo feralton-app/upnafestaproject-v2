@@ -1013,6 +1013,45 @@ const ClientDashboard = () => {
                             <strong>Se deixar vazio, o sistema criará uma pasta automaticamente no seu Google Drive.</strong>
                           </p>
                           
+                          {/* Botões do Google Drive */}
+                          <div className="space-y-2">
+                            {!client.googleDriveConnected ? (
+                              <Button 
+                                onClick={connectGoogleDrive} 
+                                className="w-full bg-blue-600 hover:bg-blue-700"
+                              >
+                                <LinkIcon className="w-4 h-4 mr-2" />
+                                Conectar Google Drive
+                              </Button>
+                            ) : (
+                              <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                                <div className="flex items-center mb-2">
+                                  <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
+                                  <span className="text-sm font-medium text-green-900">Google Drive Conectado</span>
+                                </div>
+                                <div className="flex space-x-2">
+                                  {tempFolderId && (
+                                    <Button 
+                                      onClick={testRealUpload} 
+                                      className="bg-green-600 hover:bg-green-700"
+                                    >
+                                      <Camera className="w-4 h-4 mr-2" />
+                                      Teste Real Upload
+                                    </Button>
+                                  )}
+                                  <Button 
+                                    variant="outline" 
+                                    onClick={disconnectGoogleDrive} 
+                                    className="text-red-600 border-red-300"
+                                  >
+                                    <LogOut className="w-4 h-4 mr-2" />
+                                    Desconectar
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
                           <Button 
                             onClick={() => updateAlbumFolderId(tempFolderId)}
                             className="bg-green-600 hover:bg-green-700"
