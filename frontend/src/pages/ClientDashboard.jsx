@@ -1029,16 +1029,7 @@ const ClientDashboard = () => {
                                   <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
                                   <span className="text-sm font-medium text-green-900">Google Drive Conectado</span>
                                 </div>
-                                <div className="flex space-x-2">
-                                  {tempFolderId && (
-                                    <Button 
-                                      onClick={testRealUpload} 
-                                      className="bg-green-600 hover:bg-green-700"
-                                    >
-                                      <Camera className="w-4 h-4 mr-2" />
-                                      Teste Real Upload
-                                    </Button>
-                                  )}
+                                <div className="flex space-x-2 mb-3">
                                   <Button 
                                     variant="outline" 
                                     onClick={disconnectGoogleDrive} 
@@ -1048,6 +1039,48 @@ const ClientDashboard = () => {
                                     Desconectar
                                   </Button>
                                 </div>
+                                
+                                {/* Área de Teste Upload - só aparece se tiver Folder ID */}
+                                {tempFolderId && (
+                                  <div className="border-t border-green-200 pt-3 mt-3">
+                                    <h5 className="font-medium text-green-900 mb-2">🧪 Teste Real de Upload</h5>
+                                    <div className="space-y-3">
+                                      <div>
+                                        <Label htmlFor="testFile" className="text-green-800">Arquivo para teste</Label>
+                                        <input
+                                          id="testFile"
+                                          type="file"
+                                          accept="image/*"
+                                          onChange={(e) => setTestFile(e.target.files[0])}
+                                          className="w-full border border-green-300 rounded p-2 text-sm"
+                                        />
+                                      </div>
+                                      
+                                      <Button 
+                                        onClick={testRealUpload}
+                                        disabled={!testFile}
+                                        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400"
+                                      >
+                                        <Camera className="w-4 h-4 mr-2" />
+                                        {!testFile ? "Selecione um arquivo primeiro" : "🚀 FAZER TESTE REAL"}
+                                      </Button>
+                                      
+                                      {testResult && (
+                                        <div className="bg-blue-50 p-3 rounded border border-blue-200">
+                                          <h6 className="font-semibold text-blue-900">✅ TESTE SUCESSO!</h6>
+                                          <p className="text-sm text-blue-700">
+                                            <strong>Arquivo:</strong> {testResult.filename}<br/>
+                                            <strong>Google File ID:</strong> {testResult.google_file_id}<br/>
+                                            <strong>Folder ID:</strong> {testResult.folder_id}
+                                          </p>
+                                          <p className="text-xs text-blue-600 mt-1">
+                                            ✅ Arquivo salvo com sucesso no Google Drive!
+                                          </p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             )}
                           </div>
