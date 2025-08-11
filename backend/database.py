@@ -169,6 +169,24 @@ class SiteColors(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+class SystemSettings(Base):
+    """Configurações gerais do sistema"""
+    __tablename__ = "system_settings"
+    
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    
+    # Configurações de álbuns
+    album_expiry_days = Column(Integer, default=365)  # Vencimento padrão: 1 ano
+    
+    # Configurações de sistema
+    site_name = Column(String(255), default='UpnaFesta')
+    site_description = Column(String(500), default='Plataforma de compartilhamento de fotos para casamentos')
+    
+    # Meta dados
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 def get_db():
     """Dependency para obter sessão do banco de dados"""
     db = SessionLocal()
