@@ -246,6 +246,88 @@ const AdminDashboard = () => {
     }
   };
 
+  // Função para carregar estatísticas do dashboard
+  useEffect(() => {
+    const loadDashboardStats = async () => {
+      try {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+        const response = await fetch(`${backendUrl}/api/admin/dashboard-stats`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          setDashboardStats({
+            totalClients: data.total_clients,
+            activeAlbums: data.active_albums,
+            totalUploads: data.total_uploads,
+            pendingPayments: data.pending_payments
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar estatísticas:', error);
+      }
+    };
+
+    loadDashboardStats();
+  }, []);
+
+  // Função para carregar configurações do sistema
+  useEffect(() => {
+    const loadSystemSettings = async () => {
+      try {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+        const response = await fetch(`${backendUrl}/api/admin/system-settings`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          setSystemSettings({
+            album_expiry_days: data.album_expiry_days,
+            site_name: data.site_name,
+            site_description: data.site_description,
+            id: data.id
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar configurações:', error);
+      }
+    };
+
+    loadSystemSettings();
+  }, []);
+
+  // Função para salvar configurações do sistema
+  const saveSystemSettings = async () => {
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/admin/system-settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          album_expiry_days: systemSettings.album_expiry_days,
+          site_name: systemSettings.site_name,
+          site_description: systemSettings.site_description
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Configurações salvas!",
+          description: "As configurações do sistema foram atualizadas com sucesso."
+        });
+      } else {
+        throw new Error('Erro ao salvar configurações');
+      }
+    } catch (error) {
+      console.error('Erro ao salvar configurações:', error);
+      toast({
+        title: "Erro ao salvar",
+        description: "Não foi possível salvar as configurações. Tente novamente.",
+        variant: "destructive"
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
       {/* Header */}
