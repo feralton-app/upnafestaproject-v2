@@ -10,7 +10,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Import database models and services
 from database import get_db, create_tables, GoogleConfig, Client, Album, GoogleToken, Notification, SiteColors, SystemSettings
