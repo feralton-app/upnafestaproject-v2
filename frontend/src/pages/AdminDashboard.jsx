@@ -330,7 +330,7 @@ const AdminDashboard = () => {
 
         {/* Management Tabs */}
         <Tabs defaultValue="clients" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-amber-100">
+          <TabsList className="grid w-full grid-cols-3 bg-amber-100">
             <TabsTrigger value="clients" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Users className="w-4 h-4 mr-2" />
               Todos os Clientes
@@ -338,6 +338,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="payments" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <CreditCard className="w-4 h-4 mr-2" />
               Aprovação de Pagamentos
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Cog className="w-4 h-4 mr-2" />
+              Configurações
             </TabsTrigger>
           </TabsList>
 
