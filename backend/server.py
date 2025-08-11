@@ -468,9 +468,16 @@ async def update_album(client_id: str, album_id: str, album_data: AlbumUpdate, d
     if not album:
         raise HTTPException(status_code=404, detail="Álbum não encontrado")
     
+    # Salvar data do evento anterior para verificar se mudou
+    old_event_date = album.event_date
+    
     # Atualizar campos fornecidos
     for field, value in album_data.dict(exclude_unset=True).items():
         setattr(album, field, value)
+    
+    # Se a data do evento mudou, recalcular o vencimento
+    if album.event_date != old_event_date:
+        update_album_expiry(album, db_session)
     
     album.updated_at = datetime.utcnow()
     db_session.commit()
