@@ -56,8 +56,9 @@ class Album(Base):
     id = Column(String(36), primary_key=True)  # UUID
     client_id = Column(String(36), ForeignKey('clients.id'), nullable=False)
     name = Column(String(255), nullable=False)
-    event_date = Column(DateTime, nullable=False)
-    status = Column(String(50), default='inactive')  # inactive, active
+    event_date = Column(Date, nullable=True)
+    expires_at = Column(Date, nullable=True)  # Data de vencimento do álbum
+    status = Column(String(20), default='active')  # active, expired, disabled
     google_folder_id = Column(String(255), nullable=True)
     
     # Customization
