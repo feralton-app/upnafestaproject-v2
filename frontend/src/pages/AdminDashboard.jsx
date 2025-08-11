@@ -372,48 +372,48 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-amber-200">
+          <Card className="border-amber-200 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => console.log('Ver todos os clientes')}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-amber-600">Total de Clientes</p>
-                  <p className="text-2xl font-bold text-amber-900">{mockStats.totalClients}</p>
+                  <p className="text-2xl font-bold text-amber-900">{dashboardStats.totalClients}</p>
                 </div>
                 <Users className="h-8 w-8 text-amber-500" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-amber-200">
+          <Card className="border-amber-200 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => console.log('Ver álbuns ativos')}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-amber-600">Álbuns Ativos</p>
-                  <p className="text-2xl font-bold text-amber-900">{mockStats.totalAlbums}</p>
+                  <p className="text-2xl font-bold text-amber-900">{dashboardStats.activeAlbums}</p>
                 </div>
-                <Camera className="h-8 w-8 text-amber-500" />
+                <Album className="h-8 w-8 text-amber-500" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-amber-200">
+          <Card className="border-amber-200 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => console.log('Ver total de uploads')}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-amber-600">Total de Uploads</p>
-                  <p className="text-2xl font-bold text-amber-900">{mockStats.totalUploads}</p>
+                  <p className="text-2xl font-bold text-amber-900">{dashboardStats.totalUploads}</p>
                 </div>
-                <BarChart className="h-8 w-8 text-amber-500" />
+                <Upload className="h-8 w-8 text-amber-500" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-amber-200">
+          <Card className="border-amber-200 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => console.log('Ver pagamentos pendentes')}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-amber-600">Pagamentos Pendentes</p>
-                  <p className="text-2xl font-bold text-amber-900">{mockStats.pendingApprovals}</p>
+                  <p className="text-2xl font-bold text-amber-900">{dashboardStats.pendingPayments}</p>
                 </div>
                 <CreditCard className="h-8 w-8 text-amber-500" />
               </div>
