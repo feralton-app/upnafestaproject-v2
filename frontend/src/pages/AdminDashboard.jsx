@@ -52,6 +52,17 @@ const AdminDashboard = () => {
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [editingClient, setEditingClient] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
+  const [systemSettings, setSystemSettings] = useState({
+    album_expiry_days: 365,
+    site_name: 'UpnaFesta',
+    site_description: 'Plataforma de compartilhamento de fotos para casamentos'
+  });
+  const [dashboardStats, setDashboardStats] = useState({
+    totalClients: 0,
+    activeAlbums: 0,
+    totalUploads: 0,
+    pendingPayments: 0
+  });
   const navigate = useNavigate();
   const { toast } = useToast();
 
