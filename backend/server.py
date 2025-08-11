@@ -157,6 +157,23 @@ class SiteColorsResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class SystemSettingsCreate(BaseModel):
+    album_expiry_days: int = 365
+    site_name: str = "UpnaFesta"
+    site_description: str = "Plataforma de compartilhamento de fotos para casamentos"
+
+class SystemSettingsResponse(BaseModel):
+    id: str
+    album_expiry_days: int
+    site_name: str
+    site_description: str
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
 # Original routes (mantendo compatibilidade)
 @api_router.get("/")
 async def root():
