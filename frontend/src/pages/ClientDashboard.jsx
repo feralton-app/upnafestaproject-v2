@@ -780,7 +780,7 @@ const ClientDashboard = () => {
             <Alert className="border-green-200 bg-green-50">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription className="text-green-800">
-                <strong>Pagamento aprovado!</strong> Você pode criar até {client.albumLimit} álbum(ns).
+                <strong>Pagamento aprovado!</strong> Você pode criar 1 álbum para o seu evento.
               </AlertDescription>
             </Alert>
           )}
