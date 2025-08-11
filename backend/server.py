@@ -329,6 +329,71 @@ async def update_site_colors(colors_id: str, colors_data: SiteColorsCreate, db_s
     
     return colors
 
+# System Settings Management (Admin only)
+@api_router.get("/admin/system-settings", response_model=Optional[SystemSettingsResponse])
+async def get_system_settings(db_session: Session = Depends(get_db)):
+    """Obter as configurações ativas do sistema"""
+    settings = db_session.query(SystemSettings).filter(SystemSettings.is_active == True).first()
+    if not settings:
+        # Se não existir, criar com configurações padrão
+        default_settings = SystemSettings()
+        db_session.add(default_settings)
+        db_session.commit()
+        db_session.refresh(default_settings)
+        return default_settings
+    return settings
+
+@api_router.post("/admin/system-settings", response_model=SystemSettingsResponse)
+async def save_system_settings(settings_data: SystemSettingsCreate, db_session: Session = Depends(get_db)):
+    """Salvar as configurações do sistema"""
+    # Desativar configurações anteriores
+    db_session.query(SystemSettings).update({"is_active": False})
+    
+    # Criar nova configuração
+    new_settings = SystemSettings(**settings_data.dict(), is_active=True)
+    db_session.add(new_settings)
+    db_session.commit()
+    db_session.refresh(new_settings)
+    
+    return new_settings
+
+@api_router.put("/admin/system-settings/{settings_id}", response_model=SystemSettingsResponse)
+async def update_system_settings(settings_id: str, settings_data: SystemSettingsCreate, db_session: Session = Depends(get_db)):
+    """Atualizar configurações existentes"""
+    settings = db_session.query(SystemSettings).filter(SystemSettings.id == settings_id).first()
+    if not settings:
+        raise HTTPException(status_code=404, detail="Configurações não encontradas")
+    
+    # Atualizar campos
+    for field, value in settings_data.dict().items():
+        setattr(settings, field, value)
+    
+    from datetime import datetime
+    settings.updated_at = datetime.utcnow()
+    
+    db_session.commit()
+    db_session.refresh(settings)
+    
+    return settings
+
+# Dashboard Statistics (Admin only)
+@api_router.get("/admin/dashboard-stats")
+async def get_dashboard_stats(db_session: Session = Depends(get_db)):
+    """Obter estatísticas para o dashboard administrativo"""
+    total_clients = db_session.query(Client).count()
+    active_albums = db_session.query(Album).filter(Album.status == 'active').count()
+    expired_albums = db_session.query(Album).filter(Album.status == 'expired').count()
+    total_uploads = 0  # TODO: Implementar quando tiver tabela de uploads
+    pending_payments = db_session.query(Client).filter(Client.status == 'pending').count()
+    
+    return {
+        "total_clients": total_clients,
+        "active_albums": active_albums,
+        "expired_albums": expired_albums,
+        "total_uploads": total_uploads,
+        "pending_payments": pending_payments
+    }
+
 # Album Management
 @api_router.post("/clients/{client_id}/albums", response_model=AlbumResponse)
 async def create_album(client_id: str, album_data: AlbumCreate, db_session: Session = Depends(get_db)):
